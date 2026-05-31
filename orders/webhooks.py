@@ -62,7 +62,13 @@ def stripe_webhook(request):
 
                 # Email is sent outside the transaction so SMTP errors
                 # do not roll back the payment confirmation
-                send_premium_invoice(order)
+                try:
+                    send_premium_invoice(order)
+                except Exception as e:
+                    import logging
+                    logging.getLogger(__name__).error(
+                        f'Invoice email failed for order {order.id}: {e}'
+                    )
 
             except Order.DoesNotExist:
                 return HttpResponse(status=404)
