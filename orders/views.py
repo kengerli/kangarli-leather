@@ -108,7 +108,14 @@ def payment_process(request):
         except Exception as e:
             return render(request, 'store/error.html', {'error': str(e)})
 
-    return render(request, 'orders/payment/process.html', {'order': order})
+    subtotal = order.get_total_cost()
+    delivery_fee = 15 if subtotal < 500 else 0
+    total_with_delivery = subtotal + delivery_fee
+    return render(request, 'orders/payment/process.html', {
+        'order': order,
+        'delivery_fee': delivery_fee,
+        'total_with_delivery': total_with_delivery,
+    })
 
 
 @login_required

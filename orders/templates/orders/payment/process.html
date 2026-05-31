@@ -41,9 +41,15 @@
                         {% endfor %}
                     </div>
 
+                    {% if delivery_fee %}
+                    <div class="d-flex justify-content-between py-2 text-muted">
+                        <span style="font-size: 0.9rem;">Delivery</span>
+                        <span style="font-size: 0.9rem;">{{ delivery_fee }} AZN</span>
+                    </div>
+                    {% endif %}
                     <div class="d-flex justify-content-between align-items-center mb-5 py-3 border-top border-bottom" style="border-color: #2e1f1a !important;">
                         <span class="invoice-header fs-5 fw-bold text-uppercase">Total</span>
-                        <span class="invoice-header fs-4 fw-bold" style="color: #cda434;">{{ order.get_total_cost|floatformat:"0g" }} AZN</span>
+                        <span class="invoice-header fs-4 fw-bold" style="color: #2e1f1a;">{{ total_with_delivery|floatformat:"0g" }} AZN</span>
                     </div>
 
                     <form action="{% url 'orders:payment_process' %}" method="POST">
