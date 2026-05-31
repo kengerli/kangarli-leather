@@ -8,11 +8,13 @@ A full-featured e-commerce platform for handcrafted Azerbaijani leather goods, b
 
 ## Screenshots
 
-<!-- Add screenshots here. Example:
-![Home page](docs/screenshots/home.png)
-![Product detail](docs/screenshots/product.png)
-![AI Stylist](docs/screenshots/stylist.png)
--->
+| Product Catalog | AI Stylist — Fiko |
+|---|---|
+| ![Catalog](docs/screenshots/catalog.png) | ![AI Stylist](docs/screenshots/ai-stylist.png) |
+
+| Product Detail | Order Successful |
+|---|---|
+| ![Product](docs/screenshots/product-detail.png) | ![Payment](docs/screenshots/payment-success.png) |
 
 ---
 
