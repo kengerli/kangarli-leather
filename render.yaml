@@ -2,6 +2,7 @@ services:
   - type: web
     name: kangarli-leather
     runtime: python
+    plan: free
     buildCommand: "./build.sh"
     startCommand: "gunicorn core.wsgi:application"
     envVars:
