@@ -70,6 +70,7 @@ def payment_process(request):
         cancel_url = request.build_absolute_uri(reverse('store:product_list'))
 
         line_items = []
+        subtotal = 0
         for item in order.items.all():
             if item.product is None:
                 continue
@@ -80,6 +81,18 @@ def payment_process(request):
                     'product_data': {'name': item.product.name},
                 },
                 'quantity': item.quantity,
+            })
+            subtotal += item.price * item.quantity
+
+        # Delivery fee: 15 AZN for orders under 500 AZN, free above
+        if subtotal < 500:
+            line_items.append({
+                'price_data': {
+                    'currency': 'azn',
+                    'unit_amount': 1500,
+                    'product_data': {'name': 'Delivery'},
+                },
+                'quantity': 1,
             })
 
         try:
