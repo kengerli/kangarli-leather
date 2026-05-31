@@ -1,5 +1,6 @@
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+from django.conf import settings
 
 def send_premium_invoice(order):
     """
@@ -20,7 +21,7 @@ def send_premium_invoice(order):
     msg = EmailMultiAlternatives(
         subject=subject, 
         body=text_content, 
-        from_email='heritage@kangarli.com', 
+        from_email=settings.DEFAULT_FROM_EMAIL, 
         to=[order.email]
     )
     
