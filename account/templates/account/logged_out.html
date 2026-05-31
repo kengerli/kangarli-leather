@@ -1,0 +1,35 @@
+{% extends "store/base.html" %}
+
+{% block title %}Signed Out - Kangarli Leather{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="min-height: 70vh; display: flex; align-items: center; justify-content: center;">
+    <div class="row w-100 justify-content-center">
+        <div class="col-md-6 col-lg-4 text-center">
+
+            <div class="logout-card p-4 p-md-5">
+                <i class="bi bi-box-arrow-right d-block mb-3" style="font-size: 2.5rem; color: #8d6e63;"></i>
+                
+                <h2 class="logout-header text-uppercase fw-bold mb-3">Signed Out</h2>
+                
+                <div style="width: 40px; height: 2px; background-color: #8d6e63; margin: 0 auto 20px;"></div>
+                
+                <p class="text-muted mb-5" style="font-size: 0.95rem; line-height: 1.6;">
+                    Your session has been securely closed. Thank you for visiting Kangarli Leather.
+                </p>
+                
+                <div class="d-flex flex-column gap-3">
+                    <a href="{% url 'account:login' %}" class="btn btn-leather-dark py-3 shadow-none">
+                        Log Back In
+                    </a>
+                    <a href="{% url 'store:product_list' %}" class="btn btn-leather-outline py-3 shadow-none">
+                        Return to Store
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

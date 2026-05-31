@@ -1,0 +1,248 @@
+{% extends "store/base.html" %}
+{% block title %}Checkout — Kangarli Leather{% endblock %}
+
+{% block content %}
+
+<div class="py-5">
+    <div class="container">
+
+        <div class="mb-5">
+            <p style="font-size: 0.65rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #9a8880; margin-bottom: 8px;">
+                Secure Checkout
+            </p>
+            <h1 class="checkout-header fw-bold text-uppercase mb-1" style="font-size: clamp(1.5rem, 5vw, 2.2rem);">Checkout</h1>
+            <div style="width: 36px; height: 2px; background: #1a0f0c; margin-top: 12px;"></div>
+        </div>
+
+        <div class="row g-4 g-lg-5">
+
+            <!-- Form -->
+            <div class="col-lg-7 order-lg-1 order-2">
+                <div class="premium-form">
+                    <form method="post" action="{% url 'orders:order_create' %}" id="checkoutForm">
+                        {% csrf_token %}
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label>First Name</label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <label>Last Name</label>
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label>Email Address</label>
+                            {{ form.email }}
+                        </div>
+
+                        <div class="mb-4">
+                            <label>City</label>
+                            <select name="city" id="citySelect" required>
+                                <option value="">Select your city</option>
+                                <option>Baku</option>
+                                <option>Ganja</option>
+                                <option>Sumqayit</option>
+                                <option>Mingachevir</option>
+                                <option>Nakhchivan</option>
+                                <option>Lankaran</option>
+                                <option>Shirvan</option>
+                                <option>Shaki</option>
+                                <option>Yevlakh</option>
+                                <option>Khankendi</option>
+                                <option>Other</option>
+                            </select>
+                            <p class="field-error" id="cityError">Please select your city.</p>
+                        </div>
+
+                        <div class="mb-4 position-relative">
+                            <label>Full Delivery Address</label>
+                            <input type="text"
+                                   name="address"
+                                   id="addressInput"
+                                   placeholder="Start typing your street address..."
+                                   autocomplete="off"
+                                   required
+                                   minlength="10">
+                            <div id="addressSuggestions"></div>
+                            <p class="field-error" id="addressError">Please enter a valid delivery address (min 10 characters).</p>
+                        </div>
+
+                        <button type="submit" class="btn btn-checkout w-100 py-3 mt-2" id="checkoutBtn">
+                            Continue to Payment <i class="bi bi-arrow-right ms-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="col-lg-5 order-lg-2 order-1">
+                <div class="order-summary-card p-4 p-md-5" style="position: sticky; top: 100px;">
+                    <p style="font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #9a8880; margin-bottom: 6px;">
+                        Your Order
+                    </p>
+                    <h4 class="checkout-header fw-bold mb-4 pb-3" style="font-size: 1.3rem; border-bottom: 1px solid #e0d5cc;">
+                        Order Summary
+                    </h4>
+
+                    <ul class="list-unstyled mb-0">
+                        {% for item in cart %}
+                            <li class="d-flex justify-content-between py-3" style="border-bottom: 1px solid #f0e8e0;">
+                                <div class="pe-3">
+                                    <p class="mb-1" style="color: #1a0f0c; font-size: 0.88rem; line-height: 1.4; font-family: 'Playfair Display', serif;">{{ item.product.name }}</p>
+                                    <p class="mb-0 text-uppercase" style="font-size: 0.65rem; letter-spacing: 1.5px; color: #9a8880;">
+                                        Qty: {{ item.quantity }}
+                                        {% if item.size and item.size != 'Standard' %} · {{ item.size }}{% endif %}
+                                    </p>
+                                </div>
+                                <span class="fw-bold text-nowrap" style="color: #1a0f0c; font-size: 0.9rem;">
+                                    {{ item.total_price|floatformat:"-2g" }} AZN
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <!-- Subtotal -->
+                    <div class="d-flex justify-content-between py-3" style="border-bottom: 1px solid #e0d5cc;">
+                        <span style="font-size: 0.78rem; color: #7a6a62; text-transform: uppercase; letter-spacing: 1px;">Subtotal</span>
+                        <span style="font-size: 0.88rem; color: #1a0f0c; font-weight: 600;">
+                            {{ cart.get_total_price|floatformat:"-2g" }} AZN
+                        </span>
+                    </div>
+
+                    <!-- Delivery -->
+                    <div class="d-flex justify-content-between py-3" style="border-bottom: 1px solid #e0d5cc;">
+                        <span style="font-size: 0.78rem; color: #7a6a62; text-transform: uppercase; letter-spacing: 1px;">Delivery</span>
+                        {% if cart.get_total_price >= 500 %}
+                            <span style="font-size: 0.82rem; color: #2e7d32; font-weight: 600;">Free</span>
+                        {% else %}
+                            <span style="font-size: 0.82rem; color: #1a0f0c; font-weight: 600;">15 AZN</span>
+                        {% endif %}
+                    </div>
+
+                    {% if cart.get_total_price < 500 %}
+                        <p style="font-size: 0.72rem; color: #9a8880; margin: 8px 0 0; line-height: 1.6;">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Free delivery on orders over 500 AZN
+                        </p>
+                    {% endif %}
+
+                    <!-- Total -->
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-3" style="border-top: 2px solid #1a0f0c;">
+                        <span class="checkout-header fw-bold text-uppercase" style="font-size: 0.9rem; letter-spacing: 2px;">Total</span>
+                        <span class="checkout-header fw-bold" style="font-size: 1.4rem;" id="totalWithDelivery">
+                            {{ cart.get_total_price|floatformat:"-2g" }} AZN
+                        </span>
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <p style="font-size: 0.65rem; color: #9a8880; text-transform: uppercase; letter-spacing: 1.5px; margin: 0;">
+                            <i class="bi bi-shield-check me-1" style="color: #2e7d32;"></i>SSL Secured Checkout
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+// ── ADDRESS AUTOCOMPLETE (OpenStreetMap Nominatim) ──
+const addressInput = document.getElementById('addressInput');
+const suggestions  = document.getElementById('addressSuggestions');
+const citySelect   = document.getElementById('citySelect');
+let searchTimer;
+let addressValid = false;
+
+addressInput.addEventListener('input', function() {
+    const query = this.value.trim();
+    addressValid = false;
+    addressInput.classList.remove('input-ok', 'input-error');
+
+    if (query.length < 4) {
+        suggestions.style.display = 'none';
+        return;
+    }
+
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+        const city = citySelect.value || 'Baku';
+        fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query + ' ' + city + ' Azerbaijan')}&format=json&limit=5&addressdetails=1`, {
+            headers: { 'Accept-Language': 'en' }
+        })
+        .then(r => r.json())
+        .then(data => {
+            suggestions.innerHTML = '';
+            if (data.length > 0) {
+                data.forEach(place => {
+                    const div = document.createElement('div');
+                    div.className = 'addr-suggestion';
+                    div.textContent = place.display_name;
+                    div.onclick = () => {
+                        addressInput.value = place.display_name;
+                        suggestions.style.display = 'none';
+                        addressValid = true;
+                        addressInput.classList.add('input-ok');
+                        addressInput.classList.remove('input-error');
+                        document.getElementById('addressError').style.display = 'none';
+                    };
+                    suggestions.appendChild(div);
+                });
+                suggestions.style.display = 'block';
+            } else {
+                suggestions.style.display = 'none';
+            }
+        })
+        .catch(() => { suggestions.style.display = 'none'; });
+    }, 400);
+});
+
+document.addEventListener('click', function(e) {
+    if (!addressInput.contains(e.target) && !suggestions.contains(e.target)) {
+        suggestions.style.display = 'none';
+    }
+});
+
+// ── FORM VALIDATION ──
+const BLACKLIST = ['no delivery', 'test', 'aaa', 'нет', 'none', 'n/a', 'asdf', '123', 'qwerty', 'address'];
+
+document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+    let valid = true;
+
+    // City check
+    if (!citySelect.value) {
+        document.getElementById('cityError').style.display = 'block';
+        valid = false;
+    } else {
+        document.getElementById('cityError').style.display = 'none';
+    }
+
+    // Address check
+    const addr = addressInput.value.trim().toLowerCase();
+    const tooShort = addr.length < 10;
+    const isBlacklisted = BLACKLIST.some(w => addr.includes(w));
+
+    if (tooShort || isBlacklisted) {
+        document.getElementById('addressError').style.display = 'block';
+        addressInput.classList.add('input-error');
+        addressInput.classList.remove('input-ok');
+        valid = false;
+    } else {
+        document.getElementById('addressError').style.display = 'none';
+    }
+
+    if (!valid) e.preventDefault();
+});
+
+// ── DELIVERY FEE TOTAL ──
+const subtotal = parseFloat("{{ cart.get_total_price }}");
+const totalEl  = document.getElementById('totalWithDelivery');
+if (totalEl) {
+    const total = subtotal < 500 ? subtotal + 15 : subtotal;
+    totalEl.textContent = total.toLocaleString('en-US') + ' AZN';
+}
+</script>
+{% endblock %}

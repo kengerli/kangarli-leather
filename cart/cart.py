@@ -1,0 +1,73 @@
+from decimal import Decimal
+from django.conf import settings
+from store.models import Product, ProductVariant
+
+
+class Cart(object):
+    def __init__(self, request):
+        self.session = request.session
+        cart = self.session.get(settings.CART_SESSION_ID)
+        if not cart:
+            cart = self.session[settings.CART_SESSION_ID] = {}
+        self.cart = cart
+
+    def add(self, product, quantity=1, size='Standard', override_quantity=False):
+        product_id = str(product.id)
+        item_key = f"{product_id}_{size}"
+
+        if item_key not in self.cart:
+            self.cart[item_key] = {
+                'quantity': 0,
+                'price': str(product.price),
+                'size': size,
+                'product_id': product_id
+            }
+
+        # Берём остаток из варианта; если варианта нет — fallback на product.stock
+        try:
+            variant_stock = ProductVariant.objects.get(product=product, size=size).stock
+        except ProductVariant.DoesNotExist:
+            variant_stock = product.stock
+
+        if override_quantity:
+            new_quantity = min(quantity, variant_stock)
+            self.cart[item_key]['quantity'] = new_quantity
+        else:
+            current_quantity = self.cart[item_key]['quantity']
+            new_quantity = min(current_quantity + quantity, variant_stock)
+            self.cart[item_key]['quantity'] = new_quantity
+
+        self.save()
+        # Возвращаем итоговое количество чтобы view мог показать предупреждение
+        return self.cart[item_key]['quantity']
+
+    def save(self):
+        self.session.modified = True
+
+    def remove(self, item_key):
+        if item_key in self.cart:
+            del self.cart[item_key]
+            self.save()
+
+    def clear(self):
+        del self.session[settings.CART_SESSION_ID]
+        self.save()
+
+    def __iter__(self):
+        product_ids = [item['product_id'] for item in self.cart.values()]
+        products = Product.objects.filter(id__in=product_ids)
+        products_dict = {str(p.id): p for p in products}
+
+        cart = self.cart.copy()
+        for key, item in cart.items():
+            item['product'] = products_dict[item['product_id']]
+            item['price'] = Decimal(item['price'])
+            item['total_price'] = item['price'] * item['quantity']
+            item['item_key'] = key
+            yield item
+
+    def __len__(self):
+        return sum(item['quantity'] for item in self.cart.values())
+
+    def get_total_price(self):
+        return sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())

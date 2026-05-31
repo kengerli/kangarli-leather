@@ -1,0 +1,70 @@
+{% extends "store/base.html" %}
+
+{% block title %}Confirm Your Order - Kangarli Leather{% endblock %}
+
+{% block content %}
+
+<div class="checkout-wrapper py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="invoice-card p-4 p-md-5">
+
+                    <div class="text-center mb-5 pt-2">
+                        <h2 class="invoice-header text-uppercase fw-bold mb-3">Finalize Order</h2>
+                        <div style="width: 50px; height: 2px; background-color: #cda434; margin: 0 auto 20px;"></div>
+                        <p class="text-muted fst-italic" style="font-family: 'Playfair Display', serif;">Secure checkout for {{ order.first_name }} {{ order.last_name }}</p>
+                    </div>
+
+                    <div class="bg-light p-4 mb-4" style="background-color: #fcfbf9 !important; border: 1px solid #f1ebe4;">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 1px;">Order Reference</span>
+                            <span class="fw-bold" style="color: #2e1f1a;">#{{ order.id }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 1px;">Customer</span>
+                            <span class="fw-bold" style="color: #2e1f1a;">{{ order.first_name }} {{ order.last_name }}</span>
+                        </div>
+                    </div>
+
+                    <h6 class="text-uppercase text-muted fw-bold mb-3 pb-2 border-bottom" style="letter-spacing: 1px; font-size: 0.75rem;">Order Summary</h6>
+
+                    <div class="mb-4">
+                        {% for item in order.items.all %}
+                        <div class="d-flex justify-content-between py-3 invoice-item align-items-center">
+                            <span style="color: #4a4a4a; font-size: 0.95rem; line-height: 1.4;">
+                                {{ item.product.name }}
+                                <span class="d-block text-muted small mt-1">Quantity: {{ item.quantity }}</span>
+                            </span>
+                            <span class="fw-bold text-nowrap ms-3" style="color: #2e1f1a;">{{ item.get_cost|floatformat:"0g" }} AZN</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-5 py-3 border-top border-bottom" style="border-color: #2e1f1a !important;">
+                        <span class="invoice-header fs-5 fw-bold text-uppercase">Total</span>
+                        <span class="invoice-header fs-4 fw-bold" style="color: #cda434;">{{ order.get_total_cost|floatformat:"0g" }} AZN</span>
+                    </div>
+
+                    <form action="{% url 'orders:payment_process' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-pay w-100 py-3 mb-4 d-flex justify-content-center align-items-center">
+                            <i class="bi bi-lock-fill me-2 fs-5"></i> Pay Securely
+                        </button>
+                    </form>
+
+                    <div class="text-center">
+                        <p class="text-muted mb-2" style="font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;">Guaranteed safe & secure checkout</p>
+                        <div class="d-flex justify-content-center gap-3 fs-3" style="color: #d7ccc8;">
+                            <i class="bi bi-stripe" title="Stripe"></i>
+                            <i class="bi bi-credit-card-fill" title="Credit Card"></i>
+                            <i class="bi bi-shield-check" title="Secure"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

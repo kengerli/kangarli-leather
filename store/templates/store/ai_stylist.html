@@ -1,0 +1,164 @@
+{% extends "store/base.html" %}
+{% block title %}AI Style Assistant — Kangarli Leather{% endblock %}
+
+{% block content %}
+<div style="max-width: 860px; margin: 0 auto; padding: 10px 0;">
+
+    <div class="text-center mb-4">
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #3e2723;">
+            <i class="bi bi-stars me-2" style="color: #cda434;"></i>Fiko — Your Leather Stylist
+        </h1>
+        <p class="text-muted" style="font-size: 0.95rem;">
+            Describe your style, occasion, or who you're shopping for — I'll find the perfect piece.
+        </p>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 justify-content-center mb-4" id="suggestions">
+        <button class="chip" onclick="sendSuggestion(this)">Gift for my father under 300 AZN</button>
+        <button class="chip" onclick="sendSuggestion(this)">A classic everyday belt</button>
+        <button class="chip" onclick="sendSuggestion(this)">Something for a business look</button>
+        <button class="chip" onclick="sendSuggestion(this)">Best leather jacket you have</button>
+        <button class="chip" onclick="sendSuggestion(this)">Western cowboy style hat</button>
+    </div>
+
+    {% if not request.user.is_authenticated %}
+    <div class="alert text-center py-3 mb-4" style="background: #fdf6ec; border: 1px solid #e8d8c0; border-radius: 10px; color: #5d3e35;">
+        <i class="bi bi-lock me-2"></i>
+        <strong>Please <a href="{% url 'account:login' %}?next={% url 'store:ai_stylist' %}" style="color: #3e2723;">log in</a> to chat with Fiko.</strong>
+    </div>
+    {% endif %}
+
+    <div id="chatWindow">
+        <div class="msg-row assistant-row">
+            <div class="avatar-circle">F</div>
+            <div class="msg-bubble assistant-bubble">
+                <p class="mb-0">Salam! I'm <strong>Fiko</strong>, your personal leather stylist at Kangarli.
+                Tell me what you're looking for — a gift, a specific item, or just something that fits your style — and I'll find the perfect piece from our collection.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="typingIndicator" class="msg-row assistant-row" style="display:none;">
+        <div class="avatar-circle">F</div>
+        <div class="msg-bubble assistant-bubble typing-bubble">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+    </div>
+
+    <div id="inputArea">
+        <div class="input-wrapper">
+            <textarea id="userInput" placeholder="Describe what you're looking for..."
+                rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+            <button id="sendBtn" onclick="sendMessage()" title="Send"
+                {% if not request.user.is_authenticated %}disabled{% endif %}>
+                <i class="bi bi-send-fill"></i>
+            </button>
+        </div>
+        <p class="text-center text-muted mt-2" style="font-size: 0.75rem;">
+            Powered by AI · Recommendations are based on our live catalog
+        </p>
+    </div>
+</div>
+
+<script>
+    const chatWindow = document.getElementById('chatWindow');
+    const userInput  = document.getElementById('userInput');
+    const sendBtn    = document.getElementById('sendBtn');
+    const typingEl   = document.getElementById('typingIndicator');
+    let conversationHistory = [];
+
+    function autoResize(el) {
+        el.style.height = 'auto';
+        el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+    }
+    function handleKey(e) {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+    }
+    function sendSuggestion(btn) {
+        userInput.value = btn.textContent;
+        document.getElementById('suggestions').style.display = 'none';
+        sendMessage();
+    }
+
+    function buildProductCards(products) {
+        if (!products || products.length === 0) return '';
+        const cards = products.map(p => {
+            const img = p.image
+                ? `<img src="${p.image}" alt="${p.name}">`
+                : `<div style="width:100%;height:110px;background:#f4f1ea;display:flex;align-items:center;justify-content:center;"><i class="bi bi-image text-muted fs-4"></i></div>`;
+            const price = parseFloat(p.price).toLocaleString('en-US');
+            return `
+                <a href="${p.url}" class="chat-product-card" target="_blank">
+                    ${img}
+                    <div class="card-info">
+                        <div class="card-name">${p.name}</div>
+                        <div class="card-price">${price} AZN</div>
+                    </div>
+                    <span class="card-btn">View Product →</span>
+                </a>`;
+        }).join('');
+        return `<div class="product-cards-row">${cards}</div>`;
+    }
+
+    function appendMessage(role, text, products = []) {
+        const row = document.createElement('div');
+        row.className = `msg-row ${role}-row`;
+
+        if (role === 'assistant') {
+            const cardsHTML = buildProductCards(products);
+            row.innerHTML = `
+                <div class="avatar-circle">F</div>
+                <div class="msg-bubble assistant-bubble">
+                    <div>${text}</div>
+                    ${cardsHTML}
+                </div>`;
+        } else {
+            row.innerHTML = `<div class="msg-bubble user-bubble">${text}</div>`;
+        }
+
+        chatWindow.appendChild(row);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    async function sendMessage() {
+        const text = userInput.value.trim();
+        if (!text || sendBtn.disabled) return;
+
+        appendMessage('user', text);
+        conversationHistory.push({ role: 'user', content: text });
+
+        userInput.value = '';
+        userInput.style.height = 'auto';
+        sendBtn.disabled = true;
+        typingEl.style.display = 'flex';
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+
+        try {
+            const response = await fetch("{% url 'store:stylist_api' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ message: text, history: conversationHistory })
+            });
+
+            const data = await response.json();
+            typingEl.style.display = 'none';
+
+            if (data.success) {
+                appendMessage('assistant', data.reply, data.products || []);
+                conversationHistory.push({ role: 'assistant', content: data.reply });
+            } else {
+                appendMessage('assistant', '⚠️ ' + (data.message || 'Something went wrong.'));
+            }
+        } catch (err) {
+            typingEl.style.display = 'none';
+            appendMessage('assistant', '⚠️ Connection error. Please try again.');
+        } finally {
+            sendBtn.disabled = false;
+            userInput.focus();
+        }
+    }
+</script>
+{% endblock %}

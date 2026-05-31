@@ -1,0 +1,56 @@
+{% extends "store/base.html" %}
+
+{% block title %}Log In - Kangarli Leather{% endblock %}
+
+{% block content %}
+
+<div class="auth-wrapper py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5 col-xl-4">
+                <div class="auth-card p-4 p-md-5">
+                    
+                    <div class="text-center mb-4">
+                        <h2 class="auth-header text-uppercase fw-bold mb-3">Log In</h2>
+                        <div style="width: 40px; height: 2px; background-color: #cda434; margin: 0 auto;"></div>
+                    </div>
+
+                    <div class="premium-form">
+                        <form method="post">
+                            {% csrf_token %}
+                            
+                            {% if form.non_field_errors %}
+                                <div class="alert rounded-0 mb-4 text-center" style="font-size: 0.85rem; border: 1px solid #c62828; background-color: #fff; color: #c62828;">
+                                    {{ form.non_field_errors.0 }}
+                                </div>
+                            {% endif %}
+
+                            <div class="mb-4">
+                                <label for="{{ form.username.id_for_label }}">Username</label>
+                                {{ form.username }}
+                            </div>
+
+                            <div class="mb-5">
+                                <label for="{{ form.password.id_for_label }}">Password</label>
+                                {{ form.password }}
+                            </div>
+
+                            <button type="submit" class="btn btn-auth w-100 py-3 mb-4 shadow-none">
+                                Sign In
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="text-center mt-2 border-top pt-4" style="border-color: #f1ebe4 !important;">
+                        <p class="text-muted small mb-0" style="letter-spacing: 0.5px;">
+                            Don't have an account? <br>
+                            <a href="{% url 'account:register' %}{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}" class="auth-link fw-bold text-uppercase d-inline-block mt-2" style="font-size: 0.75rem; letter-spacing: 1px;">Create Account</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

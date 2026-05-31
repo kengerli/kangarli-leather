@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error — Kangarli Leather</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #faf7f4;
+            color: #3e2723;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .code {
+            font-family: 'Playfair Display', serif;
+            font-size: 7rem;
+            color: #e8e0d8;
+            line-height: 1;
+            font-weight: 700;
+        }
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            margin-top: -0.5rem;
+        }
+        p {
+            color: #795548;
+            margin: 1.2rem auto 1.8rem;
+            max-width: 420px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        hr {
+            width: 60px;
+            border: none;
+            border-top: 2px dashed #d7ccc8;
+            margin: 0 auto 1.8rem;
+        }
+        .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        a {
+            display: inline-block;
+            padding: 0.6rem 1.4rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        .btn-primary { background: #3e2723; color: #eaddcf; }
+        .btn-outline { border: 1px solid #3e2723; color: #3e2723; background: transparent; }
+        .brand { position: absolute; top: 1.5rem; left: 50%; transform: translateX(-50%); font-family: 'Playfair Display', serif; font-size: 1.1rem; color: #3e2723; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+    <a class="brand" href="/">Kangarli Leather</a>
+
+    <div class="code">500</div>
+    <h2>Something went wrong</h2>
+    <p>Our craftsmen are already on it. Please try again in a moment — your cart and orders are safe.</p>
+    <hr>
+    <div class="btn-group">
+        <a href="/" class="btn-primary">Browse Collection</a>
+        <a href="javascript:history.back()" class="btn-outline">Go Back</a>
+    </div>
+</body>
+</html>

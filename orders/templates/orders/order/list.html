@@ -1,0 +1,144 @@
+{% extends "store/base.html" %}
+
+{% block title %}My Orders - Kangarli Leather{% endblock %}
+
+{% block content %}
+
+<div class="container py-5" style="min-height: 75vh;">
+    <h2 class="mb-5 text-center" style="font-family: 'Playfair Display', serif; color: #2e1f1a;">Order History</h2>
+
+    {% if orders %}
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                {% for order in orders %}
+                    <div class="order-card p-4 mb-4">
+                        
+                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-3 mb-4">
+                            <div>
+                                <h5 class="fw-bold mb-1" style="color: #3e2723;">Order #{{ order.id }}</h5>
+                                <span class="text-muted small">Placed on {{ order.created|date:"d M Y, H:i" }}</span>
+                            </div>
+                            <div class="mt-2 mt-md-0 d-flex align-items-center gap-3">
+                                <span class="fw-bold text-dark">{{ order.get_total_cost }} AZN</span>
+                                {% if order.paid %}
+                                    <span class="status-badge badge-paid"><i class="bi bi-shield-check me-1"></i> Paid</span>
+                                {% else %}
+                                    <span class="status-badge badge-unpaid"><i class="bi bi-credit-card me-1"></i> Awaiting Payment</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 border-end-md mb-4 mb-md-0" style="border-color: #eaddcf !important;">
+                                <p class="small text-uppercase fw-bold text-muted mb-2">Items Ordered</p>
+                                {% for item in order.items.all %}
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="text-dark" style="font-size: 0.95rem;">
+                                            {{ item.product.name }} 
+                                            <span class="text-muted small">x{{ item.quantity }} (Size: {{ item.size }})</span>
+                                        </span>
+                                        <span class="text-muted small">{{ item.get_cost }} AZN</span>
+                                    </div>
+                                {% endfor %}
+                                
+                                <div class="mt-4 pt-2 border-top" style="border-color: #f1ebe4 !important;">
+                                    <p class="small text-uppercase fw-bold text-muted mb-1">Shipping Address</p>
+                                    <p class="small mb-0 text-dark opacity-75">
+                                        {{ order.first_name }} {{ order.last_name }}<br>
+                                        {{ order.address }}, {{ order.postal_code }} {{ order.city }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 d-flex flex-column justify-content-between ps-md-4">
+                                <div>
+                                    <p class="small text-uppercase fw-bold text-muted mb-2">Estimated Delivery</p>
+                                    <h6 class="fw-bold mb-3" style="color: #906456;">
+                                        {{ order.estimated_delivery|date:"d F Y" }} (Express Courier)
+                                    </h6>
+                                </div>
+
+                                <div>
+                                    <p class="small text-uppercase fw-bold text-muted mb-1">Shipment Status</p>
+                                    <div class="tracking-line">
+                                        <div class="tracking-progress" id="progress-{{ order.id }}"
+                                            data-stage="{{ order.ship_stage|default:0 }}"></div>
+
+                                        <div class="step {% if order.ship_stage >= 1 %}active{% endif %}">
+                                            <div class="dot"><i class="bi bi-wallet2"></i></div>
+                                            <span>Placed</span>
+                                        </div>
+                                        <div class="step {% if order.ship_stage >= 2 %}active{% endif %}">
+                                            <div class="dot"><i class="bi bi-box-seam"></i></div>
+                                            <span>Processing</span>
+                                        </div>
+                                        <div class="step {% if order.ship_stage >= 3 %}active{% endif %}">
+                                            <div class="dot"><i class="bi bi-truck"></i></div>
+                                            <span>Shipped</span>
+                                        </div>
+                                        <div class="step {% if order.ship_stage >= 4 %}active{% endif %}">
+                                            <div class="dot"><i class="bi bi-house-door"></i></div>
+                                            <span>Delivered</span>
+                                        </div>
+                                    </div>
+                                        
+
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+
+                <!-- Pagination -->
+                {% if orders.has_other_pages %}
+                <div class="d-flex justify-content-center mt-5">
+                    <nav>
+                        <ul class="pagination pagination-sm m-0">
+                            {% if orders.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link rounded-0 border-dark text-dark" href="?page={{ orders.previous_page_number }}">&laquo;</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link rounded-0 border-secondary text-muted">&laquo;</span>
+                                </li>
+                            {% endif %}
+
+                            {% for i in orders.paginator.page_range %}
+                                {% if orders.number == i %}
+                                    <li class="page-item active">
+                                        <span class="page-link rounded-0" style="background-color: #2e1f1a; border-color: #2e1f1a;">{{ i }}</span>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link rounded-0 border-dark text-dark" href="?page={{ i }}">{{ i }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if orders.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link rounded-0 border-dark text-dark" href="?page={{ orders.next_page_number }}">&raquo;</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link rounded-0 border-secondary text-muted">&raquo;</span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <i class="bi bi-journal-text text-muted mb-3" style="font-size: 3rem;"></i>
+            <p class="text-muted">You haven't placed any orders yet.</p>
+            <a href="{% url 'store:product_list' %}" class="btn btn-sm btn-outline-dark mt-2">Explore Collection</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

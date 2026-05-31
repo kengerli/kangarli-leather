@@ -1,0 +1,278 @@
+{% extends "store/base.html" %}
+
+{% block title %}
+    {% if category %}{{ category.name }} - Kangarli Leather{% else %}All Products - Kangarli Leather{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<!-- Кнопка Filters — только на мобиле -->
+<div class="d-md-none mb-3">
+    <button class="btn w-100 mobile-filter-btn" type="button" data-bs-toggle="collapse" data-bs-target="#mobileSidebar" aria-expanded="false">
+        <i class="bi bi-sliders me-2"></i>Filters & Categories
+    </button>
+</div>
+
+<div class="row mt-4">
+
+    <!-- Sidebar: на мобиле скрыт в collapse, на десктопе всегда виден -->
+    <div class="col-md-3 d-none d-md-block" id="desktopSidebar">
+    <div class="sidebar-sticky">
+        
+        <!-- Categories -->
+        <div class="sidebar-section mb-4">
+            <p class="sidebar-label">Categories</p>
+            <ul class="list-unstyled mb-0">
+                <li>
+                    <a href="{% url 'store:product_list' %}" 
+                       class="sidebar-link {% if not category %}sidebar-link-active{% endif %}">
+                        All Products
+                    </a>
+                </li>
+                {% for c in categories %}
+                    {% if not c.parent %}
+                        <li>
+                            <a href="#collapse-{{ c.id }}" 
+                               data-bs-toggle="collapse" 
+                               role="button"
+                               aria-expanded="{% if category.parent == c or category == c %}true{% else %}false{% endif %}"
+                               class="sidebar-link d-flex justify-content-between align-items-center">
+                                {{ c.name }}
+                                <i class="bi bi-chevron-down sidebar-chevron"></i>
+                            </a>
+                            <div id="collapse-{{ c.id }}" 
+                                 class="collapse {% if category.parent == c or category == c %}show{% endif %}">
+                                {% for child in c.children.all %}
+                                    <a href="{% url 'store:product_list_by_category' child.slug %}" 
+                                       class="sidebar-link sidebar-child {% if category.slug == child.slug %}sidebar-link-active{% endif %}">
+                                        {{ child.name }}
+                                    </a>
+                                {% endfor %}
+                                {% if not c.children.all %}
+                                    <a href="{% url 'store:product_list_by_category' c.slug %}" 
+                                       class="sidebar-link sidebar-child {% if category.slug == c.slug %}sidebar-link-active{% endif %}">
+                                        All {{ c.name }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Divider -->
+        <div style="height: 1px; background: #e8ddd4; margin-bottom: 24px;"></div>
+
+        <!-- Sort & Filter -->
+        <div class="sidebar-section">
+            <p class="sidebar-label">Sort & Filter</p>
+            <form method="get" action="">
+                <div class="mb-3">
+                    <label class="sidebar-field-label">Sort By</label>
+                    <select name="sort_by" class="sidebar-select">
+                        <option value="">Default (Newest)</option>
+                        <option value="price_asc" {% if request.GET.sort_by == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                        <option value="price_desc" {% if request.GET.sort_by == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="sidebar-field-label">Price Range</label>
+                    <div class="d-flex gap-2">
+                        <input type="number" name="min_price" 
+                               class="sidebar-input" 
+                               placeholder="Min" 
+                               value="{{ request.GET.min_price }}">
+                        <input type="number" name="max_price" 
+                               class="sidebar-input" 
+                               placeholder="Max" 
+                               value="{{ request.GET.max_price }}">
+                    </div>
+                </div>
+                <button type="submit" class="sidebar-btn-apply">Apply Filters</button>
+                {% if request.GET.min_price or request.GET.max_price or request.GET.sort_by %}
+                    <a href="?" class="sidebar-btn-clear">Clear All</a>
+                {% endif %}
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!-- Mobile sidebar (collapse) -->
+<div class="collapse d-md-none mb-3" id="mobileSidebar">
+    <div class="mobile-sidebar-box p-3">
+
+        <div class="sidebar-section mb-4">
+            <p class="sidebar-label">Categories</p>
+            <ul class="list-unstyled mb-0">
+                <li>
+                    <a href="{% url 'store:product_list' %}"
+                       class="sidebar-link {% if not category %}sidebar-link-active{% endif %}">
+                        All Products
+                    </a>
+                </li>
+                {% for c in categories %}
+                    {% if not c.parent %}
+                        <li>
+                            <a href="#mob-collapse-{{ c.id }}"
+                               data-bs-toggle="collapse"
+                               role="button"
+                               aria-expanded="{% if category.parent == c or category == c %}true{% else %}false{% endif %}"
+                               class="sidebar-link d-flex justify-content-between align-items-center">
+                                {{ c.name }}
+                                <i class="bi bi-chevron-down sidebar-chevron"></i>
+                            </a>
+                            <div id="mob-collapse-{{ c.id }}"
+                                 class="collapse {% if category.parent == c or category == c %}show{% endif %}">
+                                {% for child in c.children.all %}
+                                    <a href="{% url 'store:product_list_by_category' child.slug %}"
+                                       class="sidebar-link sidebar-child {% if category.slug == child.slug %}sidebar-link-active{% endif %}">
+                                        {{ child.name }}
+                                    </a>
+                                {% endfor %}
+                                {% if not c.children.all %}
+                                    <a href="{% url 'store:product_list_by_category' c.slug %}"
+                                       class="sidebar-link sidebar-child {% if category.slug == c.slug %}sidebar-link-active{% endif %}">
+                                        All {{ c.name }}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div style="height: 1px; background: #e8ddd4; margin-bottom: 24px;"></div>
+
+        <div class="sidebar-section">
+            <p class="sidebar-label">Sort & Filter</p>
+            <form method="get" action="">
+                <div class="mb-3">
+                    <label class="sidebar-field-label">Sort By</label>
+                    <select name="sort_by" class="sidebar-select">
+                        <option value="">Default (Newest)</option>
+                        <option value="price_asc" {% if request.GET.sort_by == 'price_asc' %}selected{% endif %}>Price: Low to High</option>
+                        <option value="price_desc" {% if request.GET.sort_by == 'price_desc' %}selected{% endif %}>Price: High to Low</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="sidebar-field-label">Price Range</label>
+                    <div class="d-flex gap-2">
+                        <input type="number" name="min_price" class="sidebar-input" placeholder="Min" value="{{ request.GET.min_price }}">
+                        <input type="number" name="max_price" class="sidebar-input" placeholder="Max" value="{{ request.GET.max_price }}">
+                    </div>
+                </div>
+                <button type="submit" class="sidebar-btn-apply">Apply Filters</button>
+                {% if request.GET.min_price or request.GET.max_price or request.GET.sort_by %}
+                    <a href="?" class="sidebar-btn-clear">Clear All</a>
+                {% endif %}
+            </form>
+        </div>
+
+    </div>
+</div>
+
+    <div class="col-md-9 col-12">
+        <div class="catalog-title-row mb-4">
+            <h2 class="catalog-title">{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h2>
+            <span class="catalog-engraving">
+                {% if category %}{{ category.name }}{% else %}Kangarli Leather{% endif %}
+            </span>
+        </div>
+        
+        <div class="row row-cols-2 row-cols-md-3 g-3">
+            {% for product in products %}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0 position-relative catalog-card">
+                            
+                            {% if request.user.is_authenticated %}
+                                <a href="{% url 'store:toggle_favorite' product.id %}" class="position-absolute text-decoration-none catalog-heart" 
+                                    style="top: 10px; right: 12px; z-index: 10;">
+                                    {% if product.id in favorite_product_ids %}
+                                        <i class="bi bi-heart-fill" style="color: #cda434; font-size: 1.2rem;"></i>
+                                    {% else %}
+                                        <i class="bi bi-heart text-muted" style="font-size: 1.2rem; transition: color 0.2s;"></i>
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+
+                            <a href="{% url 'store:product_detail' product.id product.slug %}" class="d-block overflow-hidden product-img-wrap" style="background-color: #fcfbf9;">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100%; height: 100%; object-fit: contain; object-position: center; mix-blend-mode: darken; transition: transform 0.4s ease;" class="product-img">
+                                {% else %}
+                                    <img src="https://placehold.co/400x400?text=No+Image" alt="No image" style="width: 100%; height: 100%; object-fit: contain;">
+                                {% endif %}
+                            </a>
+                        
+                        <div class="card-body text-center">
+                            <a href="{% url 'store:product_detail' product.id product.slug %}" class="text-decoration-none text-dark">
+                                <h5 class="card-title fw-bold" style="font-family: 'Playfair Display', serif;">{{ product.name }}</h5>
+                            </a>
+                            <p class="text-muted small mb-2">{{ product.artisan.name }}</p>
+                            <h6 class="fw-bold" style="color: #8d6e63;">{{ product.price|floatformat:"-2g" }} AZN</h6>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <p class="text-muted">No products available in this range.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination Block -->
+        {% if products.has_other_pages %}
+        <div class="row mt-5 pt-4 border-top">
+            <div class="col-12 d-flex justify-content-center">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination pagination-sm m-0">
+                        
+                        {% if products.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link rounded-0 text-dark border-dark" href="?page={{ products.previous_page_number }}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link rounded-0 text-muted border-secondary"><span aria-hidden="true">&laquo;</span></span>
+                            </li>
+                        {% endif %}
+
+                        {% for i in products.paginator.page_range %}
+                            {% if products.number == i %}
+                                <li class="page-item active" aria-current="page">
+                                    <span class="page-link rounded-0" style="background-color: #2e1f1a; border-color: #2e1f1a; color: #fff;">{{ i }}</span>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link rounded-0 text-dark border-dark" href="?page={{ i }}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}">{{ i }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if products.has_next %}
+                            <li class="page-item">
+                                <a class="page-link rounded-0 text-dark border-dark" href="?page={{ products.next_page_number }}{% if request.GET.sort_by %}&sort_by={{ request.GET.sort_by }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link rounded-0 text-muted border-secondary"><span aria-hidden="true">&raquo;</span></span>
+                            </li>
+                        {% endif %}
+                        
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        {% endif %}
+        <!-- End Pagination Block -->
+
+    </div>
+
+</div>
+{% endblock %}

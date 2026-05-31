@@ -1,0 +1,339 @@
+{% extends "store/base.html" %}
+{% block title %}Leather Care Guide — Kangarli Leather{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- Hero Section -->
+<div class="care-hero">
+    <div class="care-hero-inner">
+        <p class="care-overline">The Kangarli Handbook</p>
+        <h1 class="care-hero-title">Leather Care Guide</h1>
+        <div class="care-hero-rule"></div>
+        <p class="care-hero-sub">
+            Premium leather is a living material. With the right care, it deepens in character,
+            develops a rich patina, and lasts generations. Here's how to honour your investment.
+        </p>
+    </div>
+</div>
+
+<!-- Tab Navigation -->
+<div class="care-nav-wrap">
+    <nav class="care-nav" id="leatherTabs">
+        <button class="care-nav-btn active" data-target="crocodile">Crocodile</button>
+        <button class="care-nav-btn" data-target="bison">Bison</button>
+        <button class="care-nav-btn" data-target="suede">Suede</button>
+        <button class="care-nav-btn" data-target="calfskin">Calfskin</button>
+        <button class="care-nav-btn" data-target="snake">Snake</button>
+        <button class="care-nav-btn" data-target="nubuck">Nubuck</button>
+        <button class="care-nav-btn" data-target="horsehide">Horsehide</button>
+        <button class="care-nav-btn" data-target="general">General Rules</button>
+    </nav>
+</div>
+
+<!-- Content Panels -->
+<div id="leatherContent" class="care-content">
+
+    <!-- CROCODILE -->
+    <div class="care-panel active" id="panel-crocodile">
+        <div class="panel-layout">
+            <div class="panel-image-col">
+                <div class="panel-img-frame">
+                    <img src="{% static 'leather1.jpg' %}" alt="Crocodile leather">
+                    <div class="panel-img-label">Exotic Tier · Crocodile</div>
+                </div>
+            </div>
+            <div class="panel-text-col">
+                <h2 class="panel-title">Crocodile Leather</h2>
+                <p class="panel-intro">The pinnacle of exotic leather. Crocodile skin features distinctive scale patterns that become more defined and lustrous with age. Each piece is entirely unique — no two hides share the same pattern.</p>
+                <div class="rule-list">
+                    <div class="rule-item">
+                        <div class="rule-label">Conditioning</div>
+                        <p>Apply a specialist exotic leather conditioner every 3–4 months. Never use regular leather cream — it can soften the scales unevenly and cause irreversible distortion.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Sun & Heat</div>
+                        <p>Keep away from direct sunlight. UV rays cause natural oils to evaporate rapidly, leading to cracking between the scales. Never leave near a radiator or in a hot car.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Cleaning</div>
+                        <p>Use a barely damp soft cloth to remove dust and surface grime. Always wipe in the direction of the scales — never against them or you risk lifting the edges permanently.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Storage</div>
+                        <p>Store in a breathable cloth dust bag, away from plastic. Stuff jackets lightly with acid-free tissue to maintain shape. Never hang from a single point — it stresses the shoulder seams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BISON -->
+    <div class="care-panel" id="panel-bison">
+        <div class="panel-layout">
+            <div class="panel-image-col">
+                <div class="panel-img-frame">
+                    <img src="{% static 'leather2.jpg' %}" alt="Bison leather">
+                    <div class="panel-img-label">Western Heritage · Bison</div>
+                </div>
+            </div>
+            <div class="panel-text-col">
+                <h2 class="panel-title">Bison Leather</h2>
+                <p class="panel-intro">Bison hide is thicker and more textured than cowhide, with a natural grain that tells the story of the animal's life. Exceptionally durable, it develops a beautiful rugged patina unlike any other leather.</p>
+                <div class="rule-list">
+                    <div class="rule-item">
+                        <div class="rule-label">Conditioning</div>
+                        <p>Use a high-quality beeswax or neatsfoot oil conditioner every 2–3 months. Bison leather absorbs conditioner deeply due to its open grain — apply generously and buff off the excess.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Water Resistance</div>
+                        <p>Apply a wax-based protector at the start of each season. If it gets thoroughly wet, allow it to air dry naturally at room temperature — never use heat.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Brushing</div>
+                        <p>Use a firm horsehair brush to remove dust lodged in the deep grain. This also helps distribute natural body oils evenly across the entire surface over time.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Patina</div>
+                        <p>Embrace the aging process entirely. Scratches on bison leather add character rather than damage — buff lightly with a soft cloth to blend them into the surrounding grain.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUEDE -->
+    <div class="care-panel" id="panel-suede">
+        <div class="panel-layout">
+            <div class="panel-image-col">
+                <div class="panel-img-frame">
+                    <img src="{% static 'leather3.jpg' %}" alt="Suede leather">
+                    <div class="panel-img-label">Velvet Touch · Suede</div>
+                </div>
+            </div>
+            <div class="panel-text-col">
+                <h2 class="panel-title">Suede Leather</h2>
+                <p class="panel-intro">Made from the inner split of the hide, suede has a soft, napped finish that feels uniquely luxurious. It requires more attentive maintenance than smooth leathers but rewards with unmatched texture and depth.</p>
+                <div class="rule-list">
+                    <div class="rule-item">
+                        <div class="rule-label">Water Protection</div>
+                        <p>Suede stains easily with water. Apply a quality suede protector spray before first use and reapply every 4–6 weeks. This is non-negotiable for maintaining appearance.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Brushing</div>
+                        <p>Use a dedicated suede brush to restore the nap after each wear. Always brush in one consistent direction to maintain the velvet-like texture and prevent matting.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Stain Removal</div>
+                        <p>For dry stains, use a suede eraser with firm, short strokes. For oil stains, apply talcum powder and leave overnight to absorb the oil, then brush away completely.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Drying</div>
+                        <p>If suede becomes wet, stuff the item with newspaper and allow to dry at room temperature only. Once fully dry, brush vigorously in one direction to fully restore the nap.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CALFSKIN -->
+    <div class="care-panel" id="panel-calfskin">
+        <div class="panel-layout">
+            <div class="panel-image-col">
+                <div class="panel-img-frame">
+                    <img src="{% static 'leather4.jpg' %}" alt="Calfskin leather">
+                    <div class="panel-img-label">Classic Elegance · Calfskin</div>
+                </div>
+            </div>
+            <div class="panel-text-col">
+                <h2 class="panel-title">Calfskin Leather</h2>
+                <p class="panel-intro">The most refined of standard leathers. Calfskin is prized for its fine, tight grain and silky smooth surface. It ages with extraordinary grace, developing a subtle, deep shine with consistent care.</p>
+                <div class="rule-list">
+                    <div class="rule-item">
+                        <div class="rule-label">Polishing</div>
+                        <p>Use a dedicated leather cream monthly. Apply in small circular motions with a soft lint-free cloth, allow to absorb for five minutes, then buff to a gentle shine with a horsehair brush.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Conditioning</div>
+                        <p>Condition every 2 months to prevent the fine grain from drying and developing micro-cracks. Apply sparingly — a little goes a long way with calfskin's dense surface.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Daily Care</div>
+                        <p>Wipe down after each use with a dry microfibre cloth. This removes accumulated body oils and perspiration that slowly degrade the surface finish over months of wear.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Colour Maintenance</div>
+                        <p>Use colour-matched leather cream to maintain vibrancy and prevent fading. Avoid prolonged exposure to direct sunlight — UV light bleaches the surface colour gradually.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SNAKE -->
+    <div class="care-panel" id="panel-snake">
+        <div class="panel-layout">
+            <div class="panel-image-col">
+                <div class="panel-img-frame">
+                    <img src="{% static 'leather5.jpg' %}" alt="Snake leather">
+                    <div class="panel-img-label">Rare & Bold · Python</div>
+                </div>
+            </div>
+            <div class="panel-text-col">
+                <h2 class="panel-title">Snake Leather</h2>
+                <p class="panel-intro">Python and other exotic snake skins are prized for their striking geometric scale patterns. Extremely thin yet surprisingly durable when treated correctly, snake leather demands specialist handling to preserve its singular beauty.</p>
+                <div class="rule-list">
+                    <div class="rule-item">
+                        <div class="rule-label">Scale Direction</div>
+                        <p>Always stroke, clean and condition in the direction the scales naturally lie — from head to tail. Going against the grain will lift and loosen the edges, causing permanent irreversible damage.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Moisturising</div>
+                        <p>Apply a specialist exotic leather oil very sparingly every 3–4 months. Snake skin dries out quickly, particularly around scale edges — but over-oiling causes the scales to separate.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Cleaning</div>
+                        <p>Use only a soft, barely damp cloth to clean the surface. Never submerge or saturate snake leather — the thin membrane beneath the scales can warp and discolour irreversibly when wet.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Storage</div>
+                        <p>Store flat or loosely rolled in a breathable cloth. Avoid sharp folds or creases — they crack the scales along the fold line permanently. Keep away from direct contact with other leathers.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- NUBUCK -->
+    <div class="care-panel" id="panel-nubuck">
+        <div class="panel-layout">
+            <div class="panel-image-col">
+                <div class="panel-img-frame">
+                    <img src="{% static 'leather6.jpg' %}" alt="Nubuck leather">
+                    <div class="panel-img-label">Refined Texture · Nubuck</div>
+                </div>
+            </div>
+            <div class="panel-text-col">
+                <h2 class="panel-title">Nubuck Leather</h2>
+                <p class="panel-intro">Made from the outer grain side of the hide rather than the inner split, nubuck is more durable than suede while retaining a refined velvety appearance. The choice of discerning craftsmen worldwide for its superior wear resistance.</p>
+                <div class="rule-list">
+                    <div class="rule-item">
+                        <div class="rule-label">Protection First</div>
+                        <p>Before first use, apply a nubuck-specific protector spray from 20–30cm distance. Allow to fully dry before wearing. This step is critical and should be repeated every 4–6 weeks.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Regular Brushing</div>
+                        <p>Brush weekly with a dedicated nubuck brush to keep the nap raised and remove embedded dust. This prevents the surface texture from gradually flattening under pressure and wear.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Winter Care</div>
+                        <p>Apply extra protection against road salt and rain in cold months. Salt deposits left untreated will permanently stain and harden nubuck — wipe away immediately with a damp cloth if contact occurs.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Restoring the Nap</div>
+                        <p>If texture flattens with heavy use, hold steam from a kettle at 20cm distance for several seconds, then brush immediately and firmly in one direction to fully raise the fibres back.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HORSEHIDE -->
+    <div class="care-panel" id="panel-horsehide">
+        <div class="panel-layout">
+            <div class="panel-image-col">
+                <div class="panel-img-frame">
+                    <img src="{% static 'leather7.jpg' %}" alt="Horsehide leather">
+                    <div class="panel-img-label">Legendary Durability · Horsehide</div>
+                </div>
+            </div>
+            <div class="panel-text-col">
+                <h2 class="panel-title">Horsehide Leather</h2>
+                <p class="panel-intro">The choice of aviators and motorcyclists for generations. Horsehide is denser and more tightly grained than cowhide, exceptionally resistant to abrasion. It breaks in slowly but moulds perfectly to the wearer's body over time.</p>
+                <div class="rule-list">
+                    <div class="rule-item">
+                        <div class="rule-label">Break-In</div>
+                        <p>New horsehide feels noticeably stiff — this is entirely normal and expected. Wear it consistently and it will mould perfectly to your body within 2–3 months of regular use.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Conditioning</div>
+                        <p>Use a heavy-duty conditioner such as Leather Honey or Pecard's Antique Leather Dressing every 3 months. Horsehide is extremely dense and requires firm, generous application to penetrate properly.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Water Handling</div>
+                        <p>Horsehide is naturally more water-resistant than cowhide due to its density. If thoroughly soaked, dry slowly at room temperature and condition thoroughly once completely dry.</p>
+                    </div>
+                    <div class="rule-item">
+                        <div class="rule-label">Patina</div>
+                        <p>Horsehide develops one of the most spectacular patinas of any leather on earth. The longer and harder you wear it, the more magnificent it becomes — never over-clean or over-condition.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GENERAL -->
+    <div class="care-panel" id="panel-general">
+        <div class="general-header">
+            <h2 class="panel-title">Universal Leather Rules</h2>
+            <p class="panel-intro" style="max-width: 600px; margin: 0 auto;">Regardless of the hide, these principles apply to every piece in your collection. Master these fundamentals and your leather will outlast everything else you own.</p>
+        </div>
+        <div class="general-grid">
+            <div class="general-card">
+                <div class="general-card-num">01</div>
+                <h5>Never Machine Wash</h5>
+                <p>Water, heat and agitation destroy leather's natural fibre structure irreversibly. Always clean by hand using specialist products appropriate for the specific leather type.</p>
+            </div>
+            <div class="general-card">
+                <div class="general-card-num">02</div>
+                <h5>Avoid Extreme Heat</h5>
+                <p>Radiators, car dashboards in summer, and hairdryers cause leather to dry, crack and shrink. Air dry only, at room temperature, away from any heat source.</p>
+            </div>
+            <div class="general-card">
+                <div class="general-card-num">03</div>
+                <h5>Store with Intention</h5>
+                <p>Always use breathable cloth dust bags — never plastic, which traps moisture. Stuff jackets and bags to maintain shape. Keep in cool, dark, dry conditions year-round.</p>
+            </div>
+            <div class="general-card">
+                <div class="general-card-num">04</div>
+                <h5>Condition Regularly</h5>
+                <p>Leather dries out as natural oils evaporate over time. Conditioning every 2–3 months replenishes lost oils and prevents the premature cracking that shortens a piece's life dramatically.</p>
+            </div>
+            <div class="general-card">
+                <div class="general-card-num">05</div>
+                <h5>Always Test First</h5>
+                <p>Test any new product on a hidden interior panel before full application. Some conditioners and protectors darken or alter the surface colour of certain leathers permanently.</p>
+            </div>
+            <div class="general-card">
+                <div class="general-card-num">06</div>
+                <h5>Honour the Patina</h5>
+                <p>Minor scratches and wear marks are not damage — they are evidence of a life well lived. Premium leather is designed to age with the wearer. Never try to restore it to looking new.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- CTA -->
+<div class="care-cta">
+    <p class="care-cta-sub">Have questions about caring for your specific piece?</p>
+    <a href="{% url 'store:ai_stylist' %}" class="care-cta-btn">
+        <i class="bi bi-stars me-2"></i>Ask Fiko
+    </a>
+</div>
+
+<script>
+    const tabs = document.querySelectorAll('.care-nav-btn');
+    const panels = document.querySelectorAll('.care-panel');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById('panel-' + tab.dataset.target).classList.add('active');
+            document.querySelector('.care-nav-wrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    });
+</script>
+
+{% endblock %}

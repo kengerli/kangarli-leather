@@ -1,0 +1,34 @@
+[
+    {
+        "model": "store.category",
+        "pk": 1,
+        "fields": {
+            "name": "Shoes & Boots",
+            "slug": "shoes"
+        }
+    },
+    {
+        "model": "store.category",
+        "pk": 2,
+        "fields": {
+            "name": "Belts",
+            "slug": "belts"
+        }
+    },
+    {
+        "model": "store.category",
+        "pk": 3,
+        "fields": {
+            "name": "Bags & Backpacks",
+            "slug": "bags"
+        }
+    },
+    {
+        "model": "store.category",
+        "pk": 4,
+        "fields": {
+            "name": "Small Accessories",
+            "slug": "accessories"
+        }
+    }
+]

@@ -1,0 +1,158 @@
+{% extends "store/base.html" %}
+
+{% block title %}
+    Your Shopping Cart - Kangarli Leather
+{% endblock %}
+
+{% block content %}
+
+<div class="western-bg py-5" style="min-height: 80vh;">
+    <div class="container">
+        <h1 class="mb-5 fw-bold text-uppercase western-title" style="letter-spacing: 2px;">Your Saddlebag</h1>
+
+        <div class="row g-4 g-lg-5">
+            <div class="col-lg-8">
+                {% if cart|length > 0 %}
+                    <div class="border-top border-bottom western-border py-2 mb-4">
+                        <p class="western-text mb-0">{{ cart|length }} Premium Item(s)</p>
+                    </div>
+
+                    {% for item in cart %}
+                        {% with product=item.product %}
+                        <div class="row align-items-center mb-4 pb-4 border-bottom western-border">
+                            
+                            <div class="col-4 col-md-2">
+                                <a href="{% url 'store:product_detail' product.id product.slug %}">
+                                    {% if product.image %}
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid shadow-sm" style="object-fit: cover; aspect-ratio: 1/1; border: 2px solid #efebe9; mix-blend-mode: multiply;">
+                                    {% else %}
+                                        <img src="https://placehold.co/150x150" alt="No image" class="img-fluid">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            
+                            <div class="col-8 col-md-4 mb-3 mb-md-0">
+                                <h5 class="mb-1 fw-bold western-title">{{ product.name }}</h5>
+                                <p class="western-text small mb-1">by {{ product.artisan.name }}</p>
+                                <span class="fw-bold western-title d-block mt-2">{{ item.price|floatformat:"0g" }} AZN</span>
+                            </div>
+                            
+                            <div class="col-6 col-md-3">
+                                <form action="{% url 'cart:cart_add' product.id %}" method="post" class="cart-update-form d-flex flex-column gap-2" style="max-width: 140px;">
+                                    {% csrf_token %}
+                                    {{ item.update_quantity_form.override }}
+
+                                    <div class="d-flex align-items-center justify-content-between border-bottom western-border pb-1 mb-2">
+                                        <span class="text-uppercase text-muted fw-bold" style="font-size: 0.65rem; letter-spacing: 1px;">Size:</span>
+                                        <span class="fw-bold western-title" style="font-size: 0.95rem;">{{ item.size }}</span>
+                                        <div class="d-none hidden-django-size">
+                                            {{ item.update_quantity_form.size }}
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center border western-border" style="border-radius: 2px;">
+                                        <button type="button" class="btn btn-sm shadow-none rounded-0 px-2 flex-grow-0" onclick="updateCartFast(this, -1)" style="color: #2e1f1a; background: #f9f8f6; font-size: 1.1rem; line-height: 1;">−</button>
+                                        
+                                        <div class="flex-grow-1 text-center fw-bold pt-1" style="color: #2e1f1a; font-size: 0.95rem; background: #fff;">
+                                            <span class="qty-display">{{ item.quantity }}</span>
+                                            <div class="d-none hidden-django-qty">
+                                                {{ item.update_quantity_form.quantity }}
+                                            </div>
+                                        </div>
+                                        
+                                        <button type="button" class="btn btn-sm shadow-none rounded-0 px-2 flex-grow-0" onclick="updateCartFast(this, 1)" style="color: #2e1f1a; background: #f9f8f6; font-size: 1.1rem; line-height: 1;">+</button>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <div class="col-6 col-md-3 text-end">
+                                <div class="fw-bold fs-5 mb-2 western-title">{{ item.total_price|floatformat:"0g" }} AZN</div>
+                                <form action="{% url 'cart:cart_remove' item.item_key %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-link p-0 text-decoration-none small" style="color: #8d6e63;">
+                                        <i class="bi bi-trash3 me-1"></i> Remove
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endwith %}
+                    {% endfor %}
+                    
+                    <div class="mt-4">
+                        <a href="{% url 'store:product_list' %}" class="text-decoration-none fw-bold western-title">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Collection
+                        </a>
+                    </div>
+
+                {% else %}
+                    <div class="text-center py-5 western-card">
+                        <i class="bi bi-bag-x" style="font-size: 4rem; color: #d7ccc8;"></i>
+                        <h3 class="mt-3 western-title">Your saddlebag is empty</h3>
+                        <p class="western-text mb-4">Time to add some premium leather to your collection.</p>
+                        <a href="{% url 'store:product_list' %}" class="btn western-btn-primary btn-lg px-5">Explore Collection</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            {% if cart|length > 0 %}
+            <div class="col-lg-4">
+                <div class="western-card p-4" style="position: sticky; top: 90px;">
+                    <h4 class="fw-bold mb-4 western-title border-bottom western-border pb-2">Order Summary</h4>
+                    
+                    <div class="d-flex justify-content-between mb-3 western-text">
+                        <span>Subtotal</span>
+                        <span class="fw-bold">{{ cart.get_total_price|floatformat:"0g" }} AZN</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 western-text">
+                        <span>Shipping</span>
+                        <span>Calculated at checkout</span>
+                    </div>
+                    
+                    <hr class="western-border my-4">
+                    
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="fw-bold fs-5 western-title">Total</span>
+                        <span class="fw-bold fs-5 western-title">{{ cart.get_total_price|floatformat:"0g" }} AZN</span>
+                    </div>
+
+                    <form action="{% url 'orders:order_create' %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn western-btn-primary btn-lg w-100 mb-3 py-3">
+                            Proceed to Checkout
+                        </button>
+                    </form>
+                    
+                    <div class="text-center mt-3">
+                        <small class="d-block mb-2" style="color: #8d6e63;"><i class="bi bi-lock-fill"></i> Protected by Stripe</small>
+                        <div class="d-flex justify-content-center gap-2 fs-4" style="color: #d7ccc8;">
+                            <i class="bi bi-credit-card"></i>
+                            <i class="bi bi-stripe"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateCartFast(btn, change) {
+        const form = btn.closest('form');
+        const hiddenField = form.querySelector('.hidden-django-qty select, .hidden-django-qty input');
+        const display = form.querySelector('.qty-display');
+
+        if (hiddenField) {
+            let currentVal = parseInt(hiddenField.value);
+            let newVal = currentVal + change;
+
+            // Блокируем уход в минус или ноль
+            if (newVal >= 1) {
+                hiddenField.value = newVal;
+                display.innerText = newVal;
+                form.submit();
+            }
+        }
+    }
+</script>
+{% endblock %}

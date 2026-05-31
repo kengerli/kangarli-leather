@@ -1,0 +1,178 @@
+{% extends "store/base.html" %}
+{% block title %}Our Story — Kangarli Leather{% endblock %}
+{% load static %}
+{% block content %}
+
+<!-- Hero -->
+<div class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-content">
+        <p class="about-overline">Est. 2024 · Baku, Azerbaijan</p>
+        <h1 class="about-hero-title">Born from the<br><em>love of leather</em></h1>
+        <div class="about-hero-rule"></div>
+        <p class="about-hero-sub">
+            Every hide tells a story. Every stitch is a signature.<br>
+            We are Kangarli Leather.
+        </p>
+    </div>
+    <div class="about-hero-scroll">
+        <span></span>
+    </div>
+</div>
+
+<!-- Story Section -->
+<div class="about-section about-story">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-5 about-fade-left">
+                <div class="about-img-frame">
+                    <img src="{% static 'about_us_photo2.jpg' %}?q=85"
+                         alt="Leather craftsmanship" class="about-img">
+                    <div class="about-img-caption">Handcrafted · Baku Atelier</div>
+                </div>
+            </div>
+            <div class="col-lg-6 offset-lg-1 about-fade-right">
+                <p class="about-overline">Our Story</p>
+                <h2 class="about-section-title">A tradition older<br>than modernity</h2>
+                <div class="about-rule"></div>
+                <p class="about-body">
+                    Kangarli Leather was founded on a single belief — that in a world of disposable goods, there is still profound value in something built to last. We source the finest hides from across the world: crocodile from the Nile, python from Southeast Asia, bison from the American West, horsehide from Japan.
+                </p>
+                <p class="about-body">
+                    Each piece that leaves our atelier in Baku carries the weight of craft — hours of hand-stitching, careful conditioning, precise cutting. We don't make products. We make companions for life.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Values -->
+<div class="about-values">
+    <div class="container">
+        <div class="text-center about-fade-up mb-5">
+            <p class="about-overline">What We Stand For</p>
+            <h2 class="about-section-title">The Kangarli Code</h2>
+            <div class="about-rule" style="margin: 16px auto 0;"></div>
+        </div>
+        <div class="row g-0 about-fade-up">
+            <div class="col-md-4 about-value-card">
+                <div class="about-value-num">01</div>
+                <h4 class="about-value-title">Uncompromising Quality</h4>
+                <p class="about-value-body">We refuse shortcuts. Every hide is hand-selected. Every stitch is inspected. If it doesn't meet our standard, it doesn't leave the atelier.</p>
+            </div>
+            <div class="col-md-4 about-value-card">
+                <div class="about-value-num">02</div>
+                <h4 class="about-value-title">Designed to Age</h4>
+                <p class="about-value-body">We design for decades, not seasons. Our pieces develop a patina unique to the wearer — a living record of a life well lived.</p>
+            </div>
+            <div class="col-md-4 about-value-card" style="border-right: none;">
+                <div class="about-value-num">03</div>
+                <h4 class="about-value-title">Western Soul</h4>
+                <p class="about-value-body">Inspired by the rugged heritage of the American West and the refined craft of European ateliers. Bold without being loud. Refined without being fragile.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Craft Section -->
+<div class="about-section about-craft">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6 about-fade-left">
+                <p class="about-overline">The Craft</p>
+                <h2 class="about-section-title">Made by hand.<br>Worn for life.</h2>
+                <div class="about-rule"></div>
+                <p class="about-body">
+                    Our artisans come from three generations of leatherworking families across Azerbaijan and Italy. They bring centuries of accumulated knowledge to every piece — from the way a hide is cut against the grain to the specific tension used in hand-stitching.
+                </p>
+                <p class="about-body">
+                    Technology assists but never replaces. Every piece begins and ends with human hands.
+                </p>
+                <div class="about-stats">
+                    <div class="about-stat">
+                        <span class="about-stat-num">60+</span>
+                        <span class="about-stat-label">Pieces in Collection</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="about-stat-num">8+</span>
+                        <span class="about-stat-label">Exotic Leather Types</span>
+                    </div>
+                    <div class="about-stat">
+                        <span class="about-stat-num">100%</span>
+                        <span class="about-stat-label">Genuine Leather</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 offset-lg-1 about-fade-right">
+                <div class="about-img-frame">
+                    <img src="{% static 'about_us_photo3.jpg' %}?q=85"
+                         alt="Leather tools" class="about-img">
+                    <div class="about-img-caption">Traditional Tools · Handmade Process</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- AI Section -->
+<div class="about-ai-section">
+    <div class="container">
+        <div class="row align-items-center g-5 about-fade-up">
+            <div class="col-lg-6">
+                <p class="about-overline" style="color: #cda434;">Innovation</p>
+                <h2 class="about-section-title" style="color: #eaddcf;">Meet Fiko,<br>your AI Stylist</h2>
+                <div class="about-rule" style="background: #cda434;"></div>
+                <p class="about-body" style="color: #9a8880;">
+                    We believe premium leather should be accessible to everyone — not just those who already know what they want. Fiko is our AI-powered personal stylist, trained on our entire collection, ready to help you find the perfect piece for any occasion, budget, or style.
+                </p>
+                <p class="about-body" style="color: #9a8880;">
+                    Ask Fiko about gifts, about leather types, about western aesthetics. Available 24 hours a day, seven days a week.
+                </p>
+                <a href="{% url 'store:ai_stylist' %}" class="about-ai-btn">
+                    <i class="bi bi-stars me-2" style="color: #cda434;"></i>
+                    Talk to Fiko
+                </a>
+            </div>
+            <div class="col-lg-5 offset-lg-1">
+                <div class="about-ai-card">
+                    <div class="about-ai-avatar">F</div>
+                    <div class="about-ai-bubble">
+                        "I'm looking for a gift for my father — he loves classic western style, budget around 400 AZN."
+                    </div>
+                    <div class="about-ai-reply">
+                        For a classic western gift at that budget, I'd recommend our <strong>Outback Crocodile Leather Hat</strong> at 479 AZN — it's one of our most iconic pieces and ages magnificently. Only 2 left in stock.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="about-cta about-fade-up">
+    <p class="about-overline">The Collection</p>
+    <h2 class="about-section-title">Find your piece</h2>
+    <div class="about-rule" style="margin: 16px auto 24px;"></div>
+    <p style="color: #7a6a62; font-size: 0.92rem; max-width: 400px; margin: 0 auto 32px; line-height: 1.8;">
+        Every piece in our catalog is in stock, hand-selected, and ready to ship.
+    </p>
+    <a href="{% url 'store:product_list' %}" class="about-cta-btn">
+        Browse the Collection
+    </a>
+</div>
+
+<script>
+// Scroll reveal animation
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.about-fade-up, .about-fade-left, .about-fade-right')
+        .forEach(el => observer.observe(el));
+</script>
+
+{% endblock %}

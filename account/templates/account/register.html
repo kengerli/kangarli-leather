@@ -1,0 +1,84 @@
+{% extends "store/base.html" %}
+
+{% block title %}Join the Heritage - Kangarli Leather{% endblock %}
+
+{% block content %}
+
+<div class="auth-wrapper py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="auth-card p-4 p-md-5">
+                    
+                    <div class="text-center mb-5">
+                        <h2 class="auth-header text-uppercase fw-bold mb-3">Create Account</h2>
+                        <div style="width: 40px; height: 2px; background-color: #cda434; margin: 0 auto 15px;"></div>
+                        <p class="text-muted small fst-italic" style="font-family: 'Playfair Display', serif;">Join the Kangarli Leather heritage</p>
+                    </div>
+
+                    <div class="premium-form">
+                        <form method="post" action="{% if request.GET.next %}?next={{ request.GET.next }}{% endif %}">
+                            {% csrf_token %}
+                            
+                            {% if user_form.errors %}
+                                <div class="alert rounded-0 mb-4 p-3 premium-error-box text-center">
+                                    <i class="bi bi-exclamation-diamond me-2"></i> Please correct the details below.
+                                </div>
+                            {% endif %}
+
+                            {% for field in user_form %}
+                                <div class="mb-4">
+                                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                    
+                                    {% for error in field.errors %}
+                                        <span class="premium-field-error d-block mt-2"><i class="bi bi-info-circle me-1"></i>{{ error }}</span>
+                                    {% endfor %}
+
+                                    {% if field.help_text %}
+                                        {% if field.name == 'username' %}
+                                            <span class="helptext">Letters and numbers only (max 25 characters).</span>
+                                        {% else %}
+                                            <span class="helptext">{{ field.help_text|safe }}</span>
+                                        {% endif %}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+
+                            <button type="submit" class="btn btn-auth w-100 py-3 mt-2 mb-4 shadow-none">
+                                Register
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="text-center mt-2 border-top pt-4" style="border-color: #f1ebe4 !important;">
+                        <p class="text-muted small mb-0">
+                            Already a member? 
+                            <a href="{% url 'account:login' %}" class="auth-link fw-bold text-uppercase ms-1" style="font-size: 0.75rem; letter-spacing: 1px;">Log In</a>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Находим поле Username (Django по умолчанию дает ему id="id_username")
+        const usernameField = document.getElementById('id_username');
+        
+        if (usernameField) {
+            // 1. Ставим жесткий лимит на 25 символов
+            usernameField.maxLength = 25;
+            
+            // 2. Блокируем весь мусор прямо при вводе в реальном времени
+            usernameField.addEventListener('input', function(e) {
+                // Оставляем только латинские буквы, цифры и нижнее подчеркивание. Никаких точек, слешей и точек с запятой.
+                this.value = this.value.replace(/[^a-zA-Z0-9_]/g, '');
+            });
+        }
+    });
+</script>
+{% endblock %}

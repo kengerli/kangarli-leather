@@ -1,0 +1,29 @@
+{% extends "store/base.html" %}
+
+{% block title %}
+    Payment Cancelled - Kangarli Leather
+{% endblock %}
+
+{% block content %}
+<div class="container py-5 text-center" style="min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div class="card border-0 shadow-sm p-5" style="background-color: #f9f8f6; max-width: 600px; border-radius: 4px; border: 1px solid #d7ccc8 !important;">
+        
+        <i class="bi bi-x-circle text-muted mb-4" style="font-size: 5rem; color: #8d6e63 !important;"></i>
+        
+        <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; color: #2e1f1a;">Payment Cancelled</h2>
+        
+        <p class="text-muted mb-4" style="color: #5d4037 !important;">
+            You have cancelled the checkout process. Don't worry, no charges were made to your card, and your items are still safely waiting in your saddlebag.
+        </p>
+        
+        <hr class="leather-stitch w-50 mx-auto mb-4">
+        
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-dark px-4" style="border-color: #3e2723; color: #3e2723;">
+                <i class="bi bi-bag me-2"></i>Return to Cart
+            </a>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

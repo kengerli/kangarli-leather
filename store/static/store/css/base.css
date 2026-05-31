@@ -1,0 +1,171 @@
+/* ═══════════════════════════════════════════
+   KANGARLI LEATHER — BASE STYLES
+   Navbar, Footer, Global, Search, Toast
+   ═══════════════════════════════════════════ */
+
+/* ── SEARCH ── */
+#searchInput::placeholder { color: rgba(215, 204, 200, 0.5) !important; }
+#searchInput { caret-color: #d7ccc8; }
+
+/* ── NAV LINKS ── */
+.nav-top-link {
+    display: flex;
+    align-items: center;
+    padding: 8px 18px;
+    color: rgba(215, 204, 200, 0.75) !important;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    transition: color 0.2s;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.nav-top-link:hover,
+.nav-top-link.active { color: #d7ccc8 !important; }
+
+.nav-divider {
+    width: 1px;
+    height: 16px;
+    background-color: rgba(255,255,255,0.15);
+    flex-shrink: 0;
+}
+
+.dropdown-toggle::after {
+    border-color: rgba(215,204,200,0.6) transparent transparent;
+}
+
+/* ── ACCOUNT DROPDOWN ── */
+.acc-dropdown {
+    background-color: #1a0f0c;
+    border-top: 2px solid #3a2520 !important;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35) !important;
+    padding: 8px 0;
+}
+.acc-dropdown-header {
+    padding: 14px 20px 10px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #6a5a55;
+    font-family: 'Roboto', sans-serif;
+    border-bottom: 1px solid #2e1f1a;
+    margin-bottom: 4px;
+}
+.acc-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #c4b5ad;
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    border-left: 2px solid transparent;
+}
+.acc-dropdown-item i { font-size: 0.85rem; opacity: 0.6; }
+.acc-dropdown-item:hover {
+    color: #eaddcf;
+    background: rgba(255,255,255,0.05);
+    border-left-color: #eaddcf;
+    padding-left: 24px;
+}
+.acc-dropdown-item:hover i { opacity: 1; }
+.acc-dropdown-divider {
+    height: 1px;
+    background: #2e1f1a;
+    margin: 6px 20px;
+}
+.acc-dropdown-logout { color: #8a5a5a !important; }
+.acc-dropdown-logout:hover {
+    color: #c47a7a !important;
+    border-left-color: #c47a7a !important;
+}
+
+/* ── FOOTER ── */
+.footer-col-title {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #9a8880;
+    margin-bottom: 16px;
+    font-family: 'Roboto', sans-serif;
+}
+.footer-link {
+    color: #6a5a55;
+    text-decoration: none;
+    font-size: 0.82rem;
+    transition: color 0.2s;
+    font-family: 'Roboto', sans-serif;
+}
+.footer-link:hover { color: #d7ccc8; }
+.footer-social {
+    color: #4a3a35;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer-social:hover { color: #d7ccc8; }
+.footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 0.82rem;
+}
+.footer-contact-item i {
+    color: #4a3a35;
+    font-size: 0.85rem;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+/* ── SEARCH SUGGESTIONS ── */
+#searchSuggestions {
+    border-radius: 0 0 8px 8px;
+    z-index: 1100;
+    background: white;
+}
+.search-suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid #f0f0f0;
+}
+.search-suggestion-item:hover { background-color: #f4f1ea; }
+
+/* ── NEWSLETTER ── */
+#newsletterEmail { color: white !important; }
+#newsletterEmail::placeholder { color: rgba(255, 255, 255, 0.5) !important; }
+.fade-message { opacity: 1; transition: opacity 0.8s ease-in-out; }
+.fade-message.hidden { opacity: 0; pointer-events: none; }
+
+/* ── MOBILE NAV ── */
+@media (max-width: 991px) {
+    .nav-top-link { padding: 10px 12px; font-size: 0.7rem; }
+    .nav-divider { display: none; }
+    .search-form { max-width: 100% !important; }
+    #topNavBar .d-flex.align-items-center {
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-left: 0 !important;
+        border-top: 1px solid #3a2520;
+        padding-top: 8px;
+    }
+}
+
+/* ── MOBILE FOOTER ── */
+@media (max-width: 767px) {
+    footer .footer-col-title { margin-bottom: 10px; }
+}

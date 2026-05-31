@@ -1,0 +1,26 @@
+{% extends "store/base.html" %}
+
+{% block title %}
+    Order Successful - Kangarli Leather
+{% endblock %}
+
+{% block content %}
+<div class="container py-5 text-center" style="min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <div class="card border-0 shadow p-5" style="background-color: #f9f8f6; max-width: 600px; border-radius: 4px; border: 1px solid #d7ccc8 !important;">
+        
+        <i class="bi bi-check-circle-fill mb-4" style="font-size: 5rem; color: #cda434;"></i>
+
+        <h2 class="fw-bold mb-3" style="font-family: 'Playfair Display', serif; color: #3e2723;">Payment Successful!</h2>        
+        <p class="text-muted mb-4" style="color: #5d4037 !important;">
+            Thank you for your purchase. Your premium leather goods will be prepared for shipping shortly. We've sent a confirmation email with your order details.
+        </p>
+        
+        <hr class="leather-stitch w-50 mx-auto mb-4">
+        
+        <a href="{% url 'store:product_list' %}" class="btn px-5 py-2" style="background-color: #3e2723; color: #eaddcf; letter-spacing: 1px; text-transform: uppercase; font-family: 'Playfair Display', serif;">
+            Continue Shopping
+        </a>
+        
+    </div>
+</div>
+{% endblock %}

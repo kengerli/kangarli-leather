@@ -1,0 +1,229 @@
+/* ═══════════════════════════════════════════
+   KANGARLI LEATHER — CATALOG (list.html)
+   ═══════════════════════════════════════════ */
+
+/* ── КАРТОЧКИ ── */
+.catalog-card {
+    background: transparent;
+    border: none !important;
+    box-shadow: none !important;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+.catalog-card:hover { transform: translateY(-4px); }
+.catalog-card:hover .product-img { transform: scale(1.06); }
+.catalog-card .d-block { background-color: #f5f2ec !important; }
+.catalog-card:hover .d-block { background-color: #eee9e0 !important; }
+.catalog-card .card-title {
+    font-weight: 400 !important;
+    font-size: 0.97rem;
+    color: #2e1f1a;
+    letter-spacing: 0.2px;
+}
+.catalog-card .card-body .text-muted {
+    font-size: 0.78rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #9a8880 !important;
+}
+.catalog-card h6 {
+    color: #2e1f1a !important;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.catalog-card .card-body {
+    padding: 14px 8px 18px;
+    background: transparent;
+}
+
+/* ── WISHLIST КНОПКА ── */
+.catalog-heart {
+    background: transparent !important;
+    border-radius: 0 !important;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 !important;
+}
+.catalog-heart i {
+    font-size: 1.1rem !important;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+}
+.catalog-heart:hover i { color: #cda434 !important; }
+
+/* ── SIDEBAR ── */
+.sidebar-sticky {
+    position: sticky;
+    top: 90px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding-right: 4px;
+}
+.sidebar-sticky::-webkit-scrollbar { display: none; }
+.sidebar-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #9a8880;
+    margin-bottom: 12px;
+}
+.sidebar-link {
+    display: block;
+    padding: 9px 12px;
+    font-size: 0.88rem;
+    color: #4a3a35;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s;
+    font-family: 'Roboto', sans-serif;
+}
+.sidebar-link:hover {
+    color: #2e1f1a;
+    border-left-color: #cda434;
+    background: rgba(205, 164, 52, 0.06);
+    padding-left: 16px;
+}
+.sidebar-link-active {
+    color: #2e1f1a !important;
+    border-left-color: #2e1f1a !important;
+    background: rgba(46, 31, 26, 0.05);
+    font-weight: 600;
+}
+.sidebar-child { padding-left: 24px; font-size: 0.83rem; color: #6a5a55; }
+.sidebar-chevron { font-size: 0.65rem; opacity: 0.5; transition: transform 0.2s; }
+[aria-expanded="true"] .sidebar-chevron { transform: rotate(180deg); }
+.sidebar-field-label {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #9a8880;
+    margin-bottom: 8px;
+}
+.sidebar-select {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 0.83rem;
+    border: 1px solid #e0d5cc;
+    background: #faf8f5;
+    color: #2e1f1a;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%239a8880'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+.sidebar-select:focus { border-color: #2e1f1a; }
+.sidebar-input {
+    width: 50%;
+    padding: 7px 10px;
+    font-size: 0.83rem;
+    border: 1px solid #e0d5cc;
+    background: #faf8f5;
+    color: #2e1f1a;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.sidebar-input:focus { border-color: #2e1f1a; }
+.sidebar-input::placeholder { color: #b0a09a; }
+.sidebar-btn-apply {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: #2e1f1a;
+    color: #eaddcf;
+    border: none;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-bottom: 8px;
+}
+.sidebar-btn-apply:hover { background: #4a2f28; }
+.sidebar-btn-clear {
+    display: block;
+    width: 100%;
+    padding: 9px;
+    text-align: center;
+    border: 1px solid #d0c4bc;
+    color: #7a6a62;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+.sidebar-btn-clear:hover { border-color: #2e1f1a; color: #2e1f1a; }
+
+/* ── ЗАГОЛОВОК С ГРАВИРОВКОЙ ── */
+.catalog-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    overflow: hidden;
+}
+.catalog-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #2e1f1a;
+    font-weight: 400;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.catalog-engraving {
+    font-family: 'Playfair Display', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(46, 31, 26, 0.07);
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
+    user-select: none;
+    transform: translateY(8px);
+}
+
+/* ── PRODUCT IMAGE WRAP ── */
+.product-img-wrap { height: 280px; }
+
+/* ── MOBILE FILTERS BUTTON ── */
+.mobile-filter-btn {
+    background: #2e1f1a;
+    color: #eaddcf;
+    border: none;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px;
+    font-family: 'Roboto', sans-serif;
+}
+.mobile-filter-btn:hover,
+.mobile-filter-btn:focus { background: #4a2f28; color: #eaddcf; }
+.mobile-sidebar-box {
+    background: #faf8f5;
+    border: 1px solid #e8ddd4;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 767px) {
+    .product-img-wrap { height: 170px !important; }
+    .catalog-title { font-size: 1.3rem; }
+    .catalog-engraving { font-size: 2.5rem; }
+    .catalog-card .card-title { font-size: 0.82rem; }
+    .catalog-card .card-body .text-muted { font-size: 0.7rem; letter-spacing: 0.5px; }
+    .catalog-card h6 { font-size: 0.8rem; }
+    .catalog-card .card-body { padding: 10px 4px 12px; }
+}

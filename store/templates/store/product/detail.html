@@ -1,0 +1,307 @@
+{% extends "store/base.html" %}
+
+{% block title %}
+    {{ product.name }} - Kangarli Leather
+{% endblock %}
+
+{% block content %}
+
+<div class="product-detail-wrapper mt-4 mb-5">
+    
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{% url 'store:product_list_by_category' product.category.slug %}" 
+               class="text-decoration-none text-uppercase fw-bold text-muted back-button" 
+               style="font-size: 0.75rem; letter-spacing: 1.5px; transition: color 0.2s ease;">
+                <i class="bi bi-arrow-left me-2"></i>Back to {{ product.category.name }}
+            </a>
+        </div>
+    </div>
+
+    <div class="row align-items-start">
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}" 
+                     style="width: 100%; max-height: 650px; object-fit: contain; mix-blend-mode: multiply;">
+            {% else %}
+                <img src="https://placehold.co/600x600?text=No+Image" class="img-fluid rounded" alt="No image">
+            {% endif %}
+        </div>
+        
+        <div class="col-md-6 ps-lg-5">
+            <h1 class="fw-bold mb-2" style="font-family: 'Playfair Display', serif; color: #1a1a1a; font-size: clamp(1.4rem, 4vw, 2.2rem); line-height: 1.2;">
+                {{ product.name }}
+            </h1>
+            <h5 class="text-muted mb-4 fst-italic" style="font-family: 'Playfair Display', serif;">
+                Crafted by <strong style="color: #2e1f1a;">{{ product.artisan.name }}</strong>
+            </h5>
+            
+            <h2 class="mb-4 pb-3 border-bottom" style="color: #2e1f1a; font-weight: 600; letter-spacing: 1px; font-size: clamp(1.3rem, 3.5vw, 1.8rem);">
+                {{ product.price|floatformat:"-2g" }} AZN
+            </h2>
+            
+            <div class="mb-4 mt-4">
+                <h6 class="text-uppercase fw-bold text-muted mb-3" style="letter-spacing: 2px; font-size: 0.8rem;">Description</h6>
+                <p style="color: #4a4a4a; line-height: 1.9; font-size: 0.95rem;">
+                    {{ product.description|linebreaksbr }}
+                </p>
+            </div>
+            
+            <div class="mb-4 bg-white p-4 shadow-sm border" style="border-color: #f1ebe4 !important;">
+                <div class="row">
+                    <div class="col-6 mb-3">
+                        <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 0.7rem; letter-spacing: 1px;">Category</small>
+                        <a href="{% url 'store:product_list_by_category' product.category.slug %}" class="text-decoration-none fw-bold" style="color: #2e1f1a;">
+                            {{ product.category.name }}
+                        </a>
+                    </div>
+                    <div class="col-6 mb-3">
+                        <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 0.7rem; letter-spacing: 1px;">Artisan Region</small>
+                        <span style="color: #2e1f1a;">{{ product.artisan.region }}</span>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-uppercase text-muted fw-bold d-block mb-1" style="font-size: 0.7rem; letter-spacing: 1px;">Availability</small>
+                        {% if product.is_available and product.stock > 0 %}
+                            <span class="badge rounded-0 px-2 py-1" style="border: 1px solid #2e1f1a; color: #2e1f1a; background: transparent; letter-spacing: 1px;">
+                                IN STOCK
+                            </span>
+                        {% else %}
+                            <span class="badge rounded-0 px-2 py-1" style="border: 1px solid #8d6e63; color: #8d6e63; background: transparent; letter-spacing: 1px;">
+                                SOLD OUT
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <h6 class="text-uppercase fw-bold text-muted mb-2" style="letter-spacing: 2px; font-size: 0.8rem;">Artisan Information</h6>
+                <p class="small" style="color: #666; line-height: 1.6;">{{ product.artisan.description }}</p>
+            </div>
+
+            {% if product.is_available and product.stock > 0 %}
+                <form action="{% url 'cart:cart_add' product.id %}" method="post" class="mt-4">
+                    {% csrf_token %}
+                    
+                    <div class="row mb-4">
+                        <div class="col-6">
+                            <label class="form-label text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Size</label>
+                            {{ cart_product_form.size }}
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label text-uppercase fw-bold text-muted" style="font-size: 0.75rem; letter-spacing: 1px;">Quantity</label>
+                            {{ cart_product_form.quantity }}
+                        </div>
+                    </div>
+                    
+                    {{ cart_product_form.override }}
+                    
+                    <div class="d-flex gap-3">
+                        <button type="submit" class="btn flex-grow-1 py-3 text-uppercase fw-bold shadow-none" 
+                                style="background-color: #2e1f1a; color: #fff; letter-spacing: 2px; font-size: 0.9rem; border-radius: 0; transition: background-color 0.3s;">
+                            <i class="bi bi-bag-plus me-2"></i> Add to Cart
+                        </button>
+
+                        {% if request.user.is_authenticated %}
+                            <a href="{% url 'store:toggle_favorite' product.id %}" class="btn py-3 px-4 d-flex align-items-center justify-content-center shadow-none wishlist-btn" 
+                               style="border: 1px solid #2e1f1a; border-radius: 0; background-color: transparent; transition: all 0.3s;">
+                                {% if is_favorite %}
+                                    <i class="bi bi-heart-fill fs-5" style="color: #cda434;"></i>
+                                {% else %}
+                                    <i class="bi bi-heart fs-5" style="color: #2e1f1a;"></i>
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    </div>
+                    
+                    {% if product.stock <= 5 %}
+                    <p class="text-muted mt-3 fst-italic text-center" style="font-size: 0.85rem; font-family: 'Playfair Display', serif; color: #8d6e63 !important;">
+                        <i class="bi bi-exclamation-circle me-1"></i>Only {{ product.stock }} piece{{ product.stock|pluralize }} left in stock.
+                    </p>
+                    {% endif %}
+                </form>
+
+            {% else %}
+                <div class="sold-out-box mt-4 p-4 text-center" style="background-color: #fcfbf9; border: 1px solid #eaddcf; border-left: 4px solid #8d6e63;">
+                    <h4 style="font-family: 'Playfair Display', serif; color: #2e1f1a; margin: 0; text-transform: uppercase; letter-spacing: 3px; font-weight: bold;">
+                        Sold Out
+                    </h4>
+                    <p class="text-muted mb-0 mt-2" style="font-size: 0.95rem; font-style: italic;">
+                        This exclusive piece is currently out of stock.
+                    </p>
+                </div>
+                
+                {% if request.user.is_authenticated %}
+                    <div class="mt-3">
+                        <a href="{% url 'store:toggle_favorite' product.id %}" class="btn w-100 py-3 text-uppercase fw-bold shadow-none wishlist-btn" 
+                           style="border: 1px solid #2e1f1a; border-radius: 0; background-color: transparent; color: #2e1f1a; letter-spacing: 2px; font-size: 0.85rem; transition: all 0.3s;">
+                            {% if is_favorite %}
+                                <i class="bi bi-heart-fill me-2" style="color: #cda434;"></i> Saved to Wishlist
+                            {% else %}
+                                <i class="bi bi-heart me-2"></i> Add to Wishlist
+                            {% endif %}
+                        </a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<hr class="my-5" style="border-top: 2px dashed #eaddcf;">
+
+<div class="container mt-5 pt-5 border-top">
+    <div class="row mb-5">
+        <div class="col-12 text-center">
+            <h2 class="fw-bold text-uppercase" style="font-family: 'Playfair Display', serif; color: #2e1f1a; letter-spacing: 3px;">Client Testimonials</h2>
+            <div style="width: 60px; height: 2px; background-color: #cda434; margin: 15px auto;"></div>
+            <p class="text-muted fst-italic" style="font-family: 'Playfair Display', serif;">Discover what others say about this piece</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-between mb-5">
+        <div class="col-lg-7 mb-5 mb-lg-0 pe-lg-5">
+            {% for review in reviews %}
+                <div class="review-item mb-4 pb-4 border-bottom">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle d-flex justify-content-center align-items-center me-3 shadow-sm" 
+                                 style="width: 45px; height: 45px; background-color: #2e1f1a; color: #fcfbf9; font-family: 'Playfair Display', serif; font-size: 1.2rem;">
+                                {{ review.user.username|make_list|first|upper }}
+                            </div>
+                            <div>
+                                <h6 class="mb-0 fw-bold text-uppercase" style="color: #2e1f1a; letter-spacing: 1px; font-size: 0.9rem;">{{ review.user.username }}</h6>
+                                <small class="text-muted" style="font-size: 0.8rem;">{{ review.created_at|date:"F d, Y" }}</small>
+                            </div>
+                        </div>
+                        <div style="color: #cda434; font-size: 1rem;">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= review.rating %}<i class="bi bi-star-fill"></i>{% else %}<i class="bi bi-star"></i>{% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p class="mb-0 fst-italic" style="color: #555; line-height: 1.7; font-size: 0.95rem;">
+                        "{{ review.content }}"
+                    </p>
+                </div>
+            {% empty %}
+                <div class="text-center py-5 rounded" style="background-color: #f9f8f6; border: 1px dashed #d7ccc8;">
+                    <i class="bi bi-chat-square-quote fs-1 text-muted mb-3 d-block opacity-50"></i>
+                    <p class="text-muted mb-0" style="font-family: 'Playfair Display', serif; font-size: 1.1rem;">No reviews yet. Be the first to share your experience.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="col-lg-4">
+            {% if request.user.is_authenticated %}
+                {% if has_bought %}
+                    <div class="card p-4 p-md-5 border-0 shadow-sm" style="background-color: #fff; border-radius: 0; box-shadow: 0 10px 30px rgba(0,0,0,0.03) !important;">
+                        <h4 class="fw-bold mb-4 text-center" style="font-family: 'Playfair Display', serif; color: #2e1f1a;">Write a Review</h4>
+                        <form method="post" id="review-form">
+                            {% csrf_token %}
+                            <div class="mb-4 text-center">
+                                <label class="form-label text-uppercase text-muted fw-bold d-block mb-2" style="font-size: 0.75rem; letter-spacing: 2px;">Your Rating</label>
+                                <div class="d-none">{{ review_form.rating }}</div>
+                                <div id="custom-stars" class="fs-3" style="color: #cda434; cursor: pointer;">
+                                    <i class="bi bi-star" data-value="1"></i>
+                                    <i class="bi bi-star" data-value="2"></i>
+                                    <i class="bi bi-star" data-value="3"></i>
+                                    <i class="bi bi-star" data-value="4"></i>
+                                    <i class="bi bi-star" data-value="5"></i>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label text-uppercase text-muted fw-bold" style="font-size: 0.75rem; letter-spacing: 2px;">Your Feedback</label>
+                                <div class="review-input-wrapper">
+                                    {{ review_form.content }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn w-100 py-3 text-uppercase fw-bold shadow-none" 
+                                    style="background-color: #2e1f1a; color: #fff; letter-spacing: 2px; font-size: 0.85rem; border-radius: 0;">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="p-5 text-center" style="background-color: #f9f8f6; border: 1px solid #f1ebe4;">
+                        <i class="bi bi-bag-check fs-1 text-muted d-block mb-3 opacity-50"></i>
+                        <h6 class="fw-bold mb-2 text-uppercase" style="letter-spacing: 1px;">Verified Buyers Only</h6>
+                        <p class="text-muted small mb-0">To ensure authenticity, only customers who purchased this item can leave a review.</p>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="p-5 text-center" style="background-color: #f9f8f6; border: 1px solid #f1ebe4;">
+                    <i class="bi bi-person-lock fs-1 text-muted d-block mb-3 opacity-50"></i>
+                    <h6 class="fw-bold mb-2 text-uppercase" style="letter-spacing: 1px;">Join the Club</h6>
+                    <p class="text-muted small mb-3">Please log in to share your thoughts with the community.</p>
+                    <a href="{% url 'account:login' %}?next={{ request.path }}" class="btn btn-outline-dark px-4 text-uppercase fw-bold" style="letter-spacing: 1px; border-radius: 0; font-size: 0.8rem;">Log In</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const stars = document.querySelectorAll('#custom-stars i');
+        const hiddenSelect = document.querySelector('select[name="rating"]'); 
+        
+        if (!hiddenSelect || stars.length === 0) return;
+
+        updateStars(5);
+        hiddenSelect.value = 5;
+
+        stars.forEach(star => {
+            star.addEventListener('mouseover', function() { updateStars(this.getAttribute('data-value')); });
+            star.addEventListener('mouseout', function() { updateStars(hiddenSelect.value); });
+            star.addEventListener('click', function() {
+                hiddenSelect.value = this.getAttribute('data-value');
+                updateStars(this.getAttribute('data-value'));
+            });
+        });
+
+        function updateStars(val) {
+            stars.forEach(star => {
+                if (star.getAttribute('data-value') <= val) {
+                    star.classList.remove('bi-star');
+                    star.classList.add('bi-star-fill');
+                } else {
+                    star.classList.remove('bi-star-fill');
+                    star.classList.add('bi-star');
+                }
+            });
+        }
+    });
+</script>
+
+<div class="row mt-5 pt-4 border-top">
+    <div class="col-12">
+        <p class="related-label">More from this artisan</p>
+        <h3 class="related-title mb-4">{{ product.artisan.name }}</h3>
+        <div class="row row-cols-2 row-cols-md-4 g-3">
+            {% for related in product.artisan.products.all|slice:":4" %}
+                {% if related.id != product.id %}
+                    <div class="col">
+                        <div class="card h-100 border-0 related-card">
+                            <a href="{% url 'store:product_detail' related.id related.slug %}" class="d-block overflow-hidden related-img-wrap">
+                                {% if related.image %}
+                                    <img src="{{ related.image.url }}" alt="{{ related.name }}" class="related-img">
+                                {% else %}
+                                    <img src="https://placehold.co/400x400?text=No+Image" alt="No image" class="related-img">
+                                {% endif %}
+                            </a>
+                            <div class="card-body text-center px-1 pt-2 pb-3">
+                                <a href="{% url 'store:product_detail' related.id related.slug %}" class="text-decoration-none">
+                                    <h6 class="related-card-title">{{ related.name }}</h6>
+                                </a>
+                                <p class="related-card-price">{{ related.price }} AZN</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

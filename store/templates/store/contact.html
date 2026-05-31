@@ -1,0 +1,178 @@
+{% extends "store/base.html" %}
+{% block title %}Contact — Kangarli Leather{% endblock %}
+
+{% block content %}
+<div style="max-width: 1000px; margin: 0 auto;">
+
+    <!-- Header -->
+    <div class="text-center py-5" style="border-bottom: 1px solid #e8ddd4; margin-bottom: 0;">
+        <p style="font-size: 0.68rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #9a8880; margin-bottom: 12px;">
+            Get In Touch
+        </p>
+        <h1 style="font-family: 'Playfair Display', serif; font-size: 2.6rem; color: #1a0f0c; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 14px;">
+            Contact Us
+        </h1>
+        <div style="width: 40px; height: 2px; background: #1a0f0c; margin: 0 auto 16px;"></div>
+        <p style="max-width: 480px; margin: 0 auto; color: #7a6a62; font-size: 0.92rem; line-height: 1.85;">
+            Whether you have a question about an order, need styling advice, or want to discuss a custom piece — we're here.
+        </p>
+    </div>
+
+    <div class="row g-0">
+
+        <!-- Left: Contact Info -->
+        <div class="col-lg-4" style="border-right: 1px solid #e8ddd4; padding: 52px 40px;">
+
+            <div class="contact-info-block">
+                <p class="contact-info-label">Visit Us</p>
+                <p class="contact-info-val">Baku, Azerbaijan</p>
+                <p class="contact-info-sub">Old City, Icheri Sheher</p>
+            </div>
+
+            <div class="contact-info-block">
+                <p class="contact-info-label">Call Us</p>
+                <a href="tel:+994502111111" class="contact-info-val contact-info-link">
+                    +994 50 211 11 11
+                </a>
+                <p class="contact-info-sub">Mon–Sat, 10:00–19:00</p>
+            </div>
+
+            <div class="contact-info-block">
+                <p class="contact-info-label">Email Us</p>
+                <a href="mailto:info@kangarli.az" class="contact-info-val contact-info-link">
+                    info@kangarli.az
+                </a>
+                <p class="contact-info-sub">We reply within 24 hours</p>
+            </div>
+
+            <div class="contact-info-block" style="border-bottom: none; padding-bottom: 0;">
+                <p class="contact-info-label">Follow Us</p>
+                <div class="d-flex gap-3 mt-2">
+                    <a href="#" class="contact-social"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="contact-social"><i class="bi bi-pinterest"></i></a>
+                    <a href="#" class="contact-social"><i class="bi bi-facebook"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right: Form -->
+        <div class="col-lg-8" style="padding: 52px 48px;">
+
+            <p style="font-size: 0.68rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #9a8880; margin-bottom: 6px;">
+                Send a Message
+            </p>
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #1a0f0c; font-weight: 700; margin-bottom: 32px;">
+                How Can We Help?
+            </h3>
+
+            <form id="contactForm">
+                {% csrf_token %}
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <label class="contact-label">Full Name</label>
+                        <input type="text" class="contact-input" placeholder="Fikrat Kangarli" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="contact-label">Email Address</label>
+                        <input type="email" class="contact-input" placeholder="info@kangarli.az" required>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="contact-label">Subject</label>
+                    <select class="contact-input contact-select">
+                        <option value="">Select a topic</option>
+                        <option>Order Inquiry</option>
+                        <option>Product Question</option>
+                        <option>Custom Order</option>
+                        <option>Return & Exchange</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-5">
+                    <label class="contact-label">Message</label>
+                    <textarea class="contact-input" rows="5"
+                              placeholder="Tell us what's on your mind..."
+                              style="resize: vertical; min-height: 140px;"></textarea>
+                </div>
+
+                <button type="submit" class="contact-btn" id="contactSubmitBtn">
+                    Send Message
+                </button>
+                <div id="contactFeedback" class="fade-message hidden mt-3"
+                     style="font-size: 0.8rem; font-weight: 600;"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bottom strip -->
+    <div style="border-top: 1px solid #e8ddd4; padding: 32px 40px; display: flex; align-items: center; gap: 16px; background: #faf8f5;">
+        <i class="bi bi-stars" style="color: #cda434; font-size: 1.1rem;"></i>
+        <p style="margin: 0; font-size: 0.85rem; color: #7a6a62; line-height: 1.6;">
+            Need personalised recommendations? Try
+            <a href="{% url 'store:ai_stylist' %}"
+               style="color: #1a0f0c; font-weight: 700; text-decoration: none; border-bottom: 1px solid #1a0f0c;">
+                Fiko, our AI Stylist
+            </a>
+            — available 24/7.
+        </p>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('contactSubmitBtn');
+        const feedback = document.getElementById('contactFeedback');
+
+        const name    = this.querySelector('input[type="text"]').value.trim();
+        const email   = this.querySelector('input[type="email"]').value.trim();
+        const subject = this.querySelector('select').value || 'General Inquiry';
+        const message = this.querySelector('textarea').value.trim();
+
+        if (!name || !email || !message) {
+            feedback.className = 'fade-message small mt-3 fw-bold text-danger';
+            feedback.innerText = '❌ Please fill in all required fields.';
+            feedback.classList.remove('hidden');
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+
+        try {
+            const response = await fetch("{% url 'store:contact' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ name, email, subject, message })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                feedback.className = 'fade-message small mt-3 fw-bold text-success';
+                feedback.innerText = '✔ Message sent. We\'ll be in touch within 24 hours.';
+                this.reset();
+            } else {
+                feedback.className = 'fade-message small mt-3 fw-bold text-danger';
+                feedback.innerText = '❌ ' + (data.message || 'Something went wrong.');
+            }
+
+        } catch (err) {
+            feedback.className = 'fade-message small mt-3 fw-bold text-danger';
+            feedback.innerText = '❌ Connection error. Please try again.';
+        } finally {
+            feedback.classList.remove('hidden');
+            btn.disabled = false;
+            btn.textContent = 'Send Message';
+            setTimeout(() => feedback.classList.add('hidden'), 5000);
+        }
+    });
+</script>
+{% endblock %}

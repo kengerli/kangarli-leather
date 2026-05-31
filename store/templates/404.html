@@ -1,0 +1,35 @@
+{% extends "store/base.html" %}
+{% block title %}Page Not Found — Kangarli Leather{% endblock %}
+
+{% block content %}
+<div class="text-center py-5" style="min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+    <h1 style="font-family: 'Playfair Display', serif; font-size: 8rem; color: #e8e0d8; line-height: 1; font-weight: 700;">
+        404
+    </h1>
+
+    <h2 style="font-family: 'Playfair Display', serif; color: #3e2723; margin-top: -10px;">
+        This trail ends here
+    </h2>
+
+    <p class="text-muted mt-3 mb-4" style="max-width: 400px; font-size: 0.95rem;">
+        The page you're looking for has ridden off into the sunset. Let's get you back to the collection.
+    </p>
+
+    <hr style="width: 60px; border-top: 2px dashed #d7ccc8; margin: 0 auto 30px;">
+
+    <div class="d-flex gap-3 flex-wrap justify-content-center">
+        <a href="{% url 'store:product_list' %}"
+           class="btn px-4 py-2 text-uppercase fw-bold"
+           style="background-color: #3e2723; color: #eaddcf; letter-spacing: 1px; border-radius: 0; font-size: 0.85rem;">
+            <i class="bi bi-grid me-2"></i>Browse Collection
+        </a>
+        <a href="{% url 'store:ai_stylist' %}"
+           class="btn px-4 py-2 text-uppercase fw-bold"
+           style="border: 1px solid #3e2723; color: #3e2723; background: transparent; border-radius: 0; font-size: 0.85rem;">
+            <i class="bi bi-stars me-2"></i>Ask Fiko
+        </a>
+    </div>
+
+</div>
+{% endblock %}

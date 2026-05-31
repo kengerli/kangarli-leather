@@ -1,0 +1,38 @@
+{% extends 'store/base.html' %}
+{% block title %}Access Restricted — Kangarli Leather{% endblock %}
+
+{% block content %}
+<div class="text-center py-5" style="min-height: 55vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+    <p style="font-size: 0.68rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #9a8880; margin-bottom: 20px;">
+        Security Notice
+    </p>
+
+    <h1 style="font-family: 'Playfair Display', serif; font-size: 2.6rem; color: #1a0f0c; font-weight: 700; letter-spacing: 2px; margin-bottom: 16px;">
+        Access Restricted
+    </h1>
+
+    <div style="width: 40px; height: 2px; background: #1a0f0c; margin: 0 auto 24px;"></div>
+
+    <p style="max-width: 420px; color: #6a5a55; font-size: 0.92rem; line-height: 1.85; margin-bottom: 40px;">
+        Too many unsuccessful login attempts have been detected from your address. 
+        Access has been temporarily suspended for your protection. 
+        Please wait 15 minutes before trying again.
+    </p>
+
+    <div style="border: 1px solid #d0c4bc; border-left: 3px solid #1a0f0c; padding: 16px 24px; margin-bottom: 40px; max-width: 380px; text-align: left; background: #faf8f5;">
+        <p style="font-size: 0.68rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #9a8880; margin-bottom: 6px;">What happened</p>
+        <p style="font-size: 0.85rem; color: #4a3a35; margin: 0; line-height: 1.7;">
+            Our system detected repeated failed login attempts. This is an automatic security measure to protect your account.
+        </p>
+    </div>
+
+    <a href="{% url 'store:product_list' %}"
+       style="display: inline-block; padding: 13px 40px; background: #1a0f0c; color: #eaddcf; text-decoration: none; font-size: 0.72rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; font-family: 'Roboto', sans-serif; transition: background 0.2s;"
+       onmouseover="this.style.background='#3a2520'"
+       onmouseout="this.style.background='#1a0f0c'">
+        Return to Store
+    </a>
+
+</div>
+{% endblock %}

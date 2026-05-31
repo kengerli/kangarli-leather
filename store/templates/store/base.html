@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="{% static 'icons/favicon.ico' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Kangarli Leather{% endblock %}</title>
+    
+    <!-- CSS: Bootstrap + Icons + Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'store/css/main.css' %}">
+</head>
+<body>
+
+<!-- HEADER -->
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="mainNavbar" 
+     style="background-color: #2e1f1a; border-bottom: 1px solid #4a2f28;">
+    <div class="container">
+        
+        <!-- Brand -->
+        <a class="navbar-brand" href="{% url 'store:product_list' %}" 
+           style="font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 3px; color: #d7ccc8 !important; font-weight: 400;">
+            Kangarli Leather
+        </a>
+
+        <button class="navbar-toggler border-0 shadow-none" type="button" 
+                data-bs-toggle="collapse" data-bs-target="#topNavBar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="topNavBar">
+
+            <!-- Search -->
+            <form class="d-flex mx-auto my-3 my-lg-0 search-form position-relative" 
+                  style="width: 100%; max-width: 440px;" 
+                  action="{% url 'store:product_list' %}" method="get">
+                <div class="input-group w-100">
+                    <input class="form-control border-0 shadow-none" 
+                           type="search" 
+                           placeholder="Search belts, bags, hats..." 
+                           name="q" id="searchInput" autocomplete="off" 
+                           value="{{ request.GET.q }}" 
+                           style="background-color: #3e2a26; color: #d7ccc8; font-size: 0.85rem; letter-spacing: 0.5px;">
+                    <div class="position-absolute w-100 shadow" id="searchSuggestions" 
+                         style="top: 100%; left: 0; display: none;"></div>
+                    <button class="btn px-3" type="submit" 
+                            style="background-color: #4a2f28; border: none; color: #d7ccc8;">
+                        <i class="bi bi-search" style="font-size: 0.9rem;"></i>
+                    </button>
+                </div>
+            </form>
+
+            <!-- Right Nav Items -->
+            <div class="d-flex align-items-center ms-lg-4 flex-wrap flex-lg-nowrap" style="gap: 0;">
+
+                <!-- Style AI -->
+                <a href="{% url 'store:ai_stylist' %}" class="nav-top-link">
+                    Style AI
+                </a>
+
+                <div class="nav-divider"></div>
+
+                <!-- Care Guide -->
+                <a href="{% url 'store:leather_care' %}" class="nav-top-link">
+                    Care Guide
+                </a>
+
+                <div class="nav-divider"></div>
+
+                <!-- Cart -->
+                <a href="{% url 'cart:cart_detail' %}" class="nav-top-link position-relative">
+                    <i class="bi bi-handbag" style="font-size: 1rem;"></i>
+                    <span class="d-none d-xl-inline ms-1">Cart</span>
+                    {% if cart_items_count %}
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill" 
+                              style="background-color: #cda434; color: #2e1f1a; font-size: 0.6rem; font-weight: 700;">
+                            {{ cart_items_count }}
+                        </span>
+                    {% endif %}
+                </a>
+
+                <div class="nav-divider"></div>
+
+                <!-- Account -->
+                {% if request.user.is_authenticated %}
+                    <div class="dropdown">
+                        <button class="nav-top-link dropdown-toggle bg-transparent border-0 shadow-none d-flex align-items-center gap-1" 
+                                type="button" id="userAcc" 
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person" style="font-size: 1rem;"></i>
+                            <span class="d-none d-xl-inline">{{ request.user.first_name|default:"Account" }}</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 rounded-0 mt-2 acc-dropdown"
+                            style="min-width: 220px;">
+                            <li class="acc-dropdown-header">
+                                {{ request.user.first_name|default:request.user.username|upper }}
+                            </li>
+                            <li>
+                                <a class="acc-dropdown-item" href="{% url 'account:dashboard' %}">
+                                    <i class="bi bi-grid"></i>Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a class="acc-dropdown-item" href="{% url 'account:dashboard' %}#wishlist-section">
+                                    <i class="bi bi-heart"></i>Wishlist
+                                </a>
+                            </li>
+                            <li>
+                                <a class="acc-dropdown-item" href="{% url 'orders:user_orders' %}">
+                                    <i class="bi bi-box-seam"></i>Order History
+                                </a>
+                            </li>
+                            <li><div class="acc-dropdown-divider"></div></li>
+                            <li>
+                                <form action="{% url 'account:logout' %}" method="post" class="m-0 p-0">
+                                    {% csrf_token %}
+                                    <button type="submit" class="acc-dropdown-item acc-dropdown-logout w-100">
+                                        <i class="bi bi-box-arrow-right"></i>Log Out
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                                            </div>
+                {% else %}
+                    <a href="{% url 'account:login' %}" class="nav-top-link">
+                        <i class="bi bi-person me-1" style="font-size: 1rem;"></i>
+                        <span class="d-none d-xl-inline">Log In</span>
+                    </a>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</nav>
+
+    <!-- CONTENT -->
+    <div class="container mt-4 mb-5" style="min-height: 70vh; background-color: rgba(255, 255, 255, 0.6); backdrop-filter: blur(5px); padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- FOOTER -->
+<footer style="background-color: #1a0f0c; color: #d7ccc8;" class="py-4 py-md-5 mt-5">
+    <div class="container">
+        <div class="row g-4 g-md-5">
+
+            <!-- Brand -->
+            <div class="col-6 col-md-4">
+                <p style="font-family: 'Playfair Display', serif; font-size: 1.1rem; letter-spacing: 3px; color: #d7ccc8; font-weight: 700; text-transform: uppercase; margin-bottom: 12px;">
+                    Kangarli Leather
+                </p>
+                <div style="width: 30px; height: 1px; background: #6a5a55; margin-bottom: 16px;"></div>
+                <p class="d-none d-md-block" style="color: #6a5a55; font-size: 0.83rem; line-height: 1.85; margin-bottom: 24px;">
+                    Premium handcrafted leather goods with a western soul. Designed to age beautifully and last generations.
+                </p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="footer-social"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="footer-social"><i class="bi bi-pinterest"></i></a>
+                    <a href="#" class="footer-social"><i class="bi bi-facebook"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-6 col-md-2">
+                <p class="footer-col-title">Navigate</p>
+                <ul class="list-unstyled mb-0">
+                    <li class="mb-2"><a href="{% url 'store:product_list' %}" class="footer-link">Shop Catalog</a></li>
+                    <li class="mb-2"><a href="{% url 'store:ai_stylist' %}" class="footer-link">Style AI</a></li>
+                    <li class="mb-2"><a href="{% url 'store:leather_care' %}" class="footer-link">Care Guide</a></li>
+                    <li class="mb-2 d-none d-md-block"><a href="{% url 'cart:cart_detail' %}" class="footer-link">Shopping Cart</a></li>
+                    <li class="mb-2 d-none d-md-block"><a href="{% url 'orders:user_orders' %}" class="footer-link">My Orders</a></li>
+                    <li class="mb-2"><a href="{% url 'store:contact' %}" class="footer-link">Contact</a></li>
+                    <li class="mb-2"><a href="{% url 'store:about' %}" class="text-decoration-none footer-link">Our Story</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact — скрыт на мобиле -->
+            <div class="col-md-2 d-none d-md-block">
+                <p class="footer-col-title">Contact</p>
+                <ul class="list-unstyled mb-0">
+                    <li class="footer-contact-item">
+                        <i class="bi bi-envelope"></i>
+                        <a href="mailto:info@kangarli.az" class="footer-link">info@kangarli.az</a>
+                    </li>
+                    <li class="footer-contact-item">
+                        <i class="bi bi-telephone"></i>
+                        <a href="tel:+994502111111" class="footer-link">+994 50 211 11 11</a>
+                    </li>
+                    <li class="footer-contact-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <span style="color: #6a5a55; font-size: 0.82rem;">Baku, Azerbaijan</span>
+                    </li>
+                    <li class="footer-contact-item mt-3">
+                        <i class="bi bi-clock"></i>
+                        <span style="color: #6a5a55; font-size: 0.82rem;">Mon–Sat, 10:00–19:00</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div class="col-12 col-md-4">
+                <p class="footer-col-title">Join The Club</p>
+                <p style="color: #6a5a55; font-size: 0.82rem; line-height: 1.8; margin-bottom: 20px;">
+                    Subscribe for exclusive offers, new arrivals and leather care tips delivered to your inbox.
+                </p>
+                <form id="newsletterForm" class="mb-2">
+                    {% csrf_token %}
+                    <div style="display: flex; border: 1px solid #2e1f1a;">
+                        <input type="email"
+                               id="newsletterEmail"
+                               placeholder="Your email address"
+                               required
+                               style="flex: 1; padding: 10px 14px; background: #120a08; border: none; color: #d7ccc8; font-size: 0.82rem; outline: none; font-family: 'Roboto', sans-serif;">
+                        <button type="submit" id="subscribeBtn"
+                                style="padding: 10px 18px; background: #2e1f1a; border: none; color: #d7ccc8; font-size: 0.7rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: background 0.2s; font-family: 'Roboto', sans-serif;"
+                                onmouseover="this.style.background='#3a2520'"
+                                onmouseout="this.style.background='#2e1f1a'">
+                            Subscribe
+                        </button>
+                    </div>
+                </form>
+                <div id="newsletterFeedback" class="fade-message hidden" style="font-size: 0.78rem; font-weight: 600; margin-top: 8px;"></div>
+            </div>
+
+        </div>
+
+        <!-- Bottom bar -->
+        <div style="height: 1px; background: #2e1f1a; margin: 40px 0 24px;"></div>
+
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-2">
+                <p style="color: #4a3a35; font-size: 0.72rem; letter-spacing: 1px; margin: 0;">
+                    &copy; 2026 Kangarli Leather. All rights reserved.
+                </p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <span style="color: #4a3a35; font-size: 0.72rem; letter-spacing: 1px; margin-right: 12px;">
+                    Secure checkout
+                </span>
+                <i class="bi bi-credit-card" style="color: #4a3a35; font-size: 1.1rem; margin-right: 8px;"></i>
+                <i class="bi bi-paypal" style="color: #4a3a55; font-size: 1.1rem;"></i>
+            </div>
+        </div>
+    </div>
+</footer>    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // 1. Поиск (Autocomplete)
+        const searchInput = document.getElementById('searchInput');
+        const searchSuggestions = document.getElementById('searchSuggestions');
+
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.trim();
+            if (query.length < 2) { searchSuggestions.style.display = 'none'; return; }
+
+            fetch("{% url 'store:search_api' %}?q=" + encodeURIComponent(query))
+                .then(r => r.json()).then(data => {
+                    searchSuggestions.innerHTML = '';
+                    if (data.results && data.results.length > 0) {
+                        data.results.forEach(item => {
+                            const div = document.createElement('div');
+                            div.className = 'search-suggestion-item';
+                            div.innerHTML = `<span>${item.name}</span>`;
+                            div.onclick = () => { searchInput.value = item.name; document.querySelector('.search-form').submit(); };
+                            searchSuggestions.appendChild(div);
+                        });
+                        searchSuggestions.style.display = 'block';
+                    }
+                });
+        });
+
+        // 2. Рассылка
+// 2. Рассылка (с плавным затуханием)
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('newsletterEmail');
+            const email = emailInput.value;
+            
+            fetch("{% url 'store:newsletter_api' %}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRFToken': '{{ csrf_token }}' },
+                body: JSON.stringify({ email: email })
+            }).then(r => r.json()).then(data => {
+                const feedback = document.getElementById('newsletterFeedback');
+                
+                // 1. Задаем правильный цвет и текст в зависимости от успеха
+                feedback.className = 'fade-message small mt-2 fw-bold ' + (data.success ? 'text-success' : 'text-danger');
+                feedback.innerText = (data.success ? '✔ ' : '❌ ') + (data.success ? 'Successfully subscribed!' : data.message);
+                
+                // 2. Показываем сообщение (убираем прозрачность)
+                feedback.classList.remove('hidden');
+
+                // 3. Если успех — очищаем поле ввода, чтобы было красиво
+                if(data.success) {
+                    emailInput.value = '';
+                }
+
+                // 4. Запускаем таймер: через 3.5 секунды сообщение плавно растворится
+                setTimeout(() => {
+                    feedback.classList.add('hidden');
+                }, 3500);
+            });
+        });
+
+        // 3. ПРИНУДИТЕЛЬНАЯ ИНИЦИАЛИЗАЦИЯ DROPDOWN (Для гарантии)
+        document.addEventListener('DOMContentLoaded', function () {
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'))
+            dropdownElementList.map(function (el) {
+                return new bootstrap.Dropdown(el)
+            });
+        });
+    </script>
+    {% if messages %}
+        <div class="toast-container position-fixed bottom-0 end-0 p-4" style="z-index: 1055;">
+            {% for message in messages %}
+                <div class="toast align-items-center border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" style="background-color: #2e1f1a; color: #fcfbf9; border-radius: 0;">
+                    <div class="d-flex">
+                        <div class="toast-body d-flex align-items-center" style="font-family: 'Playfair Display', serif; letter-spacing: 1px; font-size: 1rem;">
+                            <i class="bi bi-check2-circle fs-4 me-3" style="color: #cda434;"></i> 
+                            {{ message }}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-3 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+                var toastList = toastElList.map(function (toastEl) {
+                    // Уведомление висит 4 секунды (4000мс), потом уезжает
+                    return new bootstrap.Toast(toastEl, {delay: 4000}).show();
+});
+            });
+        </script>
+    {% endif %}
+</body>
+</html>

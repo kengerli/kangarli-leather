@@ -1,0 +1,88 @@
+{% extends "store/base.html" %}
+{% block title %}Account Settings — Kangarli Leather{% endblock %}
+
+{% block content %}
+<div class="acc-wrap">
+
+    <!-- Header -->
+    <div class="acc-header">
+        <p class="acc-overline">Member Area</p>
+        <h1 class="acc-title">Account Settings</h1>
+        <div class="acc-rule"></div>
+        <p class="acc-welcome">Manage your personal information</p>
+    </div>
+
+    <div class="row g-0">
+
+        <!-- Sidebar Nav -->
+        <div class="col-lg-3">
+            <nav class="acc-nav">
+                <a href="{% url 'account:dashboard' %}" class="acc-nav-item">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{% url 'orders:user_orders' %}" class="acc-nav-item">
+                    <i class="bi bi-box-seam"></i>
+                    <span>Order History</span>
+                </a>
+                <a href="{% url 'account:dashboard' %}#wishlist-section" class="acc-nav-item">
+                    <i class="bi bi-heart"></i>
+                    <span>Wishlist</span>
+                </a>
+                <a href="{% url 'account:settings' %}" class="acc-nav-item acc-nav-active">
+                    <i class="bi bi-sliders"></i>
+                    <span>Settings</span>
+                </a>
+                <div class="acc-nav-divider"></div>
+                <form action="{% url 'account:logout' %}" method="post" class="m-0">
+                    {% csrf_token %}
+                    <button type="submit" class="acc-nav-item acc-nav-logout w-100">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Log Out</span>
+                    </button>
+                </form>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9">
+            <div class="acc-content">
+                <div class="acc-section-header mb-4">
+                    <p class="acc-section-label">Personal Information</p>
+                    <h3 class="acc-section-title">Your Profile</h3>
+                </div>
+
+                <div class="settings-form-wrap">
+                    <form method="post" class="settings-form">
+                        {% csrf_token %}
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label class="settings-label">First Name</label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="settings-label">Last Name</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="col-12">
+                                <label class="settings-label">Email Address</label>
+                                {{ form.email }}
+                                <p class="settings-hint">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Used for order confirmations and tracking updates.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="mt-5">
+                            <button type="submit" class="settings-btn">
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
