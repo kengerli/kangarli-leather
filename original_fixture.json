@@ -1,0 +1,1737 @@
+[
+{
+  "model": "store.artisan",
+  "pk": 3,
+  "fields": {
+    "name": "Ali Mammadov",
+    "region": "Baku, Icherisheher Workshop",
+    "description": "Forged for the wild, Ali crafts uncompromising gear using thick English bridle leather and industrial solid brass rivets. Built to endure harsh elements and hard use, his robust bags and belts are made to survive a lifetime of adventure."
+  }
+},
+{
+  "model": "store.artisan",
+  "pk": 4,
+  "fields": {
+    "name": "Leyla Aliyeva",
+    "region": "Sheki",
+    "description": "Leyla transforms blank leather canvas into functional art through intricate hand-tooling and custom dyeing techniques. Featuring meticulously carved botanical and geometric motifs, every bespoke piece she creates is entirely one-of-a-kind."
+  }
+},
+{
+  "model": "store.artisan",
+  "pk": 5,
+  "fields": {
+    "name": "Samir Ismayilov",
+    "region": "Ganja Tannery",
+    "description": "Samir merges architectural precision with ethically sourced Italian leather to create sleek, lightweight everyday carry. By eliminating bulky seams and excessive hardware, her designs offer quiet luxury and zero-waste sustainability."
+  }
+},
+{
+  "model": "store.artisan",
+  "pk": 6,
+  "fields": {
+    "name": "Ibrahim Ibrahimli",
+    "region": "Nakchivan",
+    "description": "Focus: Crocodile & Premium Exotic Leathers\r\nIbrahim specializes in the meticulous crafting of genuine crocodile leather, artfully highlighting its distinct natural texture. Each hide is hand-cut with jeweler’s precision to ensure perfect scale alignment, resulting in bold, statement pieces that embody uncompromising luxury."
+  }
+},
+{
+  "model": "store.artisan",
+  "pk": 7,
+  "fields": {
+    "name": "Hettabretz",
+    "region": "Italy, Emilia Romagna",
+    "description": "Italy brand. Premium, Luxury leather. Partnership with Kangarli Leather"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 1,
+  "fields": {
+    "parent": null,
+    "name": "Shoes & Boots",
+    "slug": "shoes"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 2,
+  "fields": {
+    "parent": null,
+    "name": "Belts",
+    "slug": "belts"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 3,
+  "fields": {
+    "parent": null,
+    "name": "Bags",
+    "slug": "bags"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 4,
+  "fields": {
+    "parent": null,
+    "name": "Accessories",
+    "slug": "accessories"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 5,
+  "fields": {
+    "parent": 1,
+    "name": "Western Boots",
+    "slug": "western-boots"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 6,
+  "fields": {
+    "parent": null,
+    "name": "Hats",
+    "slug": "hats"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 7,
+  "fields": {
+    "parent": 4,
+    "name": "Wallets",
+    "slug": "wallets"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 8,
+  "fields": {
+    "parent": 1,
+    "name": "Leather Shoes",
+    "slug": "leather-shoes"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 9,
+  "fields": {
+    "parent": 4,
+    "name": "Bracelets",
+    "slug": "bracelets"
+  }
+},
+{
+  "model": "store.category",
+  "pk": 10,
+  "fields": {
+    "parent": null,
+    "name": "Leather Jackets",
+    "slug": "leather-jackets"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 3,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Old Gringo Emily Black",
+    "slug": "old-gringo-emily-black",
+    "description": "Work of art\r\n\r\nThe creation of each pair of Old Gringo boots involves a meticulous and detailed 275-step production process, transforming them into more than just ordinary cowboy boots. They become exquisite works of art that can be cherished as your very own.\r\n\r\nHandmade in Baku",
+    "price": "650.00",
+    "image": "media/products/2026/05/31/boot1_jn0z0u",
+    "is_available": true,
+    "created": "2026-04-26T20:45:11.106Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 4,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Old Gringo Apache Tan",
+    "slug": "old-gringo-apache-tan",
+    "description": "Old Gringo basic line\r\n\r\nHandmade in Baku, Azerbaijan",
+    "price": "650.00",
+    "image": "media/products/2026/05/31/boots2_rhyxmj",
+    "is_available": true,
+    "created": "2026-04-26T20:45:54.414Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 5,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Old Gringo Rust Cowhide",
+    "slug": "old-gringo-rust-cowhide",
+    "description": "Durable, timeless, and comfortable This classic style with woven details, simple stitching, and distressed rust brown finish\r\n\r\nA boot for a modern traditional western look.\r\n\r\nThe creation of each pair of Old Gringo boots involves a meticulous and detailed 275-step production process, transforming them into more than just ordinary cowboy boots. They become exquisite works of art that can be cherished as your very own.\r\n\r\nHandmade in Azerbaijan",
+    "price": "675.00",
+    "image": "media/products/2026/05/31/boot3_j7qiqu",
+    "is_available": true,
+    "created": "2026-05-08T15:50:42.977Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 6,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Old Gringo Nevada Black",
+    "slug": "old-gringo-nevada-black",
+    "description": "Work of art\r\n\r\nThe creation of each pair of Old Gringo boots involves a meticulous and detailed 275-step production process, transforming them into more than just ordinary cowboy boots. They become exquisite works of art that can be cherished as your very own.\r\n\r\nHandmade in Baku",
+    "price": "750.00",
+    "image": "media/products/2026/05/31/boot4_l741a2",
+    "is_available": true,
+    "created": "2026-05-08T16:05:42.605Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 7,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Old Gringo Tan Cowhide",
+    "slug": "old-gringo-tan-cowhide",
+    "description": "Work of art\r\nThe creation of each pair of Old Gringo boots involves a meticulous and detailed 275-step production process, transforming them into more than just ordinary cowboy boots. They become exquisite works of art that can be cherished as your very own.\r\n\r\nTan cowhide with John Wayne toe and heel\r\n\r\nHandmade in Baku",
+    "price": "750.00",
+    "image": "media/products/2026/05/31/boot5_mrskd7",
+    "is_available": true,
+    "created": "2026-05-08T16:08:02.548Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 8,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Old Gringo Obregonevada",
+    "slug": "old-gringo-obregonevada",
+    "description": "Work of art\r\n\r\nThe creation of each pair of Old Gringo boots involves a meticulous and detailed 275-step production process, transforming them into more than just ordinary cowboy boots. They become exquisite works of art that can be cherished as your very own.\r\n\r\nHandmade in Baku",
+    "price": "750.00",
+    "image": "media/products/2026/05/31/boot6_hutuix",
+    "is_available": true,
+    "created": "2026-05-08T16:09:18.876Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 9,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Corral Brown Embroidery",
+    "slug": "corral-brown-embroidery",
+    "description": "A timeless style for the city\r\n\r\nThe embroidery pattern along the 12-inch shaft shows the classic Western style.",
+    "price": "750.00",
+    "image": "media/products/2026/05/31/boot7_bqixfh",
+    "is_available": true,
+    "created": "2026-05-08T16:10:38.113Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 10,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Corral Pointy Black",
+    "slug": "corral-pointy-black",
+    "description": "A timeless style for the city\r\n\r\nThe embroidery pattern along the 12-inch shaft shows the classic Western style.",
+    "price": "750.00",
+    "image": "media/products/2026/05/31/boot8_efv63c",
+    "is_available": true,
+    "created": "2026-05-08T16:11:42.721Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 11,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Corral Pointy Brown",
+    "slug": "corral-pointy-brown",
+    "description": "A timeless style for the city\r\n\r\nThe embroidery pattern along the 12-inch shaft shows the classic Western style.",
+    "price": "750.00",
+    "image": "media/products/2026/05/31/boot9_trhj6b",
+    "is_available": true,
+    "created": "2026-05-08T16:12:29.495Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 12,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Black Jack Bison Black",
+    "slug": "black-jack-bison-black",
+    "description": "Black Bison vamp with Katty cord design",
+    "price": "1150.00",
+    "image": "media/products/2026/05/31/boot10_ocuyba",
+    "is_available": true,
+    "created": "2026-05-08T16:14:06.383Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 13,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Old Gringo Wyoming",
+    "slug": "old-gringo-wyoming",
+    "description": "Hand-tooled tan cowhide",
+    "price": "1200.00",
+    "image": "media/products/2026/05/31/boot11_oaq01x",
+    "is_available": true,
+    "created": "2026-05-08T16:14:54.862Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 14,
+  "fields": {
+    "category": 5,
+    "artisan": 3,
+    "name": "Black Jack Tucson Bison",
+    "slug": "black-jack-tucson-bison",
+    "description": "Black bison leather\r\n\r\nVery durable and comfortable\r\n\r\nCustom design",
+    "price": "1200.00",
+    "image": "media/products/2026/05/31/boot12_iucxtj",
+    "is_available": true,
+    "created": "2026-05-08T16:16:58.491Z",
+    "stock": 24
+  }
+},
+{
+  "model": "store.product",
+  "pk": 15,
+  "fields": {
+    "category": 8,
+    "artisan": 5,
+    "name": "Classic Moc",
+    "slug": "classic-moc",
+    "description": "The Red Wing Shoes 875 Classic Moc Toe in Oro-legacy is a Classic Red Wing Shoes Mocassin style and is made in Red Wing Minnesota. The Red Wing Shoes 875 Classic Moc style is the ultimate Red Wing classic. Its older brother, the Red Wing 877, was originally introduced in the 1950s to serve the needs of hunters and farmers. The Red Wing 877 was built to withstand the hard labor and harsh conditions and the high shaft protected them from snake bites. The Oro-Legacy leather is based on the leather from the Irish Setter boots from the 1970s. The Red Wing Oro-Legacy leather ages beautifully and shows great craftsmanship. The White Cushion Crepe Wedge sole with Traction Tred provides maximum grip and comfort. The Red Wing 875 boot comes with the original gold/tan taslan laces.",
+    "price": "659.00",
+    "image": "media/products/2026/05/31/shoe1_iB79cur_jmjx3r",
+    "is_available": true,
+    "created": "2026-05-08T16:19:51.538Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 16,
+  "fields": {
+    "category": 8,
+    "artisan": 5,
+    "name": "Classic Dark Moc",
+    "slug": "classic-dark-moc",
+    "description": "The Red Wing Shoes 1907 Classic Moc Toe in Copper Rough & Tough is a Classic Red Wing Shoes Mocassin style and is made in Red Wing, Minnesota. The Red Wing 6″ Moc Toe boot was originally designed for hunters and farmers in the early 1950s. The Red Wing Moc Toe was built to withstand hard labor and harsh weather conditions. The Red Wing Shoes 1907 is made with Copper Rough & Tough leather which has a beautiful, scraped look. The Red Wing Shoes 1907 does not have a Goodyear welt, but a Norwegian welt. A Norwegian welt is stitched to the sole and upper, providing more strength and sturdiness. The Red Wing 1907 boot has a White Traction Tred which provides maximum grip and comfort. The Red Wing 1907 has a brown mid-sole and leather laces.",
+    "price": "699.00",
+    "image": "media/products/2026/05/31/shoe2_naogpu",
+    "is_available": true,
+    "created": "2026-05-08T16:20:56.962Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 17,
+  "fields": {
+    "category": 8,
+    "artisan": 5,
+    "name": "Iron Ranger",
+    "slug": "iron-ranger",
+    "description": "The Red Wing Shoes Iron Ranger 8085 Copper Rough & Tough is a classic Red Wing Shoes 6-inch Round work shoe and is made in Red Wing, Minnesota. The Red Wing Shoes Iron Ranger style is inspired by the Mesabi Iron Range in Northern Minnesota, a rugged area known for its iron mines. The proud men working in these lines where referred to as ‘Iron Rangers’, emphasising their adventurous mentality. The Red Wing Iron Ranger is easily recognised by its double leather toecap to provide an extra measure of safety. On top of that the Red Wing Iron Ranger has extra heel protection for better support. The Red Wing Shoes 8085 is made with Copper Rough & Tough leather which has a beautiful, scraped look. The Copper Rough & Tough has a vintage-like appearance due to the amount of oil that was used during production. The Red Wing 8085 Iron Ranger has a an unbreakable Vibram 430 lug outsole and comes with black/brown round taslan laces.",
+    "price": "759.00",
+    "image": "media/products/2026/05/31/shoe3_aoe2bn",
+    "is_available": true,
+    "created": "2026-05-08T16:23:20.455Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 18,
+  "fields": {
+    "category": 8,
+    "artisan": 5,
+    "name": "Roughneck Moc",
+    "slug": "roughneck-moc",
+    "description": "The Red Wing Shoes 8146 Roughneck Moc Toe in Briar Oil Slick is a Classic Red Wing Shoes Mocassin style and is made in Red Wing, Minnesota. The Red Wing 6″ Moc Toe boot was originally designed for hunters and farmers in the early 1950s. The Red Wing Moc-toe was built to withstand hard labor and harsh weather conditions. The name Red Wing ‘Moc Toe’ derives from ‘Moccasin’, the traditional Algonquian Native word for the U-shape design of the toe. The Red Wing Shoes Roughneck 8146 is a variation on the ultimate Red Wing classic: The Red Wing 875. The Red Wing 8146 boot has a black Vibram Lug outsole with and provides maximum grip and outstanding comfort and grip.The Red Wing 8146 Roughneck boot comes with the original gold/tan round taslan laces.",
+    "price": "759.00",
+    "image": "media/products/2026/05/31/shoe4_bnbld6",
+    "is_available": true,
+    "created": "2026-05-08T16:24:24.892Z",
+    "stock": 24
+  }
+},
+{
+  "model": "store.product",
+  "pk": 19,
+  "fields": {
+    "category": 8,
+    "artisan": 5,
+    "name": "Black Iron Ranger",
+    "slug": "black-iron-ranger",
+    "description": "The Red Wing Shoes Iron Ranger 8084 Black Harness is a classic Red Wing Shoe and is made in Red Wing, Minnesota. The Iron Ranger 8084 is inspired by the Mesabi Iron Range in Northern Minnesota, a rugged area known for its iron mines. The men working in there were referred to as ‘Iron Rangers’, emphasising their adventurous mentality. The Iron Ranger is recognised by its double leather toecap to provide extra safety. The Iron Ranger has heel protection for better support and the Black Harness leather ages beautifully. The Red Wing 8084 Iron Ranger has a Vibram 430 Mini Lug outsole which is flexible and oil resistant and comes with black taslan laces.",
+    "price": "799.00",
+    "image": "media/products/2026/05/31/shoe5_qnyfkc",
+    "is_available": true,
+    "created": "2026-05-08T16:25:41.875Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 20,
+  "fields": {
+    "category": 2,
+    "artisan": 3,
+    "name": "Gator Pattern",
+    "slug": "gator-pattern",
+    "description": "Gattor pattern with scallops and western buckle",
+    "price": "290.00",
+    "image": "media/products/2026/05/31/belt1_zdjax3",
+    "is_available": true,
+    "created": "2026-05-08T17:18:01.956Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 21,
+  "fields": {
+    "category": 2,
+    "artisan": 3,
+    "name": "Gator Pattern",
+    "slug": "black-gator-pattern",
+    "description": "Gattor pattern with scallops and western buckle",
+    "price": "290.00",
+    "image": "media/products/2026/05/31/belt2_uzwuz5",
+    "is_available": true,
+    "created": "2026-05-08T17:19:06.799Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 22,
+  "fields": {
+    "category": 2,
+    "artisan": 3,
+    "name": "Topeka Brown",
+    "slug": "topeka-brown",
+    "description": "Heavey duty tick cowhide leather with brown double stitch",
+    "price": "150.00",
+    "image": "media/products/2026/05/31/belt3_Lbaa8OE_uobkwz",
+    "is_available": true,
+    "created": "2026-05-08T17:30:28.759Z",
+    "stock": 25
+  }
+},
+{
+  "model": "store.product",
+  "pk": 23,
+  "fields": {
+    "category": 2,
+    "artisan": 3,
+    "name": "Topeka Black",
+    "slug": "topeka-black",
+    "description": "Heavey duty tick cowhide leather with black double stitch",
+    "price": "150.00",
+    "image": "media/products/2026/05/31/belt4_zp9rhq",
+    "is_available": true,
+    "created": "2026-05-08T17:31:09.030Z",
+    "stock": 32
+  }
+},
+{
+  "model": "store.product",
+  "pk": 24,
+  "fields": {
+    "category": 2,
+    "artisan": 3,
+    "name": "Brown Bison",
+    "slug": "brown-bison",
+    "description": "Belt made with full grain American Buffalo hide, brass buckle and heavy cord stitching sewn by hand\r\n\r\nRemovable buckle with snaps",
+    "price": "310.00",
+    "image": "media/products/2026/05/31/belt5_edajcv",
+    "is_available": true,
+    "created": "2026-05-08T17:32:20.862Z",
+    "stock": 63
+  }
+},
+{
+  "model": "store.product",
+  "pk": 25,
+  "fields": {
+    "category": 2,
+    "artisan": 3,
+    "name": "Black Bison",
+    "slug": "black-bison",
+    "description": "Belt made with full grain American Buffalo hide, brass buckle and heavy cord stitching sewn by hand\r\n\r\nRemovable buckle with snaps or Chicago screws",
+    "price": "310.00",
+    "image": "media/products/2026/05/31/belt6_fd47zf",
+    "is_available": true,
+    "created": "2026-05-08T17:33:14.999Z",
+    "stock": 34
+  }
+},
+{
+  "model": "store.product",
+  "pk": 26,
+  "fields": {
+    "category": 2,
+    "artisan": 3,
+    "name": "Austin Brown",
+    "slug": "austin-brown",
+    "description": "Oil tanned distressed cowhide in dark cognac brown",
+    "price": "160.00",
+    "image": "media/products/2026/05/31/belt7_atuxs2",
+    "is_available": true,
+    "created": "2026-05-08T17:34:12.119Z",
+    "stock": 43
+  }
+},
+{
+  "model": "store.product",
+  "pk": 27,
+  "fields": {
+    "category": 6,
+    "artisan": 5,
+    "name": "Yukon Leather Hiker Hat",
+    "slug": "yukon-leather-hiker-hat",
+    "description": "Your head is a wild, mountainous, territory that needs strong, yet stylish, protection.  Made from waxed cowhide leather, the Yukon from Henschel Hat Company features a crushable body, breathable screen vents, and shapeable brim for flexibility on the go. Finished with a beautifully braided two-tone band, this hat is as tough as it is refined.\r\n\r\nWaxed Cowhide Leather\r\nCrushable\r\nChincord\r\nTwo Tone Braided Band & Loop\r\n3″ Shapeable Brim\r\nScreen Vents\r\nHiker",
+    "price": "240.00",
+    "image": "media/products/2026/05/31/hat1_xccspa",
+    "is_available": true,
+    "created": "2026-05-08T17:38:29.394Z",
+    "stock": 64
+  }
+},
+{
+  "model": "store.product",
+  "pk": 28,
+  "fields": {
+    "category": 6,
+    "artisan": 3,
+    "name": "Wenoah Leather Newsboy Cap",
+    "slug": "wenoah-leather-newsboy-cap",
+    "description": "The Wenoah Leather Newsboy Cap from Henschel Hat Company captures the spirit of classic city streets, reimagined for the modern adventurer. Crafted from rich pigskin leather, this cap delivers a rugged yet refined look, perfect for navigating urban landscapes. Lined with soft cotton, it offers unmatched comfort, making it your go-to accessory for stylish, everyday wear.\r\n\r\nPig Skin Leather\r\nCotton Lining\r\nNewsboy",
+    "price": "180.00",
+    "image": "media/products/2026/05/31/hat2_qgou4u",
+    "is_available": true,
+    "created": "2026-05-08T18:33:31.473Z",
+    "stock": 106
+  }
+},
+{
+  "model": "store.product",
+  "pk": 29,
+  "fields": {
+    "category": 6,
+    "artisan": 5,
+    "name": "Wenoah Leather Newsboy Cap",
+    "slug": "wenoah-leather-newsboy-cap2",
+    "description": "The Wenoah Leather Newsboy Cap from Henschel Hat Company captures the spirit of classic city streets, reimagined for the modern adventurer. Crafted from rich pigskin leather, this cap delivers a rugged yet refined look, perfect for navigating urban landscapes. Lined with soft cotton, it offers unmatched comfort, making it your go-to accessory for stylish, everyday wear.\r\n\r\nPig Skin Leather\r\nCotton Lining\r\nNewsboy",
+    "price": "180.00",
+    "image": "media/products/2026/05/31/hat3_zafppb",
+    "is_available": true,
+    "created": "2026-05-08T18:35:18.887Z",
+    "stock": 90
+  }
+},
+{
+  "model": "store.product",
+  "pk": 30,
+  "fields": {
+    "category": 6,
+    "artisan": 3,
+    "name": "Miramichi Dakota Leather Cowhide Hat",
+    "slug": "miramichi-dakota-leather-cowhide-hat",
+    "description": "Greet your fellow cowboys with a hat that talks back.  The Miramichi from Henschel Hat Company features Dakota cowhide leather and a handsome braided band and silver conchos. \r\n\r\nDakota Cowhide Leather\r\n3″ Shapeable Brim\r\nBraided Band & Silver Conchos\r\nDude",
+    "price": "220.00",
+    "image": "media/products/2026/05/31/hat4_mifwvf",
+    "is_available": true,
+    "created": "2026-05-08T18:36:40.058Z",
+    "stock": 69
+  }
+},
+{
+  "model": "store.product",
+  "pk": 31,
+  "fields": {
+    "category": 6,
+    "artisan": 3,
+    "name": "Mountaineer Western Leather Aussie Hat",
+    "slug": "mountaineer-western-leather-aussie-hat",
+    "description": "To conquer a mountain you need special equipment with soul.  The Mountaineer, from Henschel Hat Company takes your adventure to new heights with smooth full grain leather and a snap up brim for a customized look.\r\n\r\nCowhide Leather\r\n3″ Snap Up Brim\r\nLeather Chincord\r\nAussie",
+    "price": "240.00",
+    "image": "media/products/2026/05/31/hat5_uev7pm",
+    "is_available": true,
+    "created": "2026-05-08T18:37:37.613Z",
+    "stock": 87
+  }
+},
+{
+  "model": "store.product",
+  "pk": 32,
+  "fields": {
+    "category": 6,
+    "artisan": 3,
+    "name": "Turo Leather Safari Hat",
+    "slug": "turo-leather-safari-hat",
+    "description": "The perfect blend of fashion and outerwear.  The Turo from Henschel Hat Company redefines the safari style with genuine pigskin leather, satin lining, and matching leather band.  Be adventurous, be bold.\r\n\r\nGenuine Pigskin Leather\r\n2 1/2 Inch Brim\r\nSatin Lining\r\nMatching Leather Band & Loop\r\nSafari",
+    "price": "200.00",
+    "image": "media/products/2026/05/31/hat6_ykulhy",
+    "is_available": true,
+    "created": "2026-05-08T18:38:57.052Z",
+    "stock": 84
+  }
+},
+{
+  "model": "store.product",
+  "pk": 33,
+  "fields": {
+    "category": 6,
+    "artisan": 3,
+    "name": "Colwood Western Hiker",
+    "slug": "colwood-western-hiker",
+    "description": "Built to last, the Colwood from Henschel Hat Company looks better with time.  Featuring rugged dakota cowhide leather, 3″ brim, chincord, and tieback concho band.\r\n\r\nRugged Dakota Cowhide Leather\r\n3″ Brim\r\nChincord\r\nTieback Concho Band\r\nHiker",
+    "price": "210.00",
+    "image": "media/products/2026/05/31/hat7_jqxkyq",
+    "is_available": true,
+    "created": "2026-05-08T18:40:32.578Z",
+    "stock": 80
+  }
+},
+{
+  "model": "store.product",
+  "pk": 34,
+  "fields": {
+    "category": 6,
+    "artisan": 6,
+    "name": "Outback Crocodile Leather Outdoors Hat BARMAH",
+    "slug": "outback-crocodile-leather-outdoors-hat-barmah",
+    "description": "Barmah’s Outback Crocodile Hat is the trusty companion you were missing to go on an adventure with! It stands out from the other western hats thanks to its easy maintenance, its capacity to be folded and most of all thanks to its ribbon; a genuine crocodile leather band with five of this great reptile’s teeth!\r\n\r\nEach crocodile leather band is unique and made by hand in Azerbaijan and the materials come from C.I.T.E.S. certified sustainable crocodile farms which are supervised by the Australian wildlife protection authorities.",
+    "price": "479.00",
+    "image": "media/products/2026/05/31/hat8_rthpbp",
+    "is_available": true,
+    "created": "2026-05-08T18:44:45.292Z",
+    "stock": 39
+  }
+},
+{
+  "model": "store.product",
+  "pk": 35,
+  "fields": {
+    "category": 6,
+    "artisan": 6,
+    "name": "Outback Crocodile Leather Outdoors Hat BARMAH",
+    "slug": "outback-crocodile-leather-outdoors-hat-barmah2",
+    "description": "Barmah’s Outback Crocodile Hat is the trusty companion you were missing to go on an adventure with! It stands out from the other western hats thanks to its easy maintenance, its capacity to be folded and most of all thanks to its ribbon; a genuine crocodile leather band with five of this great reptile’s teeth!\r\n\r\nEach crocodile leather band is unique and made by hand in Azerbaijan and the materials come from C.I.T.E.S. certified sustainable crocodile farms which are supervised by the Australian wildlife protection authorities.",
+    "price": "479.00",
+    "image": "media/products/2026/05/31/hat9_vtau8d",
+    "is_available": true,
+    "created": "2026-05-08T18:46:25.235Z",
+    "stock": 38
+  }
+},
+{
+  "model": "store.product",
+  "pk": 36,
+  "fields": {
+    "category": 3,
+    "artisan": 5,
+    "name": "Limited Edition Jefferson Leather Messenger Bag",
+    "slug": "limited-edition-jefferson-leather-messenger-bag",
+    "description": "We are excited to bring in this collaboration with Jack Andrews—a new brand in the vintage leather luxury space. It brought us into our only and limited edition black full grain leather collection in the Buffalo Jackson product mix. Perfectly sophisticated, but not too stuffy. Details in all the right places.",
+    "price": "695.00",
+    "image": "media/products/2026/05/31/bag1_lrhr3p",
+    "is_available": false,
+    "created": "2026-05-08T18:53:36.493Z",
+    "stock": 15
+  }
+},
+{
+  "model": "store.product",
+  "pk": 37,
+  "fields": {
+    "category": 3,
+    "artisan": 5,
+    "name": "Jefferson Messenger Bag",
+    "slug": "jefferson-messenger-bag",
+    "description": "Introducing our Jefferson Leather Messenger Bag—a refined take on the traditional men’s leather bag, crafted for the discerning professional. Made from premium full-grain cow leather, this bag blends vintage charm with modern utility, ensuring you carry not just your essentials, but a piece of legacy.",
+    "price": "649.00",
+    "image": "media/products/2026/05/31/bag2_vl5hgu",
+    "is_available": true,
+    "created": "2026-05-08T18:55:13.837Z",
+    "stock": 15
+  }
+},
+{
+  "model": "store.product",
+  "pk": 38,
+  "fields": {
+    "category": 3,
+    "artisan": 5,
+    "name": "Walker Leather Messenger Bag",
+    "slug": "walker-leather-messenger-bag",
+    "description": "The Walker Messenger Bag is for those who carry more than just tools or tech—they carry a story. Handcrafted from full-grain cow leather in a warm, sun-washed tan, this bag brings together the worn-in charm of an old favorite with the strength to go the distance. Its natural matte finish and visible grain texture showcase the character of the leather, aging beautifully as it takes on the marks of your journey.",
+    "price": "495.00",
+    "image": "media/products/2026/05/31/bag3_zdi1e7",
+    "is_available": true,
+    "created": "2026-05-08T18:56:23.665Z",
+    "stock": 15
+  }
+},
+{
+  "model": "store.product",
+  "pk": 39,
+  "fields": {
+    "category": 3,
+    "artisan": 5,
+    "name": "Roosevelt Buffalo Leather Satchel Messenger Bag - Large",
+    "slug": "roosevelt-buffalo-leather-satchel-messenger-bag-large",
+    "description": "When Theodore Roosevelt was a student at Harvard, his doctor warned him to live a quiet, sedentary life—or risk an early death. Roosevelt’s reply? “If I’ve got to live the sort of life you have described, I don’t care how short it is.”\r\n\r\nThat fire-forged mindset inspired this larger version of our popular Roosevelt messenger bag—built for those who, like Teddy, go all in. The Roosevelt Large Leather Satchel Bag in dark oak is crafted for men who live boldly and need a bag to match.",
+    "price": "429.00",
+    "image": "media/products/2026/05/31/bag4_rnleqk",
+    "is_available": true,
+    "created": "2026-05-08T18:57:19.698Z",
+    "stock": 12
+  }
+},
+{
+  "model": "store.product",
+  "pk": 40,
+  "fields": {
+    "category": 3,
+    "artisan": 5,
+    "name": "Limited Edition Roosevelt Buffalo Leather Messenger Bag",
+    "slug": "limited-edition-roosevelt-buffalo-leather-messenger-bag",
+    "description": "Crafted from the rich and textured full grains of buffalo hide, our limited edition Roosevelt Buffalo Leather Satchel showcases the deep and natural brown grains unique to each piece.\r\n\r\nWith dimensions of 17\" long and 13\" high, it offers padded space for a 15\" laptop screen display laptop (measured diagonally), additional storage under the flap, and an area to hold pens and accessories. Safeguard your valuables in the interior or exterior zipper pockets",
+    "price": "549.00",
+    "image": "media/products/2026/05/31/bag5_zcvg5i",
+    "is_available": true,
+    "created": "2026-05-08T18:58:34.442Z",
+    "stock": 10
+  }
+},
+{
+  "model": "store.product",
+  "pk": 41,
+  "fields": {
+    "category": 7,
+    "artisan": 3,
+    "name": "Heritage Wallet in Moose Leather",
+    "slug": "heritage-wallet-in-moose-leather",
+    "description": "Our Heritage Wallet in Moose Leather is made from the same leather you see at Fenway or Wrigley. Made for the baseball fan, this wallet is slim enough for any style of carry, whether you're a front pocket guy or a traditionalist.\r\n\r\nGenuine moose leather\r\nMade in Maine, USA\r\nHolds 12 cards (4 slots)\r\nBillfold and stash pockets\r\n4.5 in x 3.5 in x 0.25 in; 2.8 ounces\r\nBacked by our two-year warranty",
+    "price": "140.00",
+    "image": "media/products/2026/05/31/wallet1_pqnazi",
+    "is_available": true,
+    "created": "2026-05-08T19:13:23.411Z",
+    "stock": 153
+  }
+},
+{
+  "model": "store.product",
+  "pk": 42,
+  "fields": {
+    "category": 7,
+    "artisan": 3,
+    "name": "Heritage Wallet in Bison Leather",
+    "slug": "heritage-wallet-in-bison-leather",
+    "description": "A traditional billfold wallet, made well. Stitched in Maine from leathers tanned right here, our Heritage Wallet is slim enough for any style of carry, whether you're a front pocket guy or a traditionalist. Available in brown or black bison.\r\n\r\nGenuine bison leather\r\nMade in Maine, USA\r\nHolds 12 cards (4 slots)\r\nBillfold and stash pockets\r\nInside of bill area is unfinished raw leather\r\n4.5 in x 3.5 in x 0.25 in; 2.8 ounces\r\nBacked by our two-year warranty",
+    "price": "109.00",
+    "image": "media/products/2026/05/31/wallet2_i2kmbu",
+    "is_available": true,
+    "created": "2026-05-08T19:14:22.206Z",
+    "stock": 115
+  }
+},
+{
+  "model": "store.product",
+  "pk": 43,
+  "fields": {
+    "category": 7,
+    "artisan": 3,
+    "name": "Heritage Wallet in Baseball Glove Leather",
+    "slug": "heritage-wallet-in-baseball-glove-leather",
+    "description": "Our Heritage Wallet in Baseball Glove Leather is made from the same leather you see at Fenway or Wrigley. Made for the baseball fan, this wallet is slim enough for any style of carry, whether you're a front pocket guy or a traditionalist.\r\n\r\nGenuine baseball glove leather\r\nMade in Maine, USA\r\nHolds 12 cards (4 slots)\r\nBillfold and stash pockets\r\n4.5 in x 3.5 in x 0.25 in; 2.8 ounces\r\nBacked by our two-year warranty",
+    "price": "95.00",
+    "image": "media/products/2026/05/31/wallet3_mj5kqp",
+    "is_available": true,
+    "created": "2026-05-08T19:15:26.938Z",
+    "stock": 118
+  }
+},
+{
+  "model": "store.product",
+  "pk": 44,
+  "fields": {
+    "category": 7,
+    "artisan": 4,
+    "name": "Erie Premium Bison Trifold",
+    "slug": "erie-premium-bison-trifold",
+    "description": "Elevate your everyday carry with the Erie Premium Bison Trifold Wallet, a piece that effortlessly combines rugged elegance with functionality. Made in the USA from genuine bison leather, this wallet boasts a texture and grain that is as bold as it is unique. As it ages, the leather develops a rich patina that can't be duplicated by processed materials, making each wallet a reflection of its owner’s lifestyle.\r\n\r\n\r\n\r\nThis classic trifold design features 6 card slots, a transparent ID window for convenience, along with a cash pocket. Capable of holding 8 to 10 cards, the Erie Premium Bison Trifold is both handsome and practical.\r\n\r\nOur Erie wallet comes beautifully packaged in a sturdy box with tissue paper, making it the perfect ready-to-gift option. Whether it's a last minute surprise or a thoughtful gesture, we've taken care of the wrapping so you don't have to -- just order and gift with confidence.\r\n\r\nAs you pick up the tab, the Erie Premium Bison Trifold will steal the spotlight, making both your wallet and gesture remembered\r\n\r\nDurable Bison Outer with Vintage Brown Steerhide Interior\r\nUnique Patina: Ages beautifully, creating a patina that is distinctive and personal\r\nFits 8-10 cards with a cash pocketand transparent ID window\r\nHandcrafted in the USA using heavy-duty USA made thread for a long life",
+    "price": "270.00",
+    "image": "media/products/2026/05/31/wallet4_rcq6lm",
+    "is_available": true,
+    "created": "2026-05-08T19:17:44.454Z",
+    "stock": 35
+  }
+},
+{
+  "model": "store.product",
+  "pk": 45,
+  "fields": {
+    "category": 7,
+    "artisan": 4,
+    "name": "Fontana Bison Trifold",
+    "slug": "fontana-bison-trifold",
+    "description": "Update your everyday carry with our Fontana Trifold Bison Leather Wallet, handcrafted in the USA. \r\n\r\n\r\n\r\nWith its practical design, this wallet fit 8-12 cards comfortably and includes a convenient transparent ID window for easy access. This wallet will develop a beautiful patina over time, adding to its charm and uniqueness. It's durable construction ensures it will stand the test of time, becoming more distinguished with each use.\r\n\r\nLooking for a premium 40% thicker, 8 card slot, perfect ready-to-gift option...check out our Erie Premium Bison Trifold-- packaged in a box and ready to give!\r\n\r\n\r\n\r\nPerfect for those who value quality and functionality, this Bison Trifold is a stylish and practical additional to your daily essentials. \r\n\r\nDurable Bison Leather: Strong and long-lasting\r\nFits 8-12 cardswith a cash pocket\r\nTransparent ID Window: Easy access to identification\r\nDevelops Unique Patina: Grows more distinctive over time\r\nHandcrafted in the USA:Superior craftsmanship",
+    "price": "350.00",
+    "image": "media/products/2026/05/31/wallet5_iov0h6",
+    "is_available": true,
+    "created": "2026-05-08T19:19:18.873Z",
+    "stock": 15
+  }
+},
+{
+  "model": "store.product",
+  "pk": 46,
+  "fields": {
+    "category": 7,
+    "artisan": 6,
+    "name": "Card Holder Crocodile",
+    "slug": "card-holder-crocodile",
+    "description": "The card holder is our smallest wallet. It features space for four to eight cards with a central pocket for folded notes. Every wallet is fully leather-lined in dark green calf with hand-finished edges. Every stitch is handmade in England. \r\n\r\nThe Crockett & Jones Leather Goods Collection is made from skins chosen from the very best tanneries to exactly complement its Goodyear-welted footwear. Cut in-house, leather sections are sent to specialist producers of leather goods here in the UK. Each piece is made to exacting standards as our partner’s ethos mirrors that of our own, as a producer of some of the finest shoes in the world, made in Northampton, England.",
+    "price": "1495.00",
+    "image": "media/products/2026/05/31/wallet6_tpte2p",
+    "is_available": true,
+    "created": "2026-05-08T19:25:08.222Z",
+    "stock": 6
+  }
+},
+{
+  "model": "store.product",
+  "pk": 47,
+  "fields": {
+    "category": 7,
+    "artisan": 6,
+    "name": "Classic Bifold Wallet in Classic Alligator",
+    "slug": "classic-bifold-wallet-in-classic-alligator",
+    "description": "The Ultimate Classic Bifold Wallet in Classic Alligator is the epitome of sophistication and style. Crafted from genuine alligator leather, this wallet exudes luxury with its sleek design and classic bifold construction. The rich texture and distinct markings of the alligator skin add a touch of refinement to any ensemble.",
+    "price": "1750.00",
+    "image": "media/products/2026/05/31/wallet7_phmded",
+    "is_available": true,
+    "created": "2026-05-08T19:27:29.647Z",
+    "stock": 5
+  }
+},
+{
+  "model": "store.product",
+  "pk": 48,
+  "fields": {
+    "category": 9,
+    "artisan": 4,
+    "name": "Vintage Woven Casual Brown Braided Leather Bracelet",
+    "slug": "vintage-woven-casual-brown-braided-leather-bracelet",
+    "description": "This leather bracelet features brown leather and an adjustable closure.",
+    "price": "95.00",
+    "image": "media/products/2026/05/31/bracelet1_qha2jz",
+    "is_available": true,
+    "created": "2026-05-08T19:31:27.294Z",
+    "stock": 199
+  }
+},
+{
+  "model": "store.product",
+  "pk": 49,
+  "fields": {
+    "category": 9,
+    "artisan": 4,
+    "name": "Multi-Strand Black Leather Bracelet",
+    "slug": "multi-strand-black-leather-bracelet",
+    "description": "This multi-strand bracelet features braided black-on-black leather, stainless steel and an adjustable magnetic closure.",
+    "price": "120.00",
+    "image": "media/products/2026/05/31/bracelet2_y1s3z5",
+    "is_available": true,
+    "created": "2026-05-08T19:32:45.976Z",
+    "stock": 120
+  }
+},
+{
+  "model": "store.product",
+  "pk": 50,
+  "fields": {
+    "category": 9,
+    "artisan": 4,
+    "name": "Machine Knurled Texture Brown Leather Bracelet",
+    "slug": "machine-knurled-texture-brown-leather-bracelet",
+    "description": "This multi-strand bracelet features brown leather and a buckle closure.",
+    "price": "105.00",
+    "image": "media/products/2026/05/31/bracelet3_gri9bl",
+    "is_available": true,
+    "created": "2026-05-10T18:26:26.148Z",
+    "stock": 189
+  }
+},
+{
+  "model": "store.product",
+  "pk": 51,
+  "fields": {
+    "category": 9,
+    "artisan": 4,
+    "name": "Machine Knurled Texture Leather Bracelet",
+    "slug": "machine-knurled-texture-leather-bracelet",
+    "description": "Knurled texture detailing meets braided leather in this rugged station bracelet. Crafted with precision, the design combines subtle industrial elements and refined craftsmanship by pairing polished silver-tone stainless steel with braided leather that creates depth and dimension. The magnetic closure ensures a secure and adjustable fit, blending style and practicality.",
+    "price": "89.00",
+    "image": "media/products/2026/05/31/bracelet4_vxgt19",
+    "is_available": true,
+    "created": "2026-05-10T18:34:53.917Z",
+    "stock": 99
+  }
+},
+{
+  "model": "store.product",
+  "pk": 52,
+  "fields": {
+    "category": 9,
+    "artisan": 4,
+    "name": "Machine Knurled Texture Navy Leather Bracelet",
+    "slug": "machine-knurled-texture-navy-leather-bracelet",
+    "description": "Machine Knurled Texture Navy Leather Multi-Strand Bracelet",
+    "price": "105.00",
+    "image": "media/products/2026/05/31/bracelet5_corabe",
+    "is_available": true,
+    "created": "2026-05-10T18:36:52.879Z",
+    "stock": 104
+  }
+},
+{
+  "model": "store.product",
+  "pk": 60,
+  "fields": {
+    "category": 10,
+    "artisan": 7,
+    "name": "Crocodile Niloticus Blue Biker Jacket",
+    "slug": "crocodile-niloticus-blue-biker-jacket",
+    "description": "Exclusive luxury Hettabretz, Italian craftsmanship for 4 generations. Hettabretz sport jacket in genuine crocodile leather.",
+    "price": "38000.00",
+    "image": "media/products/2026/05/31/jacket8_gmjytk",
+    "is_available": true,
+    "created": "2026-05-14T09:09:00.821Z",
+    "stock": 0
+  }
+},
+{
+  "model": "store.product",
+  "pk": 61,
+  "fields": {
+    "category": 10,
+    "artisan": 7,
+    "name": "Crocodile Niloticus Brown Biker Jacket",
+    "slug": "crocodile-niloticus-brown-biker-jacket",
+    "description": "Exclusive luxury Hettabretz, Italian craftsmanship for 4 generations. Hettabretz sport jacket in genuine crocodile leather.",
+    "price": "38000.00",
+    "image": "media/products/2026/05/31/jacket9_a1myp0",
+    "is_available": true,
+    "created": "2026-05-14T09:11:04.625Z",
+    "stock": 0
+  }
+},
+{
+  "model": "store.product",
+  "pk": 62,
+  "fields": {
+    "category": 10,
+    "artisan": 7,
+    "name": "Crocodile Niloticus Black Biker Jacket",
+    "slug": "crocodile-niloticus-black-biker-jacket",
+    "description": "Exclusive luxury Hettabretz, Italian craftsmanship for 4 generations. Hettabretz sport jacket in genuine crocodile leather.",
+    "price": "38000.00",
+    "image": "media/products/2026/05/31/jacket10_jr0ji7",
+    "is_available": true,
+    "created": "2026-05-14T09:13:38.278Z",
+    "stock": 0
+  }
+},
+{
+  "model": "store.product",
+  "pk": 63,
+  "fields": {
+    "category": 10,
+    "artisan": 7,
+    "name": "Python Leather Jackets Luxury",
+    "slug": "python-leather-shirts-python-leather-jackets-luxury",
+    "description": "Python skin shirt with nappa details. Two flap pockets. The iconic metal lion head is applied on the hanging loop at yoke. Snap buttoning on opening and cuffs. Two slits on the back.",
+    "price": "22000.00",
+    "image": "media/products/2026/05/31/jacket11_fbxjnn",
+    "is_available": true,
+    "created": "2026-05-29T21:07:23.114Z",
+    "stock": 1
+  }
+},
+{
+  "model": "store.product",
+  "pk": 64,
+  "fields": {
+    "category": 10,
+    "artisan": 3,
+    "name": "Horween Soft Horsehide Perfecto® Jacket With Detachable Collar",
+    "slug": "horween-soft-horsehide-perfecto-jacket-with-detachable-collar",
+    "description": "This incredible new horsehide form the legendary Horween tannery is unlike any horsehide we've ever seen. It is buttery soft and ready to go from the time it comes out of the box.",
+    "price": "3049.00",
+    "image": "media/products/2026/05/31/jacket12_CTmkpJ2_alkfxp",
+    "is_available": true,
+    "created": "2026-05-30T15:01:18.083Z",
+    "stock": 10
+  }
+},
+{
+  "model": "store.product",
+  "pk": 65,
+  "fields": {
+    "category": 10,
+    "artisan": 3,
+    "name": "Waxed Natural Pebbled Cowhide Cafe Racer Jacket",
+    "slug": "waxed-natural-pebbled-cowhide-cafe-racer-jacket",
+    "description": "The 530 is a classic cool, no-frills leather jacket that looks perfect on the road or off the beaten path. Similar to the popular Model 141 but designed with a slimmer fit, this café racer motorcycle jacket is cut by hand from cowhide that was drum dyed, creating a natural, pebbled appearance. As with all leather jackets, Schott uses only the best, highest quality leather for the 530. Durable yet supple with a soft, luxurious feel, your new jacket will feel like a second skin right out of the box, no break-in period required.",
+    "price": "2105.00",
+    "image": "media/products/2026/05/31/jacket13_d9epxk",
+    "is_available": true,
+    "created": "2026-05-30T15:03:05.831Z",
+    "stock": 7
+  }
+},
+{
+  "model": "store.product",
+  "pk": 66,
+  "fields": {
+    "category": 10,
+    "artisan": 3,
+    "name": "U.S. Bison Delivery Jacket",
+    "slug": "us-bison-delivery-jacket",
+    "description": "Cut from ethically sourced American buffalo and finished with a warm wool lining, the 464 heritage car coat brings real weight and a ton of pockets ready for orchard weather, cool evenings, and early fall winds.",
+    "price": "2815.00",
+    "image": "media/products/2026/05/31/jacket14_j5uccj",
+    "is_available": true,
+    "created": "2026-05-30T15:04:33.805Z",
+    "stock": 6
+  }
+},
+{
+  "model": "store.product",
+  "pk": 67,
+  "fields": {
+    "category": 2,
+    "artisan": 6,
+    "name": "Genuine Nile Crocodile Belt",
+    "slug": "genuine-nile-crocodile-belt",
+    "description": "Elevate your style with our genuine Nile Crocodile belt. Crafted from premium crocodile leather, this belt exudes luxury and sophistication. With its timeless design and impeccable craftsmanship, it's the perfect accessory to add a touch of refinement to any outfit.",
+    "price": "495.00",
+    "image": "media/products/2026/05/31/belt8_jmob0k",
+    "is_available": true,
+    "created": "2026-05-31T00:02:26.139Z",
+    "stock": 14
+  }
+},
+{
+  "model": "store.product",
+  "pk": 68,
+  "fields": {
+    "category": 2,
+    "artisan": 6,
+    "name": "Genuine Alligator Belt",
+    "slug": "genuine-alligator-belt",
+    "description": "Expertly crafted from premium exotic leather, this belt offers a sophisticated texture and a polished buckle for a clean, timeless style built to elevate everyday wear. Designed for those who appreciate true Western luxury.",
+    "price": "645.00",
+    "image": "media/products/2026/05/31/belt9_lhbon5",
+    "is_available": true,
+    "created": "2026-05-31T00:03:25.486Z",
+    "stock": 12
+  }
+},
+{
+  "model": "store.product",
+  "pk": 69,
+  "fields": {
+    "category": 2,
+    "artisan": 6,
+    "name": "Genuine Caiman Belt",
+    "slug": "genuine-caiman-belt",
+    "description": "Rich caiman texture and expert craftsmanship define this premium belt. Designed for long-lasting wear, it adds a refined, distinctive edge to any outfit. A true statement piece for those who appreciate fine materials",
+    "price": "450.00",
+    "image": "media/products/2026/05/31/belt10_vceibd",
+    "is_available": true,
+    "created": "2026-05-31T00:04:03.610Z",
+    "stock": 15
+  }
+},
+{
+  "model": "store.product",
+  "pk": 70,
+  "fields": {
+    "category": 10,
+    "artisan": 6,
+    "name": "Brown Casual Full Exotic Alligator leather jacket",
+    "slug": "brown-casual-full-exotic-alligator-leather-jacket",
+    "description": "Cuadra brown casual fashion full alligator leather jacket for men. Genuine alligator leather jacket for men. Zip closure leather jacket for men. Full alligator jacket. Full exotic alligator leather.",
+    "price": "13500.00",
+    "image": "media/products/2026/05/31/jacket15_yao0l1",
+    "is_available": true,
+    "created": "2026-05-31T00:08:01.934Z",
+    "stock": 4
+  }
+},
+{
+  "model": "store.product",
+  "pk": 71,
+  "fields": {
+    "category": 10,
+    "artisan": 3,
+    "name": "Alpha Horsehide Leather Jacket Brown",
+    "slug": "alpha-horsehide-leather-jacket-brown",
+    "description": "Fountain Head Leathers started life out in Japan a couple of years ago. Using predominantly Horsehide, Fountain Head Leathers produce some simply stunning jackets. Largely inspired by American vintage jackets from the 1930's-1960's, Fountain Head use these original pieces as their source of inspiration and elevate them in design and production in the way only leather obsessives can.",
+    "price": "3300.00",
+    "image": "media/products/2026/05/31/jacket1_rotdnt",
+    "is_available": true,
+    "created": "2026-05-31T00:13:49.306Z",
+    "stock": 17
+  }
+},
+{
+  "model": "store.product",
+  "pk": 72,
+  "fields": {
+    "category": 10,
+    "artisan": 3,
+    "name": "Men's Bomber Bison Leather Jacket",
+    "slug": "mens-bomber-bison-leather-jacket",
+    "description": "This premium bomber jacket is crafted from top-tier heavy-duty bison leather renowned for its distinct rugged texture and incredible longevity. Designed for the modern man who values authentic Western aesthetics this piece offers a perfect balance of durability comfort and refined style.",
+    "price": "2235.00",
+    "image": "media/products/2026/05/31/jacket2_s3wr9z",
+    "is_available": true,
+    "created": "2026-05-31T00:18:09.088Z",
+    "stock": 24
+  }
+},
+{
+  "model": "store.product",
+  "pk": 73,
+  "fields": {
+    "category": 10,
+    "artisan": 3,
+    "name": "Men's Brown Suede Classic Italian Fitted Leather Jacket",
+    "slug": "mens-brown-suede-classic-italian-fitted-leather-jacket",
+    "description": "The motto behind this object is style with comfort\r\nIt is naturally made to stand up without losing its soft feel\r\nRaglan sleeves for a good fit on a wide range of body shapes",
+    "price": "650.00",
+    "image": "media/products/2026/05/31/jacket3_ow7ppq",
+    "is_available": true,
+    "created": "2026-05-31T00:20:45.569Z",
+    "stock": 53
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 1,
+  "fields": {
+    "product": 73,
+    "size": "Standard",
+    "stock": 53
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 2,
+  "fields": {
+    "product": 72,
+    "size": "Standard",
+    "stock": 24
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 3,
+  "fields": {
+    "product": 71,
+    "size": "Standard",
+    "stock": 17
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 4,
+  "fields": {
+    "product": 70,
+    "size": "XXL",
+    "stock": 0
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 5,
+  "fields": {
+    "product": 69,
+    "size": "Standard",
+    "stock": 16
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 6,
+  "fields": {
+    "product": 68,
+    "size": "Standard",
+    "stock": 12
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 7,
+  "fields": {
+    "product": 67,
+    "size": "Standard",
+    "stock": 14
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 8,
+  "fields": {
+    "product": 66,
+    "size": "Standard",
+    "stock": 6
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 9,
+  "fields": {
+    "product": 65,
+    "size": "Standard",
+    "stock": 7
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 10,
+  "fields": {
+    "product": 64,
+    "size": "Standard",
+    "stock": 10
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 11,
+  "fields": {
+    "product": 63,
+    "size": "XS",
+    "stock": 2
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 12,
+  "fields": {
+    "product": 62,
+    "size": "Standard",
+    "stock": 0
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 13,
+  "fields": {
+    "product": 61,
+    "size": "Standard",
+    "stock": 0
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 14,
+  "fields": {
+    "product": 60,
+    "size": "Standard",
+    "stock": 0
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 15,
+  "fields": {
+    "product": 52,
+    "size": "Standard",
+    "stock": 104
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 16,
+  "fields": {
+    "product": 51,
+    "size": "Standard",
+    "stock": 99
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 17,
+  "fields": {
+    "product": 50,
+    "size": "Standard",
+    "stock": 189
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 18,
+  "fields": {
+    "product": 49,
+    "size": "Standard",
+    "stock": 120
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 19,
+  "fields": {
+    "product": 48,
+    "size": "Standard",
+    "stock": 199
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 20,
+  "fields": {
+    "product": 47,
+    "size": "Standard",
+    "stock": 5
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 21,
+  "fields": {
+    "product": 46,
+    "size": "Standard",
+    "stock": 6
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 22,
+  "fields": {
+    "product": 45,
+    "size": "Standard",
+    "stock": 15
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 23,
+  "fields": {
+    "product": 44,
+    "size": "Standard",
+    "stock": 35
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 24,
+  "fields": {
+    "product": 43,
+    "size": "Standard",
+    "stock": 118
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 25,
+  "fields": {
+    "product": 42,
+    "size": "Standard",
+    "stock": 115
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 26,
+  "fields": {
+    "product": 41,
+    "size": "Standard",
+    "stock": 153
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 27,
+  "fields": {
+    "product": 40,
+    "size": "Standard",
+    "stock": 10
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 28,
+  "fields": {
+    "product": 39,
+    "size": "Standard",
+    "stock": 12
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 29,
+  "fields": {
+    "product": 38,
+    "size": "Standard",
+    "stock": 15
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 30,
+  "fields": {
+    "product": 37,
+    "size": "Standard",
+    "stock": 15
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 31,
+  "fields": {
+    "product": 36,
+    "size": "Standard",
+    "stock": 15
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 32,
+  "fields": {
+    "product": 35,
+    "size": "Standard",
+    "stock": 38
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 33,
+  "fields": {
+    "product": 34,
+    "size": "Standard",
+    "stock": 39
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 34,
+  "fields": {
+    "product": 33,
+    "size": "Standard",
+    "stock": 80
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 35,
+  "fields": {
+    "product": 32,
+    "size": "Standard",
+    "stock": 84
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 36,
+  "fields": {
+    "product": 31,
+    "size": "Standard",
+    "stock": 87
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 37,
+  "fields": {
+    "product": 30,
+    "size": "Standard",
+    "stock": 69
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 38,
+  "fields": {
+    "product": 29,
+    "size": "Standard",
+    "stock": 90
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 39,
+  "fields": {
+    "product": 28,
+    "size": "Standard",
+    "stock": 106
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 40,
+  "fields": {
+    "product": 27,
+    "size": "Standard",
+    "stock": 64
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 41,
+  "fields": {
+    "product": 26,
+    "size": "Standard",
+    "stock": 43
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 42,
+  "fields": {
+    "product": 25,
+    "size": "Standard",
+    "stock": 34
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 43,
+  "fields": {
+    "product": 24,
+    "size": "Standard",
+    "stock": 63
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 44,
+  "fields": {
+    "product": 23,
+    "size": "Standard",
+    "stock": 32
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 45,
+  "fields": {
+    "product": 22,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 46,
+  "fields": {
+    "product": 21,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 47,
+  "fields": {
+    "product": 20,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 48,
+  "fields": {
+    "product": 19,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 49,
+  "fields": {
+    "product": 18,
+    "size": "Standard",
+    "stock": 24
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 50,
+  "fields": {
+    "product": 17,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 51,
+  "fields": {
+    "product": 16,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 52,
+  "fields": {
+    "product": 15,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 53,
+  "fields": {
+    "product": 14,
+    "size": "Standard",
+    "stock": 24
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 54,
+  "fields": {
+    "product": 13,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 55,
+  "fields": {
+    "product": 12,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 56,
+  "fields": {
+    "product": 11,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 57,
+  "fields": {
+    "product": 10,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 58,
+  "fields": {
+    "product": 9,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 59,
+  "fields": {
+    "product": 8,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 60,
+  "fields": {
+    "product": 7,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 61,
+  "fields": {
+    "product": 6,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 62,
+  "fields": {
+    "product": 5,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 63,
+  "fields": {
+    "product": 4,
+    "size": "Standard",
+    "stock": 25
+  }
+},
+{
+  "model": "store.productvariant",
+  "pk": 64,
+  "fields": {
+    "product": 3,
+    "size": "Standard",
+    "stock": 25
+  }
+}
+]
