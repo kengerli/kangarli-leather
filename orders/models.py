@@ -13,6 +13,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
     updated = models.DateTimeField(auto_now=True, verbose_name="Updated At")
     paid = models.BooleanField(default=False, verbose_name="Is Paid")
+    invoice_sent = models.BooleanField(default=False, verbose_name="Invoice Emailed")
 
     class Meta:
         ordering = ('-created',)
