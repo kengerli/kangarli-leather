@@ -144,6 +144,41 @@ python manage.py test orders.tests.test_webhook orders.tests.test_views store.te
 
 ---
 
+## Architecture & Data Model
+
+The project follows Django's app-per-domain convention. Each app owns its own models, views, URLs, forms, templates and tests, and communicates with the others only through model relationships — there are no cross-app imports of view logic.
+
+| App | Responsibility | Key models |
+|---|---|---|
+| `store` | Catalog, search, reviews, favorites, AI stylist | `Category`, `Artisan`, `Product`, `ProductVariant`, `Review`, `Favorite`, `Newsletter` |
+| `cart` | Session-based shopping cart (no DB model) | — (cart lives in the session via the `Cart` class) |
+| `orders` | Checkout, Stripe payment, fulfillment | `Order`, `OrderItem` |
+| `account` | Registration, login, dashboard | uses Django's built-in `User` |
+| `core` | Project settings, root URLs, shared views | — |
+
+### Entity relationships
+
+- **`Category` → self** (`parent`/`children`) — a self-referencing `ForeignKey` gives a two-level category tree (e.g. *Accessories → Wallets*).
+- **`Product` → `Category`** and **`Product` → `Artisan`** — every product belongs to one category and one artisan (`ForeignKey`, `related_name='products'`).
+- **`ProductVariant` → `Product`** — one product has many size variants, each with its own stock. `unique_together = ('product', 'size')` prevents duplicate sizes. This is the source of truth for stock; `Product.stock` is kept only as a legacy fallback.
+- **`Review` → `Product` / `User`** and **`Favorite` → `Product` / `User`** — `Favorite` uses `unique_together = ('user', 'product')` so a product can't be favorited twice.
+- **`Order` → `User`** (`on_delete=SET_NULL`, so deleting a user keeps the order record) and **`OrderItem` → `Order` / `Product`** — `OrderItem` snapshots `price` and `size` at purchase time, so later price or stock changes never alter historical orders.
+
+### Request flow (checkout)
+
+1. User adds a variant to the session cart (`cart.Cart.add`, stock-capped).
+2. Checkout creates an unpaid `Order` + `OrderItem`s and redirects to **Stripe Checkout**.
+3. Stripe calls the **webhook** (`orders/webhook/`), which is the *only* place that sets `paid=True` and deducts `ProductVariant.stock` — preventing double-processing if the redirect and webhook race.
+4. A confirmation email is sent and the order appears in the user's history with delivery-stage tracking.
+
+### Design choices
+
+- **ORM efficiency** — list and detail views use `select_related('category', 'artisan')` and `prefetch_related` to avoid N+1 queries; `Category` and `Product` carry DB indexes on frequently filtered fields.
+- **Security** — `django-axes` locks out brute-force login attempts, `django-ratelimit` throttles login and order endpoints, secrets are read from environment variables, and `DEBUG=False` in production.
+- **Stateless cart** — keeping the cart in the session (not the DB) keeps anonymous browsing fast and avoids orphaned cart rows.
+
+---
+
 ## Author
 
 **Fikret Kangarli** — [GitHub](https://github.com/kengerli) · [LinkedIn](https://linkedin.com/in/your-profile)
