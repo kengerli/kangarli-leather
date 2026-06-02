@@ -67,7 +67,7 @@ def product_list(request, category_slug=None):
 
     products = products.distinct()
 
-    paginator = Paginator(products, 9)
+    paginator = Paginator(products, 12)
     page_obj = paginator.get_page(request.GET.get('page'))
 
     favorite_product_ids = []
