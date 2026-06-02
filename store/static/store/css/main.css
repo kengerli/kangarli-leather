@@ -274,7 +274,7 @@
 
     /* Wishlist кнопка */
     .catalog-heart {
-        background: rgba(255,255,255,0.85) !important;
+        background: transparent !important;
         border-radius: 0 !important;
         width: 32px;
         height: 32px;
