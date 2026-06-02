@@ -231,6 +231,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+# Fail fast if the SMTP host is unreachable (e.g. Render free tier blocks
+# outbound SMTP). Without this the socket hangs until gunicorn kills the
+# worker (WORKER TIMEOUT -> 500). 10s < gunicorn's 30s timeout, so the
+# webhook's try/except can catch it and still return 200.
+EMAIL_TIMEOUT = 10
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
