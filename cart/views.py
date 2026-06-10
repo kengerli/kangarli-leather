@@ -62,7 +62,10 @@ def cart_remove(request, item_key):
 
 def cart_detail(request):
     cart = Cart(request)
-    for item in cart:
+    # Materialise once: __iter__ yields fresh copies, so forms must be
+    # attached to a concrete list that the template will iterate.
+    cart_items = list(cart)
+    for item in cart_items:
         item['update_quantity_form'] = CartAddProductForm(
             initial={
                 'quantity': item['quantity'],
@@ -71,4 +74,7 @@ def cart_detail(request):
             },
             product=item['product']
         )
-    return render(request, 'cart/detail.html', {'cart': cart})
+    return render(request, 'cart/detail.html', {
+        'cart': cart,
+        'cart_items': cart_items,
+    })

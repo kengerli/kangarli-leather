@@ -17,7 +17,7 @@
                         <p class="western-text mb-0">{{ cart|length }} Premium Item(s)</p>
                     </div>
 
-                    {% for item in cart %}
+                    {% for item in cart_items %}
                         {% with product=item.product %}
                         <div class="row align-items-center mb-4 pb-4 border-bottom western-border">
                             
@@ -115,12 +115,9 @@
                         <span class="fw-bold fs-5 western-title">{{ cart.get_total_price|floatformat:"0g" }} AZN</span>
                     </div>
 
-                    <form action="{% url 'orders:order_create' %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" class="btn western-btn-primary btn-lg w-100 mb-3 py-3">
-                            Proceed to Checkout
-                        </button>
-                    </form>
+                    <a href="{% url 'orders:order_create' %}" class="btn western-btn-primary btn-lg w-100 mb-3 py-3">
+                        Proceed to Checkout
+                    </a>
                     
                     <div class="text-center mt-3">
                         <small class="d-block mb-2" style="color: #8d6e63;"><i class="bi bi-lock-fill"></i> Protected by Stripe</small>

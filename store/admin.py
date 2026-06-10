@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Category, Artisan, Product, ProductVariant, Newsletter
+from .models import (
+    Category, Artisan, Product, ProductVariant, Newsletter, Review, Favorite,
+)
 
 
 class ProductVariantInline(admin.TabularInline):
@@ -44,7 +46,7 @@ class ProductAdmin(admin.ModelAdmin):
         }),
         ('Pricing & stock', {
             'fields': ('price', 'stock', 'is_available'),
-            'description': 'stock — legacy fallback. Manage per-size stock via variants below.',
+            'description': 'stock - legacy fallback. Manage per-size stock via variants below.',
         }),
         ('System', {
             'fields': ('created',),
@@ -95,3 +97,24 @@ class NewsletterAdmin(admin.ModelAdmin):
     def mark_active(self, request, queryset):
         queryset.update(is_active=True)
     mark_active.short_description = 'Subscribe selected'
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['product', 'user', 'rating', 'short_content', 'created_at']
+    list_filter = ['rating', 'created_at']
+    search_fields = ['product__name', 'user__username', 'content']
+    raw_id_fields = ['product', 'user']
+    readonly_fields = ['created_at']
+
+    @admin.display(description='Review')
+    def short_content(self, obj):
+        return (obj.content[:60] + '...') if len(obj.content) > 60 else obj.content
+
+
+@admin.register(Favorite)
+class FavoriteAdmin(admin.ModelAdmin):
+    list_display = ['user', 'product', 'created_at']
+    search_fields = ['user__username', 'product__name']
+    raw_id_fields = ['user', 'product']
+    readonly_fields = ['created_at']

@@ -332,7 +332,6 @@
             document.addEventListener('DOMContentLoaded', function () {
                 var toastElList = [].slice.call(document.querySelectorAll('.toast'));
                 var toastList = toastElList.map(function (toastEl) {
-                    // Уведомление висит 4 секунды (4000мс), потом уезжает
                     return new bootstrap.Toast(toastEl, {delay: 4000}).show();
 });
             });

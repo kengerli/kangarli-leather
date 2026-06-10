@@ -50,16 +50,33 @@ class Cart(object):
             self.save()
 
     def clear(self):
-        del self.session[settings.CART_SESSION_ID]
+        self.session.pop(settings.CART_SESSION_ID, None)
+        self.cart = {}
         self.save()
 
     def __iter__(self):
+        """
+        Yield enriched COPIES of cart items so Product objects and Decimals
+        never end up inside the session (they are not JSON-serialisable).
+        Items whose product was deleted or hidden are pruned from the cart.
+        """
         product_ids = [item['product_id'] for item in self.cart.values()]
-        products = Product.objects.filter(id__in=product_ids)
+        products = Product.objects.select_related('artisan').filter(
+            id__in=product_ids, is_available=True
+        )
         products_dict = {str(p.id): p for p in products}
 
-        cart = self.cart.copy()
-        for key, item in cart.items():
+        stale_keys = [
+            key for key, item in self.cart.items()
+            if item['product_id'] not in products_dict
+        ]
+        if stale_keys:
+            for key in stale_keys:
+                del self.cart[key]
+            self.save()
+
+        for key, stored in list(self.cart.items()):
+            item = stored.copy()  # never mutate the session dict
             item['product'] = products_dict[item['product_id']]
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']

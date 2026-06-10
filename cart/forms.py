@@ -49,7 +49,5 @@ class CartAddProductForm(forms.Form):
                     ('XL', 'Extra Large (54)'), 
                     ('XXL', 'XXL (56)')
                 ]
-        self.fields['size'].choices = dynamic_choices
-
         # 4. Apply the generated list to our size field
         self.fields['size'].choices = dynamic_choices

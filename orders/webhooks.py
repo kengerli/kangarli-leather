@@ -10,7 +10,7 @@ from store.models import ProductVariant
 
 @csrf_exempt
 def stripe_webhook(request):
-    """Stripe webhook — idempotent, race-safe via select_for_update()."""
+    """Stripe webhook - idempotent, race-safe via select_for_update()."""
     payload = request.body
     sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
 
@@ -34,20 +34,17 @@ def stripe_webhook(request):
         if order_id:
             try:
                 with transaction.atomic():
-                    # select_for_update locks the row until end of transaction
-                    # — prevents double-processing if Stripe sends the event twice
+                    # Lock the row for the duration of the transaction so two
+                    # concurrent deliveries cannot both deduct stock.
                     order = Order.objects.select_for_update().get(id=order_id)
 
                     # Mark paid + deduct stock only on the first transition.
-                    # Duplicate deliveries skip this but still reach the email
-                    # check below, which is guarded by its own flag.
                     if not order.paid:
                         order.paid = True
                         order.save(update_fields=['paid'])
 
                         for item in order.items.select_related('product').all():
                             if item.product is None:
-                                # Product was deleted (SET_NULL) — skip
                                 continue
                             try:
                                 variant = ProductVariant.objects.select_for_update().get(
@@ -57,7 +54,6 @@ def stripe_webhook(request):
                                 variant.stock = max(0, variant.stock - item.quantity)
                                 variant.save(update_fields=['stock'])
                             except ProductVariant.DoesNotExist:
-                                # Fallback: deduct from legacy product.stock
                                 product = item.product
                                 product.stock = max(0, product.stock - item.quantity)
                                 product.save(update_fields=['stock'])
@@ -65,8 +61,8 @@ def stripe_webhook(request):
                         print(f'[WEBHOOK] order {order.id} already paid')
 
                 # Invoice is sent exactly once, gated by invoice_sent (not paid),
-                # so a duplicate webhook delivery cannot skip an unsent invoice.
-                # Sent outside the transaction so SMTP errors do not roll back payment.
+                # so a duplicate delivery cannot skip an unsent invoice. Sent
+                # outside the transaction so SMTP errors do not roll back payment.
                 if not order.invoice_sent:
                     try:
                         print(f'[WEBHOOK] sending invoice for order {order.id} to {order.email!r}')

@@ -4,20 +4,19 @@ from django.conf import settings
 
 def send_premium_invoice(order):
     """
-    Функция берет готовый заказ и отправляет клиенту красивый чек.
+    Takes a completed order and sends a beautiful invoice to the customer.
     """
-    # 1. Формируем тему письма (то, что клиент видит до открытия)
+    # 1. Form the email subject (what the customer sees before opening)
     subject = f'Kangarli Leather - Receipt for Order #{order.id}'
     
-    # 2. Обычный текст (на случай, если почта клиента блокирует HTML и картинки)
+    # 2. Plain text (in case the customer's email blocks HTML and images)
     text_content = f'Howdy {order.first_name}! Your order #{order.id} is confirmed. Total: {order.get_total_cost()} AZN.'
     
-    # 3. Самое главное: превращаем наш красивый HTML-шаблон в текст, 
-    # передавая в него данные конкретного заказа (чтобы подставилось имя и цена)
+    # 3. Most important: convert our beautiful HTML template to text,
+    # passing the specific order data to it (so the name and price are substituted)
     html_content = render_to_string('orders/email/invoice.html', {'order': order})
     
-    # 4. Собираем всё в один конверт (Тема, Текст, От кого, Кому)
-    # Заглушку 'heritage@kangarli.com' потом поменяем на твою реальную почту
+    # 4. Pack everything into one envelope (Subject, Text, From, To)
     msg = EmailMultiAlternatives(
         subject=subject, 
         body=text_content, 
@@ -25,8 +24,8 @@ def send_premium_invoice(order):
         to=[order.email]
     )
     
-    # 5. Прикрепляем к письму нашу красивую HTML-версию
+    # 5. Attach our HTML version to the email
     msg.attach_alternative(html_content, "text/html")
     
-    # 6. Отправляем!
+    # 6. Send it!
     msg.send()

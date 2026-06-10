@@ -45,3 +45,10 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+
+
+class SalesStatistic(Order):
+    class Meta:
+        proxy = True 
+        verbose_name = 'Sales Statistic'
+        verbose_name_plural = 'Sales Statistics'

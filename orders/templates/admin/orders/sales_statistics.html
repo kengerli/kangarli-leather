@@ -1,0 +1,147 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="container-fluid">
+    
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="btn-group shadow-sm">
+                <a href="?period=today" class="btn {% if current_period == 'today' %}btn-primary{% else %}btn-default bg-white{% endif %}">Today</a>
+                <a href="?period=week" class="btn {% if current_period == 'week' %}btn-primary{% else %}btn-default bg-white{% endif %}">This Week</a>
+                <a href="?period=month" class="btn {% if current_period == 'month' %}btn-primary{% else %}btn-default bg-white{% endif %}">This Month</a>
+                <a href="?period=year" class="btn {% if current_period == 'year' %}btn-primary{% else %}btn-default bg-white{% endif %}">This Year</a>
+                <a href="?period=all" class="btn {% if current_period == 'all' %}btn-primary{% else %}btn-default bg-white{% endif %}">All Time</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-lg-4 col-md-6">
+            <div class="card card-outline card-primary elevation-2">
+                <div class="card-header">
+                    <h3 class="card-title text-primary"><i class="fas fa-wallet"></i> Total Revenue</h3>
+                </div>
+                <div class="card-body text-center">
+                    <h2 class="font-weight-bold">{{ total_revenue|floatformat:2 }} AZN</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card card-outline card-success elevation-2">
+                <div class="card-header">
+                    <h3 class="card-title text-success"><i class="fas fa-money-bill-wave"></i> Net Profit ({{ profit_margin_percent }}%)</h3>
+                </div>
+                <div class="card-body text-center">
+                    <h2 class="font-weight-bold text-success">{{ net_profit|floatformat:2 }} AZN</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card card-outline card-info elevation-2">
+                <div class="card-header">
+                    <h3 class="card-title text-info"><i class="fas fa-shopping-cart"></i> Paid Orders</h3>
+                </div>
+                <div class="card-body text-center">
+                    <h2 class="font-weight-bold text-info">{{ total_orders }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card elevation-2">
+                <div class="card-header border-transparent bg-light">
+                    <h3 class="card-title"><i class="fas fa-list"></i> Revenue Details</h3>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table m-0 table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Category Name</th>
+                                    <th class="text-right">Total Generated (AZN)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for stat in category_stats %}
+                                <tr>
+                                    <td><strong>{{ stat.product__category__name }}</strong></td>
+                                    <td class="text-right"><span style="color: #1a7f37; font-weight: bold; font-size: 15px;">{{ stat.total_sales|floatformat:2 }} AZN</span></td>
+                                </tr>
+                                {% empty %}
+                                <tr>
+                                    <td colspan="2" class="text-center text-muted py-4">No sales data for this period.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card elevation-2">
+                <div class="card-header bg-light">
+                    <h3 class="card-title"><i class="fas fa-chart-pie"></i> Category Distribution</h3>
+                </div>
+                <div class="card-body">
+                    <div style="position: relative; height: 300px; width: 100%;">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ chart_labels|json_script:"labels-data" }}
+{{ chart_data|json_script:"chart-data" }}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('categoryChart').getContext('2d');
+        
+        // 2. JavaScript чисто считывает эти данные
+        const labels = JSON.parse(document.getElementById('labels-data').textContent);
+        const data = JSON.parse(document.getElementById('chart-data').textContent);
+        
+        // Если данных нет, не рисуем график
+        if (data.length === 0) {
+            document.getElementById('categoryChart').parentElement.innerHTML = '<p class="text-center text-muted mt-5">No data to display</p>';
+            return;
+        }
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: [
+                        '#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8', 
+                        '#6610f2', '#e83e8c', '#fd7e14', '#20c997', '#6c757d'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+    });
+</script>
+{% endblock %}
