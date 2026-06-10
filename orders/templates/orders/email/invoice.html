@@ -81,9 +81,15 @@
                         <td style="padding: 30px 40px 40px 40px;">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
+                                    <td align="right" style="font-size: 13px; color: #8d6e63; padding-bottom: 8px;">
+                                        <span style="text-transform: uppercase; letter-spacing: 1px; font-size: 11px; margin-right: 15px; font-weight: bold;">Delivery</span>
+                                        {% if order.get_delivery_fee %}{{ order.get_delivery_fee }} AZN{% else %}Free{% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td align="right" style="font-size: 18px; color: #2e1f1a;">
                                         <span style="font-family: Georgia, serif; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; margin-right: 15px; color: #8d6e63; font-weight: bold;">Total Settled</span>
-                                        <strong>{{ order.get_total_cost }} AZN</strong>
+                                        <strong>{{ order.get_total_with_delivery }} AZN</strong>
                                     </td>
                                 </tr>
                             </table>

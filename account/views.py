@@ -7,6 +7,7 @@ from .forms import UserEditForm
 from django.contrib import messages
 from django.contrib.auth import logout
 from django.contrib.auth import login
+from django.utils.http import url_has_allowed_host_and_scheme
 from django_ratelimit.decorators import ratelimit
 
 
@@ -22,8 +23,12 @@ def register(request):
 
             login(request, new_user, backend='django.contrib.auth.backends.ModelBackend')
 
+            # Only follow ?next= if it points to this site (open-redirect guard)
             next_url = request.GET.get('next')
-            if next_url:
+            if next_url and url_has_allowed_host_and_scheme(
+                next_url, allowed_hosts={request.get_host()},
+                require_https=request.is_secure(),
+            ):
                 return redirect(next_url)
             return redirect('account:dashboard')
     else:

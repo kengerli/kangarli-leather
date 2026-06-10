@@ -56,17 +56,28 @@ class Product(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def available_stock(self):
+        """
+        Real sellable stock: the sum of variant stocks when variants exist,
+        otherwise the legacy per-product stock field.
+        """
+        variant_total = self.variants.aggregate(total=models.Sum('stock'))['total']
+        if variant_total is not None:
+            return variant_total
+        return self.stock
+
 
 class ProductVariant(models.Model):
-    SIZE_CHOICES = [
-        ('XS', 'XS'),
-        ('S', 'S'),
-        ('M', 'M'),
-        ('L', 'L'),
-        ('XL', 'XL'),
-        ('XXL', 'XXL'),
-        ('Standard', 'Standard'),
-    ]
+    # Must cover every size the cart form can offer
+    # (letter sizes, shoe 39–45, ring 15–22, belt 85–105, hats)
+    SIZE_CHOICES = (
+        [('Standard', 'Standard')]
+        + [(s, s) for s in ('XS', 'S', 'M', 'L', 'XL', 'XXL')]
+        + [(str(i), f'Shoe/Ring {i}') for i in range(15, 23)]
+        + [(str(i), f'Size {i}') for i in range(39, 46)]
+        + [(str(i), f'{i} cm') for i in range(85, 110, 5)]
+    )
     product = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,

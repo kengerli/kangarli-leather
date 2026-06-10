@@ -23,8 +23,20 @@ class Order(models.Model):
     def __str__(self):
         return f"Order {self.id}"
 
+    # Delivery: 15 AZN for orders under the free-delivery threshold
+    FREE_DELIVERY_THRESHOLD = 500
+    DELIVERY_FEE = 15
+
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
+
+    def get_delivery_fee(self):
+        if self.get_total_cost() >= self.FREE_DELIVERY_THRESHOLD:
+            return 0
+        return self.DELIVERY_FEE
+
+    def get_total_with_delivery(self):
+        return self.get_total_cost() + self.get_delivery_fee()
 
 
 class OrderItem(models.Model):

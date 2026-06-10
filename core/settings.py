@@ -72,6 +72,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+# Matches the AutoField PKs used in the existing migrations
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases

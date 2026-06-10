@@ -1,0 +1,15 @@
+{% extends "store/base.html" %}
+
+{% block title %}Something Went Wrong — Kangarli Leather{% endblock %}
+
+{% block content %}
+<div class="text-center py-5" style="min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <i class="bi bi-exclamation-octagon" style="font-size: 3rem; color: #8d6e63;"></i>
+    <h2 class="mt-4" style="font-family: 'Playfair Display', serif; color: #2e1f1a; letter-spacing: 2px;">Something Went Wrong</h2>
+    <p class="text-muted mt-2 mb-4" style="max-width: 420px;">
+        We could not process your request right now.
+        {% if error %}<br><small class="text-muted">{{ error }}</small>{% endif %}
+    </p>
+    <a href="{% url 'store:product_list' %}" class="btn western-btn-primary px-5 py-2">Back to Collection</a>
+</div>
+{% endblock %}

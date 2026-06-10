@@ -5,11 +5,11 @@ from store.models import Product, ProductVariant
 
 class Cart(object):
     def __init__(self, request):
+        # Read-only init: do NOT write to the session here, otherwise every
+        # page view (via the context processor) would create an empty cart
+        # key and undo clear(). save() persists the dict when it changes.
         self.session = request.session
-        cart = self.session.get(settings.CART_SESSION_ID)
-        if not cart:
-            cart = self.session[settings.CART_SESSION_ID] = {}
-        self.cart = cart
+        self.cart = self.session.get(settings.CART_SESSION_ID) or {}
 
     def add(self, product, quantity=1, size='Standard', override_quantity=False):
         product_id = str(product.id)
@@ -42,6 +42,7 @@ class Cart(object):
         return self.cart[item_key]['quantity']
 
     def save(self):
+        self.session[settings.CART_SESSION_ID] = self.cart
         self.session.modified = True
 
     def remove(self, item_key):
@@ -52,7 +53,7 @@ class Cart(object):
     def clear(self):
         self.session.pop(settings.CART_SESSION_ID, None)
         self.cart = {}
-        self.save()
+        self.session.modified = True
 
     def __iter__(self):
         """

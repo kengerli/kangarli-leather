@@ -1,6 +1,7 @@
 import stripe
 import datetime
 from django.conf import settings
+from django.db import transaction
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -19,8 +20,8 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 # 10 order submissions per minute per authenticated user
-@ratelimit(key='user', rate='10/m', method='POST', block=True)
 @login_required
+@ratelimit(key='user', rate='10/m', method='POST', block=True)
 def order_create(request):
     cart = Cart(request)
     if len(cart) == 0:
@@ -29,31 +30,28 @@ def order_create(request):
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
-            order = form.save(commit=False)
-            order.user = request.user
-            order.save()
+            with transaction.atomic():
+                order = form.save(commit=False)
+                order.user = request.user
+                order.save()
 
-            for item in cart:
-                OrderItem.objects.create(
-                    order=order,
-                    product=item['product'],
-                    price=item['price'],
-                    quantity=item['quantity'],
-                    size=item['size'],
-                )
-
-            # Sanitise session before saving (Decimal is not JSON-serialisable)
-            for item in cart.cart.values():
-                item['price'] = str(item['price'])
-                item.pop('product', None)
-                item.pop('total_price', None)
-            cart.save()
+                OrderItem.objects.bulk_create([
+                    OrderItem(
+                        order=order,
+                        product=item['product'],
+                        price=item['price'],
+                        quantity=item['quantity'],
+                        size=item['size'],
+                    )
+                    for item in cart
+                ])
 
             request.session['order_id'] = order.id
             return redirect('orders:payment_process')
     else:
         form = OrderCreateForm(initial={
             'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
             'email': request.user.email,
         })
 
@@ -84,12 +82,12 @@ def payment_process(request):
             })
             subtotal += item.price * item.quantity
 
-        # Delivery fee: 15 AZN for orders under 500 AZN, free above
-        if subtotal < 500:
+        # Delivery fee: free above the threshold (single source of truth: Order)
+        if subtotal < Order.FREE_DELIVERY_THRESHOLD:
             line_items.append({
                 'price_data': {
                     'currency': 'azn',
-                    'unit_amount': 1500,
+                    'unit_amount': Order.DELIVERY_FEE * 100,
                     'product_data': {'name': 'Delivery'},
                 },
                 'quantity': 1,
@@ -108,9 +106,8 @@ def payment_process(request):
         except Exception as e:
             return render(request, 'store/error.html', {'error': str(e)})
 
-    subtotal = order.get_total_cost()
-    delivery_fee = 15 if subtotal < 500 else 0
-    total_with_delivery = subtotal + delivery_fee
+    delivery_fee = order.get_delivery_fee()
+    total_with_delivery = order.get_total_with_delivery()
     return render(request, 'orders/payment/process.html', {
         'order': order,
         'delivery_fee': delivery_fee,

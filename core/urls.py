@@ -16,10 +16,7 @@ urlpatterns = [
     
     # Store must be at the bottom because it catches root URLs
     path('', include('store.urls', namespace='store')),
-
-    
-    
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

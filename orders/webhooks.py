@@ -1,3 +1,5 @@
+import logging
+
 import stripe
 from django.conf import settings
 from django.db import transaction
@@ -6,6 +8,8 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Order
 from .emails import send_premium_invoice
 from store.models import ProductVariant
+
+logger = logging.getLogger(__name__)
 
 
 @csrf_exempt
@@ -24,12 +28,12 @@ def stripe_webhook(request):
         return HttpResponse(status=400)
 
     event_type = event.type if hasattr(event, 'type') else event.get('type')
-    print(f'[WEBHOOK] event={event_type}')
+    logger.info('Stripe webhook event: %s', event_type)
 
     if event_type == 'checkout.session.completed':
         session = event.data.object if hasattr(event, 'data') else event['data']['object']
         order_id = getattr(session, 'client_reference_id', None)
-        print(f'[WEBHOOK] checkout.session.completed client_reference_id={order_id!r}')
+        logger.info('checkout.session.completed for order %r', order_id)
 
         if order_id:
             try:
@@ -58,29 +62,25 @@ def stripe_webhook(request):
                                 product.stock = max(0, product.stock - item.quantity)
                                 product.save(update_fields=['stock'])
                     else:
-                        print(f'[WEBHOOK] order {order.id} already paid')
+                        logger.info('Order %s already paid', order.id)
 
                 # Invoice is sent exactly once, gated by invoice_sent (not paid),
                 # so a duplicate delivery cannot skip an unsent invoice. Sent
                 # outside the transaction so SMTP errors do not roll back payment.
                 if not order.invoice_sent:
                     try:
-                        print(f'[WEBHOOK] sending invoice for order {order.id} to {order.email!r}')
+                        logger.info('Sending invoice for order %s to %r', order.id, order.email)
                         send_premium_invoice(order)
                         order.invoice_sent = True
                         order.save(update_fields=['invoice_sent'])
-                        print(f'[WEBHOOK] invoice SENT for order {order.id}')
+                        logger.info('Invoice sent for order %s', order.id)
                     except Exception as e:
-                        import logging
-                        logging.getLogger(__name__).error(
-                            f'Invoice email failed for order {order.id}: {e}'
-                        )
-                        print(f'[WEBHOOK] invoice FAILED for order {order.id}: {e}')
+                        logger.error('Invoice email failed for order %s: %s', order.id, e)
                 else:
-                    print(f'[WEBHOOK] invoice already sent for order {order.id} -> skipping')
+                    logger.info('Invoice already sent for order %s', order.id)
 
             except Order.DoesNotExist:
-                print(f'[WEBHOOK] order {order_id} NOT FOUND in this database')
+                logger.warning('Order %s not found', order_id)
                 return HttpResponse(status=404)
 
     return HttpResponse(status=200)

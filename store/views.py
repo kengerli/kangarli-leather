@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Category, Product, Newsletter, Favorite
+from .models import Category, Product, Newsletter, Favorite, Review
 from cart.forms import CartAddProductForm
 from django.db.models import Q, Sum
 from django.contrib import messages
@@ -106,14 +106,19 @@ def product_detail(request, id, slug):
             product=product
         ).exists()
 
-    # Обработка формы отзыва
+    # Обработка формы отзыва (один отзыв на пользователя — повторный обновляет старый)
     if request.method == 'POST' and has_bought:
         review_form = ReviewForm(data=request.POST)
         if review_form.is_valid():
-            new_review = review_form.save(commit=False)
-            new_review.product = product
-            new_review.user = request.user
-            new_review.save()
+            Review.objects.update_or_create(
+                product=product,
+                user=request.user,
+                defaults={
+                    'content': review_form.cleaned_data['content'],
+                    'rating': review_form.cleaned_data['rating'],
+                },
+            )
+            messages.success(request, 'Thank you! Your review has been published.')
             return redirect('store:product_detail', id=product.id, slug=product.slug)
     else:
         review_form = ReviewForm()
